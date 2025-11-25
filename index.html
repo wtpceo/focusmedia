@@ -11,7 +11,10 @@
             overflow: hidden;
             height: 100vh;
             height: 100dvh;
+            background: #f5f5f5;
         }
+
+        /* 헤더 */
         .header {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -20,19 +23,33 @@
             display: flex;
             align-items: center;
             padding: 0 16px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             z-index: 1000;
             gap: 12px;
         }
-        .header h1 { font-size: 18px; font-weight: 600; color: #333; flex: 1; }
+        .header h1 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1a1a1a;
+            flex: 1;
+            letter-spacing: -0.3px;
+        }
         .header-btn {
             width: 40px; height: 40px;
             border: none;
-            background: #f5f5f5;
-            border-radius: 8px;
+            background: transparent;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
         }
+        .header-btn:hover { background: #f5f5f5; }
+        .header-btn:active { background: #eee; }
+        .header-btn svg { width: 22px; height: 22px; color: #333; }
+
+        /* 검색바 */
         .search-bar {
             position: fixed;
             top: 64px; left: 12px; right: 12px;
@@ -40,37 +57,58 @@
         }
         .search-input {
             width: 100%;
-            height: 44px;
-            padding: 0 16px 0 44px;
+            height: 46px;
+            padding: 0 44px;
             border: none;
-            border-radius: 22px;
+            border-radius: 12px;
             background: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
             font-size: 15px;
             outline: none;
+            transition: box-shadow 0.2s;
         }
-        .search-icon {
+        .search-input:focus { box-shadow: 0 2px 12px rgba(0,0,0,0.18); }
+        .search-input::placeholder { color: #999; }
+        .search-icon, .search-clear {
             position: absolute;
-            left: 16px; top: 50%;
+            top: 50%;
             transform: translateY(-50%);
-            font-size: 18px;
-            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+        .search-icon { left: 14px; color: #999; }
+        .search-icon svg { width: 20px; height: 20px; }
+        .search-clear {
+            right: 8px;
+            width: 32px; height: 32px;
+            border: none;
+            background: #eee;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+        }
+        .search-clear.show { display: flex; }
+        .search-clear svg { width: 16px; height: 16px; color: #666; }
+
+        /* 지도 */
         #map {
             width: 100%;
             height: 100vh;
             height: 100dvh;
         }
+
+        /* 필터 패널 */
         .filter-panel {
             position: fixed;
             bottom: 0; left: 0; right: 0;
             background: #fff;
             border-radius: 20px 20px 0 0;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
             transform: translateY(100%);
             transition: transform 0.3s ease;
             z-index: 1001;
-            max-height: 70vh;
+            max-height: 75vh;
             overflow-y: auto;
         }
         .filter-panel.open { transform: translateY(0); }
@@ -78,221 +116,414 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
-            border-bottom: 1px solid #eee;
+            padding: 18px 20px;
+            border-bottom: 1px solid #f0f0f0;
             position: sticky; top: 0;
             background: #fff;
+            z-index: 1;
         }
-        .filter-header h2 { font-size: 18px; }
-        .filter-close {
-            font-size: 24px;
+        .filter-header h2 { font-size: 17px; font-weight: 600; }
+        .filter-reset {
+            font-size: 14px;
+            color: #666;
             background: none;
             border: none;
             cursor: pointer;
-            color: #666;
+            padding: 6px 12px;
+            border-radius: 6px;
         }
+        .filter-reset:hover { background: #f5f5f5; }
+        .filter-close {
+            width: 32px; height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .filter-close svg { width: 18px; height: 18px; color: #666; }
         .filter-section {
             padding: 16px 20px;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f5f5f5;
         }
-        .filter-section h3 { font-size: 14px; color: #666; margin-bottom: 12px; }
+        .filter-section h3 {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
         .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
         .filter-chip {
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid #ddd;
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
             background: #fff;
             font-size: 14px;
             cursor: pointer;
+            transition: all 0.15s;
+            color: #555;
         }
+        .filter-chip:hover { border-color: #ccc; background: #fafafa; }
         .filter-chip.active {
             background: #FEE500;
             color: #000;
             border-color: #FEE500;
+            font-weight: 500;
+        }
+        .filter-actions {
+            padding: 16px 20px;
+            padding-bottom: max(16px, env(safe-area-inset-bottom));
+            display: flex;
+            gap: 10px;
         }
         .filter-apply {
-            margin: 20px;
-            width: calc(100% - 40px);
-            padding: 16px;
+            flex: 1;
+            padding: 15px;
             background: #FEE500;
             color: #000;
             border: none;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
+            transition: background 0.2s;
         }
+        .filter-apply:hover { background: #fdd835; }
+        .filter-apply:active { background: #fbc02d; }
+
+        /* 정보 패널 */
         .info-panel {
             position: fixed;
             bottom: 0; left: 0; right: 0;
             background: #fff;
             border-radius: 20px 20px 0 0;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
             transform: translateY(100%);
             transition: transform 0.3s ease;
             z-index: 1000;
-            padding: 20px;
-            padding-bottom: max(20px, env(safe-area-inset-bottom));
+            max-height: 70vh;
+            overflow-y: auto;
         }
         .info-panel.open { transform: translateY(0); }
         .info-handle {
-            width: 40px; height: 4px;
+            width: 36px; height: 4px;
             background: #ddd;
             border-radius: 2px;
-            margin: 0 auto 16px;
+            margin: 12px auto 0;
         }
-        .info-name { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: #333; }
-        .info-address { font-size: 14px; color: #666; margin-bottom: 16px; }
+        .info-content {
+            padding: 16px 20px;
+            padding-bottom: max(16px, env(safe-area-inset-bottom));
+        }
+        .info-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .info-name {
+            font-size: 19px;
+            font-weight: 700;
+            color: #1a1a1a;
+            flex: 1;
+            line-height: 1.3;
+        }
+        .info-grade-badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .info-grade-badge.s-plus { background: #7c3aed; color: #fff; }
+        .info-grade-badge.s { background: #a855f7; color: #fff; }
+        .info-grade-badge.a-plus { background: #ef4444; color: #fff; }
+        .info-grade-badge.a { background: #3b82f6; color: #fff; }
+        .info-grade-badge.b { background: #22c55e; color: #fff; }
+        .info-address {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
             margin-bottom: 16px;
         }
-        .info-item { background: #f8f9fa; padding: 12px; border-radius: 12px; }
-        .info-label { font-size: 12px; color: #999; margin-bottom: 4px; }
-        .info-value { font-size: 16px; font-weight: 600; color: #333; }
-        .info-value.grade-a-plus { color: #e74c3c; }
-        .info-value.grade-a { color: #3498db; }
-        .info-value.grade-b { color: #27ae60; }
-        .info-actions { display: flex; gap: 12px; }
+        .info-item {
+            background: #f8f9fa;
+            padding: 12px 10px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .info-label {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        .info-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .info-actions { display: flex; gap: 10px; }
         .info-btn {
             flex: 1;
             padding: 14px;
             border-radius: 12px;
             border: none;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
         }
+        .info-btn svg { width: 18px; height: 18px; }
         .info-btn.primary { background: #FEE500; color: #000; }
+        .info-btn.primary:hover { background: #fdd835; }
         .info-btn.secondary { background: #f0f0f0; color: #333; }
+        .info-btn.secondary:hover { background: #e5e5e5; }
+
+        /* 오버레이 */
         .overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.4);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s;
             z-index: 999;
         }
         .overlay.active { opacity: 1; pointer-events: auto; }
-        .location-btn {
+
+        /* 플로팅 버튼 */
+        .floating-btns {
             position: fixed;
             right: 16px; bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 500;
+        }
+        .float-btn {
             width: 48px; height: 48px;
             background: #fff;
             border: none;
-            border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border-radius: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
             cursor: pointer;
-            font-size: 22px;
-            z-index: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
         }
+        .float-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.2); }
+        .float-btn:active { transform: translateY(0); }
+        .float-btn svg { width: 22px; height: 22px; color: #333; }
+        .float-btn.active { background: #FEE500; }
+
+        /* 통계 배지 */
         .stats-badge {
             position: fixed;
             left: 16px; bottom: 100px;
             background: #fff;
-            padding: 8px 14px;
-            border-radius: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            padding: 10px 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
             font-size: 13px;
             z-index: 500;
+            font-weight: 500;
+            color: #555;
         }
-        .stats-badge strong { color: #3396FF; }
+        .stats-badge strong { color: #3b82f6; font-weight: 700; }
+
+        /* 로딩 */
         .loading {
             position: fixed;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255,255,255,0.95);
-            padding: 24px 32px;
+            background: #fff;
+            padding: 28px 36px;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
             text-align: center;
             z-index: 2000;
         }
         .loading.hidden { display: none; }
         .loading-spinner {
-            width: 40px; height: 40px;
+            width: 36px; height: 36px;
             border: 3px solid #f0f0f0;
             border-top-color: #FEE500;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 12px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 14px;
         }
+        .loading-text { font-size: 14px; color: #666; }
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* 리스트 뷰 */
         .list-view {
             position: fixed;
-            top: 120px; left: 12px; right: 12px; bottom: 80px;
+            top: 122px; left: 12px; right: 12px; bottom: 90px;
             background: #fff;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
             overflow-y: auto;
             z-index: 800;
             display: none;
         }
         .list-view.active { display: block; }
         .list-item {
-            padding: 16px;
+            padding: 14px 16px;
             border-bottom: 1px solid #f0f0f0;
             cursor: pointer;
+            transition: background 0.15s;
         }
-        .list-item:active { background: #f8f8f8; }
-        .list-item-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-        .list-item-address { font-size: 13px; color: #666; margin-bottom: 8px; }
-        .list-item-info { display: flex; gap: 12px; font-size: 13px; }
-        .list-item-info span { color: #999; }
-        .list-item-info strong { color: #333; }
+        .list-item:hover { background: #fafafa; }
+        .list-item:active { background: #f5f5f5; }
+        .list-item-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .list-item-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            flex: 1;
+        }
+        .list-item-address {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .list-item-info {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+        }
+        .list-item-info span { color: #888; }
+        .list-item-info strong { color: #333; font-weight: 600; }
         .grade-badge {
             display: inline-block;
             padding: 2px 8px;
             border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-left: 8px;
+            font-size: 11px;
+            font-weight: 700;
         }
-        .grade-badge.a-plus { background: #fde8e8; color: #e74c3c; }
-        .grade-badge.a { background: #e8f4fd; color: #3498db; }
-        .grade-badge.b { background: #e8fdf0; color: #27ae60; }
-        .view-toggle {
+        .grade-badge.s-plus { background: #7c3aed; color: #fff; }
+        .grade-badge.s { background: #a855f7; color: #fff; }
+        .grade-badge.a-plus { background: #ef4444; color: #fff; }
+        .grade-badge.a { background: #3b82f6; color: #fff; }
+        .grade-badge.b { background: #22c55e; color: #fff; }
+
+        /* 토스트 */
+        .toast {
             position: fixed;
-            right: 16px; bottom: 160px;
-            width: 48px; height: 48px;
-            background: #fff;
-            border: none;
-            border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            cursor: pointer;
-            font-size: 20px;
-            z-index: 500;
+            bottom: 160px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 3000;
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 반응형 - 태블릿 이상 */
+        @media (min-width: 768px) {
+            .info-grid { grid-template-columns: repeat(4, 1fr); }
+            .info-panel { max-width: 500px; left: 50%; transform: translateX(-50%) translateY(100%); }
+            .info-panel.open { transform: translateX(-50%) translateY(0); }
+            .filter-panel { max-width: 500px; left: 50%; transform: translateX(-50%) translateY(100%); }
+            .filter-panel.open { transform: translateX(-50%) translateY(0); }
         }
     </style>
 </head>
 <body>
     <header class="header">
         <h1>엘리베이터TV 설치현황</h1>
-        <button class="header-btn" onclick="openFilter()">&#9776;</button>
+        <button class="header-btn" onclick="openFilter()" aria-label="필터">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="4" y1="6" x2="20" y2="6"></line>
+                <line x1="4" y1="12" x2="20" y2="12"></line>
+                <line x1="4" y1="18" x2="20" y2="18"></line>
+            </svg>
+        </button>
     </header>
 
     <div class="search-bar">
-        <span class="search-icon">&#128269;</span>
-        <input type="text" class="search-input" placeholder="아파트명, 주소 검색..." id="searchInput">
+        <span class="search-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </span>
+        <input type="text" class="search-input" placeholder="아파트명, 주소 검색" id="searchInput">
+        <button class="search-clear" id="searchClear" onclick="clearSearch()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
     </div>
 
     <div id="map"></div>
     <div class="list-view" id="listView"></div>
 
-    <button class="view-toggle" onclick="toggleView()" id="viewToggle">&#128203;</button>
-    <button class="location-btn" onclick="moveToMyLocation()">&#128205;</button>
+    <div class="floating-btns">
+        <button class="float-btn" onclick="toggleView()" id="viewToggle" aria-label="리스트 보기">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+        </button>
+        <button class="float-btn" onclick="moveToMyLocation()" aria-label="내 위치">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M12 2v4m0 12v4m10-10h-4M6 12H2"></path>
+            </svg>
+        </button>
+    </div>
 
-    <div class="stats-badge">총: <strong id="visibleCount">0</strong>개</div>
+    <div class="stats-badge">
+        <strong id="visibleCount">0</strong>개 표시
+    </div>
 
     <div class="overlay" onclick="closeAllPanels()"></div>
 
     <div class="filter-panel" id="filterPanel">
         <div class="filter-header">
             <h2>필터</h2>
-            <button class="filter-close" onclick="closeFilter()">&times;</button>
+            <button class="filter-reset" onclick="resetFilter()">초기화</button>
+            <button class="filter-close" onclick="closeFilter()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
         </div>
         <div class="filter-section">
             <h3>판매등급</h3>
@@ -334,59 +565,74 @@
                 <button class="filter-chip" data-value="none">미설치</button>
             </div>
         </div>
-        <button class="filter-apply" onclick="applyFilter()">필터 적용</button>
+        <div class="filter-actions">
+            <button class="filter-apply" onclick="applyFilter()">필터 적용</button>
+        </div>
     </div>
 
     <div class="info-panel" id="infoPanel">
         <div class="info-handle"></div>
-        <div class="info-name" id="infoName">-</div>
-        <div class="info-address" id="infoAddress">-</div>
-        <div class="info-grid">
-            <div class="info-item">
-                <div class="info-label">판매등급</div>
-                <div class="info-value" id="infoGrade">-</div>
+        <div class="info-content">
+            <div class="info-header">
+                <div class="info-name" id="infoName">-</div>
+                <span class="info-grade-badge" id="infoGradeBadge">-</span>
             </div>
-            <div class="info-item">
-                <div class="info-label">총 세대수</div>
-                <div class="info-value" id="infoHouseholds">-</div>
+            <div class="info-address" id="infoAddress">-</div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">세대수</div>
+                    <div class="info-value" id="infoHouseholds">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">인구수</div>
+                    <div class="info-value" id="infoPopulation">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">층수</div>
+                    <div class="info-value" id="infoFloors">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">평형</div>
+                    <div class="info-value" id="infoArea">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">수량</div>
+                    <div class="info-value" id="infoQuantity">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">대당가</div>
+                    <div class="info-value" id="infoUnitPrice">-</div>
+                </div>
+                <div class="info-item" style="grid-column: span 2;">
+                    <div class="info-label">4주 금액</div>
+                    <div class="info-value" id="infoPrice" style="font-size:16px; color:#3b82f6;">-</div>
+                </div>
             </div>
-            <div class="info-item">
-                <div class="info-label">총 인구수</div>
-                <div class="info-value" id="infoPopulation">-</div>
+            <div class="info-actions">
+                <button class="info-btn secondary" onclick="copyAddress()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    주소복사
+                </button>
+                <button class="info-btn primary" onclick="openKakaoMap()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                    </svg>
+                    길찾기
+                </button>
             </div>
-            <div class="info-item">
-                <div class="info-label">건물층수</div>
-                <div class="info-value" id="infoFloors">-</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">기준평형</div>
-                <div class="info-value" id="infoArea">-</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">판매수량</div>
-                <div class="info-value" id="infoQuantity">-</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">대당가격</div>
-                <div class="info-value" id="infoUnitPrice">-</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">4주 금액</div>
-                <div class="info-value" id="infoPrice">-</div>
-            </div>
-        </div>
-        <div class="info-actions">
-            <button class="info-btn secondary" onclick="copyAddress()">&#128203; 주소복사</button>
-            <button class="info-btn primary" onclick="openKakaoMap()">&#128506; 길찾기</button>
         </div>
     </div>
 
     <div class="loading" id="loading">
         <div class="loading-spinner"></div>
-        <div id="loadingText">데이터 불러오는 중...</div>
+        <div class="loading-text" id="loadingText">데이터 불러오는 중...</div>
     </div>
 
-    <!-- 카카오맵 API (autoload=false로 직접 로드 제어) -->
+    <div class="toast" id="toast"></div>
+
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=40a7fdd99c590f478a37a9071c0fb69a&libraries=services&autoload=false"></script>
 
     <script>
@@ -401,8 +647,6 @@
 
         document.addEventListener('DOMContentLoaded', async function() {
             await loadData();
-
-            // 카카오맵 SDK 로드 완료 후 초기화
             kakao.maps.load(function() {
                 initMap();
                 initSearch();
@@ -414,14 +658,8 @@
             try {
                 const response = await fetch('data.json');
                 locations = await response.json();
-
-                // 저장된 좌표 먼저 적용
                 loadSavedCoordinates();
-
                 filteredLocations = [...locations];
-
-                const withCoords = locations.filter(l => l.lat && l.lng).length;
-                console.log(`총 ${locations.length}개, 좌표: ${withCoords}개`);
 
                 const guSet = new Set();
                 locations.forEach(loc => { if (loc.gu) guSet.add(loc.gu); });
@@ -436,7 +674,7 @@
                     guFilter.appendChild(chip);
                 });
 
-                document.getElementById('visibleCount').textContent = locations.length;
+                document.getElementById('visibleCount').textContent = locations.length.toLocaleString();
             } catch (e) {
                 console.error('데이터 로드 실패:', e);
             }
@@ -444,20 +682,14 @@
 
         function initMap() {
             document.getElementById('loadingText').textContent = '지도 불러오는 중...';
-
             const container = document.getElementById('map');
             const options = {
                 center: new kakao.maps.LatLng(37.5665, 126.9780),
                 level: 8
             };
-
             map = new kakao.maps.Map(container, options);
             geocoder = new kakao.maps.services.Geocoder();
-
-            // 지도 클릭 시 정보 패널 닫기
             kakao.maps.event.addListener(map, 'click', closeInfoPanel);
-
-            // 좌표 변환 및 마커 생성
             geocodeAndCreateMarkers();
         }
 
@@ -467,7 +699,6 @@
             const total = filteredLocations.length;
 
             for (let loc of filteredLocations) {
-                // 이미 좌표가 있으면 바로 마커 생성
                 if (loc.lat && loc.lng) {
                     createMarker(loc);
                     success++;
@@ -475,7 +706,6 @@
                     continue;
                 }
 
-                // 좌표가 없으면 지오코딩
                 await new Promise((resolve) => {
                     geocoder.addressSearch(loc.address, (result, status) => {
                         if (status === kakao.maps.services.Status.OK) {
@@ -485,67 +715,44 @@
                             success++;
                         }
                         processed++;
-
                         if (processed % 100 === 0 || processed === total) {
-                            document.getElementById('loadingText').textContent =
-                                `주소 변환 중... (${processed}/${total})`;
-                            document.getElementById('visibleCount').textContent =
-                                `${total}개 (지도: ${success})`;
+                            document.getElementById('loadingText').textContent = `주소 변환 중... (${processed}/${total})`;
                         }
-
                         resolve();
                     });
                 });
-
-                // API 제한 방지
                 await new Promise(r => setTimeout(r, 50));
             }
 
             document.getElementById('loading').classList.add('hidden');
+            document.getElementById('visibleCount').textContent = success.toLocaleString();
             updateListView();
-
-            // 변환된 좌표 저장 (다음에 빠르게 로드)
             saveCoordinates();
         }
 
         function createMarker(loc) {
             if (!loc.lat || !loc.lng) return;
-
-            let markerColor = '#3396FF';
-            if (loc.grade === 'A+') markerColor = '#e74c3c';
-            else if (loc.grade === 'A') markerColor = '#3498db';
-            else if (loc.grade === 'B') markerColor = '#27ae60';
-
             const markerPosition = new kakao.maps.LatLng(loc.lat, loc.lng);
-
             const marker = new kakao.maps.Marker({
                 position: markerPosition,
                 map: map
             });
-
             kakao.maps.event.addListener(marker, 'click', function() {
                 showInfo(loc);
                 map.setCenter(markerPosition);
                 map.setLevel(3);
             });
-
             markers.push({ marker, data: loc });
         }
 
         function saveCoordinates() {
-            // 로컬스토리지에 좌표 저장 (다음 로드시 빠르게)
             try {
                 const coordsMap = {};
                 locations.forEach(l => {
-                    if (l.lat && l.lng) {
-                        coordsMap[l.name] = { lat: l.lat, lng: l.lng };
-                    }
+                    if (l.lat && l.lng) coordsMap[l.name] = { lat: l.lat, lng: l.lng };
                 });
                 localStorage.setItem('elevator_coords', JSON.stringify(coordsMap));
-                console.log('좌표 저장 완료:', Object.keys(coordsMap).length + '개');
-            } catch(e) {
-                console.error('좌표 저장 실패:', e);
-            }
+            } catch(e) {}
         }
 
         function loadSavedCoordinates() {
@@ -553,19 +760,23 @@
                 const saved = localStorage.getItem('elevator_coords');
                 if (saved) {
                     const coordsMap = JSON.parse(saved);
-                    let applied = 0;
                     locations.forEach(loc => {
                         if (!loc.lat && !loc.lng && coordsMap[loc.name]) {
                             loc.lat = coordsMap[loc.name].lat;
                             loc.lng = coordsMap[loc.name].lng;
-                            applied++;
                         }
                     });
-                    console.log('저장된 좌표 적용:', applied + '개');
-                    return applied;
                 }
             } catch(e) {}
-            return 0;
+        }
+
+        function getGradeClass(grade) {
+            if (grade === 'S+') return 's-plus';
+            if (grade === 'S') return 's';
+            if (grade === 'A+') return 'a-plus';
+            if (grade === 'A') return 'a';
+            if (grade === 'B') return 'b';
+            return '';
         }
 
         function showInfo(loc) {
@@ -573,19 +784,16 @@
             document.getElementById('infoName').textContent = loc.name;
             document.getElementById('infoAddress').textContent = loc.address;
 
-            const gradeEl = document.getElementById('infoGrade');
-            gradeEl.textContent = loc.grade || '-';
-            gradeEl.className = 'info-value';
-            if (loc.grade === 'A+') gradeEl.classList.add('grade-a-plus');
-            else if (loc.grade === 'A') gradeEl.classList.add('grade-a');
-            else if (loc.grade === 'B') gradeEl.classList.add('grade-b');
+            const badge = document.getElementById('infoGradeBadge');
+            badge.textContent = loc.grade || '-';
+            badge.className = 'info-grade-badge ' + getGradeClass(loc.grade);
 
-            document.getElementById('infoHouseholds').textContent = loc.households ? loc.households.toLocaleString() + '세대' : '-';
-            document.getElementById('infoPopulation').textContent = loc.population ? loc.population.toLocaleString() + '명' : '-';
-            document.getElementById('infoFloors').textContent = loc.floors ? loc.floors + '층' : '-';
+            document.getElementById('infoHouseholds').textContent = loc.households ? loc.households.toLocaleString() : '-';
+            document.getElementById('infoPopulation').textContent = loc.population ? loc.population.toLocaleString() : '-';
+            document.getElementById('infoFloors').textContent = loc.floors ? loc.floors + 'F' : '-';
             document.getElementById('infoArea').textContent = loc.area ? loc.area + '평' : '-';
             document.getElementById('infoQuantity').textContent = loc.quantity ? loc.quantity + '대' : '-';
-            document.getElementById('infoUnitPrice').textContent = loc.unit_price ? loc.unit_price.toLocaleString() + '원' : '-';
+            document.getElementById('infoUnitPrice').textContent = loc.unit_price ? loc.unit_price.toLocaleString() : '-';
             document.getElementById('infoPrice').textContent = loc.price_4w ? loc.price_4w.toLocaleString() + '원' : '-';
 
             document.getElementById('infoPanel').classList.add('open');
@@ -594,14 +802,26 @@
 
         function initSearch() {
             const input = document.getElementById('searchInput');
+            const clearBtn = document.getElementById('searchClear');
             let timer;
+
             input.addEventListener('input', function() {
+                clearBtn.classList.toggle('show', this.value.length > 0);
                 clearTimeout(timer);
                 timer = setTimeout(() => {
                     currentFilters.search = this.value.toLowerCase();
                     applyFilterLogic();
                 }, 300);
             });
+        }
+
+        function clearSearch() {
+            const input = document.getElementById('searchInput');
+            input.value = '';
+            document.getElementById('searchClear').classList.remove('show');
+            currentFilters.search = '';
+            applyFilterLogic();
+            input.focus();
         }
 
         function initFilterChips() {
@@ -617,6 +837,14 @@
             chip.classList.add('active');
         }
 
+        function resetFilter() {
+            document.querySelectorAll('.filter-chips').forEach(container => {
+                container.querySelectorAll('.filter-chip').forEach((c, i) => {
+                    c.classList.toggle('active', i === 0);
+                });
+            });
+        }
+
         function applyFilter() {
             currentFilters.grade = document.querySelector('#gradeFilter .active').dataset.value;
             currentFilters.type = document.querySelector('#typeFilter .active').dataset.value;
@@ -627,7 +855,6 @@
         }
 
         function applyFilterLogic() {
-            // 기존 마커 제거
             markers.forEach(m => m.marker.setMap(null));
             markers = [];
 
@@ -653,7 +880,6 @@
                 return true;
             });
 
-            // 마커 다시 생성
             let mapCount = 0;
             filteredLocations.forEach(loc => {
                 if (loc.lat && loc.lng) {
@@ -662,8 +888,7 @@
                 }
             });
 
-            document.getElementById('visibleCount').textContent =
-                `${filteredLocations.length}개 (지도: ${mapCount})`;
+            document.getElementById('visibleCount').textContent = mapCount.toLocaleString();
             updateListView();
         }
 
@@ -683,17 +908,15 @@
                     if (isListView) toggleView();
                 };
 
-                let badge = '';
-                if (loc.grade === 'A+') badge = 'a-plus';
-                else if (loc.grade === 'A') badge = 'a';
-                else if (loc.grade === 'B') badge = 'b';
-
                 item.innerHTML = `
-                    <div class="list-item-name">${loc.name}<span class="grade-badge ${badge}">${loc.grade || '-'}</span></div>
+                    <div class="list-item-header">
+                        <span class="list-item-name">${loc.name}</span>
+                        <span class="grade-badge ${getGradeClass(loc.grade)}">${loc.grade || '-'}</span>
+                    </div>
                     <div class="list-item-address">${loc.address}</div>
                     <div class="list-item-info">
-                        <span>세대수: <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
-                        <span>4주금액: <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
+                        <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
+                        <span>4주 <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
                     </div>
                 `;
                 listView.appendChild(item);
@@ -703,36 +926,42 @@
         function toggleView() {
             isListView = !isListView;
             document.getElementById('listView').classList.toggle('active', isListView);
-            document.getElementById('viewToggle').innerHTML = isListView ? '&#128506;' : '&#128203;';
+            document.getElementById('viewToggle').classList.toggle('active', isListView);
         }
 
         function moveToMyLocation() {
             if (navigator.geolocation) {
+                showToast('위치를 찾는 중...');
                 navigator.geolocation.getCurrentPosition(
                     pos => {
                         const moveLatLng = new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
                         map.setCenter(moveLatLng);
                         map.setLevel(4);
+                        showToast('현재 위치로 이동했습니다');
                     },
-                    () => alert('위치를 가져올 수 없습니다.')
+                    () => showToast('위치를 가져올 수 없습니다')
                 );
             }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
         }
 
         function copyAddress() {
             if (selectedLocation) {
                 navigator.clipboard.writeText(selectedLocation.address);
-                alert('주소가 복사되었습니다.');
+                showToast('주소가 복사되었습니다');
             }
         }
 
         function openKakaoMap() {
             if (selectedLocation) {
                 const addr = encodeURIComponent(selectedLocation.address);
-                const name = encodeURIComponent(selectedLocation.name);
-
                 if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                    // 카카오맵 앱으로 열기
                     window.location.href = `kakaomap://search?q=${addr}`;
                     setTimeout(() => {
                         window.open(`https://map.kakao.com/link/search/${addr}`, '_blank');
