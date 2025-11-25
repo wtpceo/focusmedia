@@ -318,6 +318,19 @@
                 <button class="filter-chip active" data-value="all">전체</button>
             </div>
         </div>
+        <div class="filter-section">
+            <h3>설치시기</h3>
+            <div class="filter-chips" id="installFilter">
+                <button class="filter-chip active" data-value="all">전체</button>
+                <button class="filter-chip" data-value="2024">2024년</button>
+                <button class="filter-chip" data-value="2023">2023년</button>
+                <button class="filter-chip" data-value="2022">2022년</button>
+                <button class="filter-chip" data-value="2021">2021년</button>
+                <button class="filter-chip" data-value="2020">2020년</button>
+                <button class="filter-chip" data-value="older">2019년 이전</button>
+                <button class="filter-chip" data-value="none">미설치</button>
+            </div>
+        </div>
         <button class="filter-apply" onclick="applyFilter()">필터 적용</button>
     </div>
 
@@ -381,7 +394,7 @@
         let selectedLocation = null;
         let isListView = false;
         let geocoder;
-        let currentFilters = { grade: 'all', type: 'all', gu: 'all', search: '' };
+        let currentFilters = { grade: 'all', type: 'all', gu: 'all', install: 'all', search: '' };
 
         document.addEventListener('DOMContentLoaded', async function() {
             await loadData();
@@ -605,6 +618,7 @@
             currentFilters.grade = document.querySelector('#gradeFilter .active').dataset.value;
             currentFilters.type = document.querySelector('#typeFilter .active').dataset.value;
             currentFilters.gu = document.querySelector('#guFilter .active').dataset.value;
+            currentFilters.install = document.querySelector('#installFilter .active').dataset.value;
             applyFilterLogic();
             closeFilter();
         }
@@ -618,6 +632,17 @@
                 if (currentFilters.grade !== 'all' && d.grade !== currentFilters.grade) return false;
                 if (currentFilters.type !== 'all' && d.building_type !== currentFilters.type) return false;
                 if (currentFilters.gu !== 'all' && d.gu !== currentFilters.gu) return false;
+                if (currentFilters.install !== 'all') {
+                    const installDate = d.install_date || '';
+                    const year = installDate.substring(0, 4);
+                    if (currentFilters.install === 'none') {
+                        if (installDate) return false;
+                    } else if (currentFilters.install === 'older') {
+                        if (!installDate || parseInt(year) >= 2020) return false;
+                    } else {
+                        if (year !== currentFilters.install) return false;
+                    }
+                }
                 if (currentFilters.search) {
                     const s = currentFilters.search;
                     if (!(d.name?.toLowerCase().includes(s) || d.address?.toLowerCase().includes(s) || d.dong?.toLowerCase().includes(s))) return false;
