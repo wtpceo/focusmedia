@@ -958,12 +958,20 @@
             });
 
             let mapCount = 0;
+            let firstLoc = null;
             filteredLocations.forEach(loc => {
                 if (loc.lat && loc.lng) {
                     createMarker(loc);
+                    if (!firstLoc) firstLoc = loc;
                     mapCount++;
                 }
             });
+
+            // 필터된 결과가 있으면 첫 번째 위치로 지도 이동
+            if (firstLoc && !currentFilters.gu.includes('all')) {
+                map.setCenter(new kakao.maps.LatLng(firstLoc.lat, firstLoc.lng));
+                map.setLevel(6);
+            }
 
             document.getElementById('visibleCount').textContent = mapCount.toLocaleString();
             updateListView();
