@@ -967,10 +967,15 @@
                 }
             });
 
-            // 필터된 결과가 있으면 첫 번째 위치로 지도 이동
+            // 필터된 결과가 있으면 모든 마커가 보이도록 지도 범위 조정
             if (firstLoc && !currentFilters.gu.includes('all')) {
-                map.setCenter(new kakao.maps.LatLng(firstLoc.lat, firstLoc.lng));
-                map.setLevel(6);
+                const bounds = new kakao.maps.LatLngBounds();
+                filteredLocations.forEach(loc => {
+                    if (loc.lat && loc.lng) {
+                        bounds.extend(new kakao.maps.LatLng(loc.lat, loc.lng));
+                    }
+                });
+                map.setBounds(bounds);
             }
 
             document.getElementById('visibleCount').textContent = mapCount.toLocaleString();
