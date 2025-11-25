@@ -335,8 +335,24 @@
                 <div class="info-value" id="infoHouseholds">-</div>
             </div>
             <div class="info-item">
+                <div class="info-label">총 인구수</div>
+                <div class="info-value" id="infoPopulation">-</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">건물층수</div>
+                <div class="info-value" id="infoFloors">-</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">기준평형</div>
+                <div class="info-value" id="infoArea">-</div>
+            </div>
+            <div class="info-item">
                 <div class="info-label">판매수량</div>
                 <div class="info-value" id="infoQuantity">-</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">대당가격</div>
+                <div class="info-value" id="infoUnitPrice">-</div>
             </div>
             <div class="info-item">
                 <div class="info-label">4주 금액</div>
@@ -549,7 +565,11 @@
             else if (loc.grade === 'B') gradeEl.classList.add('grade-b');
 
             document.getElementById('infoHouseholds').textContent = loc.households ? loc.households.toLocaleString() + '세대' : '-';
+            document.getElementById('infoPopulation').textContent = loc.population ? loc.population.toLocaleString() + '명' : '-';
+            document.getElementById('infoFloors').textContent = loc.floors ? loc.floors + '층' : '-';
+            document.getElementById('infoArea').textContent = loc.area ? loc.area + '평' : '-';
             document.getElementById('infoQuantity').textContent = loc.quantity ? loc.quantity + '대' : '-';
+            document.getElementById('infoUnitPrice').textContent = loc.unit_price ? loc.unit_price.toLocaleString() + '원' : '-';
             document.getElementById('infoPrice').textContent = loc.price_4w ? loc.price_4w.toLocaleString() + '원' : '-';
 
             document.getElementById('infoPanel').classList.add('open');
