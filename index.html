@@ -688,7 +688,7 @@
         let selectedLocation = null;
         let isListView = false;
         let geocoder;
-        let currentFilters = { grade: 'all', type: 'all', gu: 'all', install: 'all', search: '' };
+        let currentFilters = { grade: ['all'], type: ['all'], gu: ['all'], install: ['all'], search: '' };
 
         document.addEventListener('DOMContentLoaded', async function() {
             await loadData();
@@ -878,8 +878,25 @@
         }
 
         function toggleChip(chip, containerId) {
-            document.getElementById(containerId).querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
+            const container = document.getElementById(containerId);
+            const allChip = container.querySelector('[data-value="all"]');
+            const isAll = chip.dataset.value === 'all';
+
+            if (isAll) {
+                // "전체" 클릭 시 다른 선택 해제
+                container.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+            } else {
+                // 다른 항목 클릭 시
+                allChip.classList.remove('active');
+                chip.classList.toggle('active');
+
+                // 아무것도 선택 안되면 "전체" 활성화
+                const activeChips = container.querySelectorAll('.filter-chip.active');
+                if (activeChips.length === 0) {
+                    allChip.classList.add('active');
+                }
+            }
         }
 
         function resetFilter() {
@@ -890,11 +907,16 @@
             });
         }
 
+        function getSelectedValues(containerId) {
+            const chips = document.querySelectorAll(`#${containerId} .filter-chip.active`);
+            return Array.from(chips).map(c => c.dataset.value);
+        }
+
         function applyFilter() {
-            currentFilters.grade = document.querySelector('#gradeFilter .active').dataset.value;
-            currentFilters.type = document.querySelector('#typeFilter .active').dataset.value;
-            currentFilters.gu = document.querySelector('#guFilter .active').dataset.value;
-            currentFilters.install = document.querySelector('#installFilter .active').dataset.value;
+            currentFilters.grade = getSelectedValues('gradeFilter');
+            currentFilters.type = getSelectedValues('typeFilter');
+            currentFilters.gu = getSelectedValues('guFilter');
+            currentFilters.install = getSelectedValues('installFilter');
             applyFilterLogic();
             closeFilter();
         }
@@ -904,20 +926,30 @@
             markers = [];
 
             filteredLocations = locations.filter(d => {
-                if (currentFilters.grade !== 'all' && d.grade !== currentFilters.grade) return false;
-                if (currentFilters.type !== 'all' && d.building_type !== currentFilters.type) return false;
-                if (currentFilters.gu !== 'all' && d.gu !== currentFilters.gu) return false;
-                if (currentFilters.install !== 'all') {
+                // 등급 필터 (다중 선택)
+                if (!currentFilters.grade.includes('all') && !currentFilters.grade.includes(d.grade)) return false;
+
+                // 건물유형 필터 (다중 선택)
+                if (!currentFilters.type.includes('all') && !currentFilters.type.includes(d.building_type)) return false;
+
+                // 지역 필터 (다중 선택)
+                if (!currentFilters.gu.includes('all') && !currentFilters.gu.includes(d.gu)) return false;
+
+                // 설치시기 필터 (다중 선택)
+                if (!currentFilters.install.includes('all')) {
                     const installDate = d.install_date || '';
                     const year = installDate.substring(0, 4);
-                    if (currentFilters.install === 'none') {
-                        if (installDate) return false;
-                    } else if (currentFilters.install === 'older') {
-                        if (!installDate || parseInt(year) >= 2020) return false;
-                    } else {
-                        if (year !== currentFilters.install) return false;
+                    let matched = false;
+
+                    for (const filter of currentFilters.install) {
+                        if (filter === 'none' && !installDate) { matched = true; break; }
+                        if (filter === 'older' && installDate && parseInt(year) < 2020) { matched = true; break; }
+                        if (year === filter) { matched = true; break; }
                     }
+                    if (!matched) return false;
                 }
+
+                // 검색어 필터
                 if (currentFilters.search) {
                     const s = currentFilters.search;
                     if (!(d.name?.toLowerCase().includes(s) || d.address?.toLowerCase().includes(s) || d.dong?.toLowerCase().includes(s))) return false;
