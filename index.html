@@ -379,8 +379,42 @@
             overflow-y: auto;
             z-index: 800;
             display: none;
+            flex-direction: column;
         }
-        .list-view.active { display: block; }
+        .list-view.active { display: flex; }
+        .list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+        .list-header h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .list-close {
+            width: 32px; height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .list-close:hover { background: #eee; }
+        .list-close svg { width: 18px; height: 18px; color: #666; }
+        .list-content {
+            flex: 1;
+            overflow-y: auto;
+        }
         .list-item {
             padding: 14px 16px;
             border-bottom: 1px solid #f0f0f0;
@@ -487,7 +521,18 @@
     </div>
 
     <div id="map"></div>
-    <div class="list-view" id="listView"></div>
+    <div class="list-view" id="listView">
+        <div class="list-header">
+            <h3>목록 <span id="listCount">0</span>개</h3>
+            <button class="list-close" onclick="toggleView()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="list-content" id="listContent"></div>
+    </div>
 
     <div class="floating-btns">
         <button class="float-btn" onclick="toggleView()" id="viewToggle" aria-label="리스트 보기">
@@ -893,8 +938,9 @@
         }
 
         function updateListView() {
-            const listView = document.getElementById('listView');
-            listView.innerHTML = '';
+            const listContent = document.getElementById('listContent');
+            listContent.innerHTML = '';
+            document.getElementById('listCount').textContent = filteredLocations.length.toLocaleString();
 
             filteredLocations.forEach(loc => {
                 const item = document.createElement('div');
@@ -919,7 +965,7 @@
                         <span>4주 <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
                     </div>
                 `;
-                listView.appendChild(item);
+                listContent.appendChild(item);
             });
         }
 
