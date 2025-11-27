@@ -482,6 +482,190 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        /* 주변 업체 검색 바 */
+        .place-search-bar {
+            position: fixed;
+            top: 122px; left: 12px; right: 12px;
+            z-index: 900;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .place-search-bar.active { display: flex; }
+        .place-search-input-wrap {
+            display: flex;
+            gap: 8px;
+        }
+        .place-search-input {
+            flex: 1;
+            height: 44px;
+            padding: 0 14px;
+            border: none;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            font-size: 14px;
+            outline: none;
+        }
+        .place-search-input::placeholder { color: #999; }
+        .place-search-btn {
+            width: 44px; height: 44px;
+            background: #FEE500;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .place-search-btn svg { width: 20px; height: 20px; }
+        .place-category-chips {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 2px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        .place-category-chips::-webkit-scrollbar { display: none; }
+        .place-category-chip {
+            padding: 6px 12px;
+            border-radius: 16px;
+            border: 1px solid #ddd;
+            background: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s;
+        }
+        .place-category-chip:hover { border-color: #bbb; }
+        .place-category-chip.active {
+            background: #3b82f6;
+            color: #fff;
+            border-color: #3b82f6;
+        }
+
+        /* 주변 업체 검색 결과 패널 */
+        .place-result-panel {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: #fff;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            max-height: 55vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .place-result-panel.open { transform: translateY(0); }
+        .place-result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            flex-shrink: 0;
+        }
+        .place-result-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .place-result-header h3 span { color: #3b82f6; }
+        .place-result-close {
+            width: 32px; height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .place-result-close svg { width: 18px; height: 18px; color: #666; }
+        .place-result-list {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: max(16px, env(safe-area-inset-bottom));
+        }
+        .place-item {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .place-item:hover { background: #fafafa; }
+        .place-item:active { background: #f5f5f5; }
+        .place-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .place-item-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            flex: 1;
+        }
+        .place-item-category {
+            font-size: 12px;
+            color: #888;
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .place-item-address {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .place-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .place-action-btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: none;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.15s;
+        }
+        .place-action-btn svg { width: 16px; height: 16px; }
+        .place-action-btn.call {
+            background: #22c55e;
+            color: #fff;
+        }
+        .place-action-btn.call:hover { background: #16a34a; }
+        .place-action-btn.call:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .place-action-btn.direction {
+            background: #f0f0f0;
+            color: #333;
+        }
+        .place-action-btn.direction:hover { background: #e5e5e5; }
+        .place-no-result {
+            padding: 40px 20px;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* 고정 버튼 활성화 상태 */
+        .float-btn.locked {
+            background: #ef4444;
+        }
+        .float-btn.locked svg { color: #fff; }
+
         /* 반응형 - 태블릿 이상 */
         @media (min-width: 768px) {
             .info-grid { grid-template-columns: repeat(4, 1fr); }
@@ -534,7 +718,42 @@
         <div class="list-content" id="listContent"></div>
     </div>
 
+    <!-- 주변 업체 검색 바 -->
+    <div class="place-search-bar" id="placeSearchBar">
+        <div class="place-search-input-wrap">
+            <input type="text" class="place-search-input" placeholder="주변 업체 검색 (예: 식당, 병원, 학원)" id="placeSearchInput">
+            <button class="place-search-btn" onclick="searchPlaces()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="place-category-chips">
+            <button class="place-category-chip" data-keyword="음식점">음식점</button>
+            <button class="place-category-chip" data-keyword="카페">카페</button>
+            <button class="place-category-chip" data-keyword="편의점">편의점</button>
+            <button class="place-category-chip" data-keyword="병원">병원</button>
+            <button class="place-category-chip" data-keyword="약국">약국</button>
+            <button class="place-category-chip" data-keyword="학원">학원</button>
+            <button class="place-category-chip" data-keyword="은행">은행</button>
+            <button class="place-category-chip" data-keyword="주유소">주유소</button>
+        </div>
+    </div>
+
     <div class="floating-btns">
+        <button class="float-btn" onclick="togglePlaceSearch()" id="placeSearchToggle" aria-label="주변 업체 검색">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+        </button>
+        <button class="float-btn" onclick="toggleMapLock()" id="mapLockBtn" aria-label="화면 고정">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="lockIcon">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+        </button>
         <button class="float-btn" onclick="toggleView()" id="viewToggle" aria-label="리스트 보기">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="8" y1="6" x2="21" y2="6"></line>
@@ -678,7 +897,21 @@
 
     <div class="toast" id="toast"></div>
 
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=40a7fdd99c590f478a37a9071c0fb69a&libraries=services&autoload=false"></script>
+    <!-- 주변 업체 검색 결과 패널 -->
+    <div class="place-result-panel" id="placeResultPanel">
+        <div class="place-result-header">
+            <h3>검색 결과 <span id="placeResultCount">0</span>건</h3>
+            <button class="place-result-close" onclick="closePlaceResult()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="place-result-list" id="placeResultList"></div>
+    </div>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=40a7fdd99c590f478a37a9071c0fb69a&libraries=services,clusterer,drawing&autoload=false"></script>
 
     <script>
         let map;
@@ -689,6 +922,12 @@
         let isListView = false;
         let geocoder;
         let currentFilters = { grade: ['all'], type: ['all'], gu: ['all'], install: ['all'], search: '' };
+
+        // 새로운 기능 변수
+        let isMapLocked = false;
+        let isPlaceSearchOpen = false;
+        let places;  // 카카오 장소 검색 객체
+        let placeMarkers = [];  // 주변 업체 마커들
 
         document.addEventListener('DOMContentLoaded', async function() {
             await loadData();
@@ -734,8 +973,10 @@
             };
             map = new kakao.maps.Map(container, options);
             geocoder = new kakao.maps.services.Geocoder();
+            places = new kakao.maps.services.Places(map);  // 장소 검색 객체 초기화
             kakao.maps.event.addListener(map, 'click', closeInfoPanel);
             geocodeAndCreateMarkers();
+            initPlaceSearch();  // 주변 업체 검색 초기화
         }
 
         async function geocodeAndCreateMarkers() {
@@ -1081,6 +1322,216 @@
         function closeAllPanels() {
             closeFilter();
             closeInfoPanel();
+            closePlaceResult();
+        }
+
+        // ========== 지도 고정 기능 ==========
+        function toggleMapLock() {
+            isMapLocked = !isMapLocked;
+            const btn = document.getElementById('mapLockBtn');
+            const lockIcon = document.getElementById('lockIcon');
+
+            if (isMapLocked) {
+                // 지도 조작 비활성화
+                map.setDraggable(false);
+                map.setZoomable(false);
+                btn.classList.add('locked');
+                // 잠금 아이콘으로 변경
+                lockIcon.innerHTML = `
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    <circle cx="12" cy="16" r="1"></circle>
+                `;
+                showToast('화면이 고정되었습니다');
+            } else {
+                // 지도 조작 활성화
+                map.setDraggable(true);
+                map.setZoomable(true);
+                btn.classList.remove('locked');
+                // 열림 아이콘으로 변경
+                lockIcon.innerHTML = `
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                `;
+                showToast('화면 고정이 해제되었습니다');
+            }
+        }
+
+        // ========== 주변 업체 검색 기능 ==========
+        function initPlaceSearch() {
+            // 카테고리 칩 클릭 이벤트
+            document.querySelectorAll('.place-category-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    document.querySelectorAll('.place-category-chip').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById('placeSearchInput').value = this.dataset.keyword;
+                    searchPlaces();
+                });
+            });
+
+            // 엔터키로 검색
+            document.getElementById('placeSearchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchPlaces();
+                }
+            });
+        }
+
+        function togglePlaceSearch() {
+            isPlaceSearchOpen = !isPlaceSearchOpen;
+            const searchBar = document.getElementById('placeSearchBar');
+            const toggleBtn = document.getElementById('placeSearchToggle');
+
+            if (isPlaceSearchOpen) {
+                searchBar.classList.add('active');
+                toggleBtn.classList.add('active');
+                document.getElementById('placeSearchInput').focus();
+            } else {
+                searchBar.classList.remove('active');
+                toggleBtn.classList.remove('active');
+                closePlaceResult();
+                clearPlaceMarkers();
+            }
+        }
+
+        function searchPlaces() {
+            const keyword = document.getElementById('placeSearchInput').value.trim();
+            if (!keyword) {
+                showToast('검색어를 입력해주세요');
+                return;
+            }
+
+            // 현재 지도 중심 좌표 기준으로 검색
+            const center = map.getCenter();
+            const options = {
+                location: center,
+                radius: 2000,  // 반경 2km
+                sort: kakao.maps.services.SortBy.DISTANCE
+            };
+
+            showToast('검색 중...');
+            places.keywordSearch(keyword, placesSearchCallback, options);
+        }
+
+        function placesSearchCallback(data, status, pagination) {
+            if (status === kakao.maps.services.Status.OK) {
+                displayPlaceResults(data);
+                displayPlaceMarkers(data);
+            } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+                showToast('검색 결과가 없습니다');
+                document.getElementById('placeResultCount').textContent = '0';
+                document.getElementById('placeResultList').innerHTML = `
+                    <div class="place-no-result">
+                        현재 지도 주변에서 검색 결과를 찾을 수 없습니다.<br>
+                        지도를 이동한 후 다시 검색해보세요.
+                    </div>
+                `;
+                document.getElementById('placeResultPanel').classList.add('open');
+            } else {
+                showToast('검색 중 오류가 발생했습니다');
+            }
+        }
+
+        function displayPlaceResults(places) {
+            const listEl = document.getElementById('placeResultList');
+            listEl.innerHTML = '';
+            document.getElementById('placeResultCount').textContent = places.length;
+
+            places.forEach((place, index) => {
+                const item = document.createElement('div');
+                item.className = 'place-item';
+                item.onclick = () => moveToPlePlace(place);
+
+                const hasPhone = place.phone && place.phone.length > 0;
+
+                item.innerHTML = `
+                    <div class="place-item-header">
+                        <span class="place-item-name">${place.place_name}</span>
+                        <span class="place-item-category">${place.category_group_name || '기타'}</span>
+                    </div>
+                    <div class="place-item-address">${place.road_address_name || place.address_name}</div>
+                    <div class="place-item-actions">
+                        <button class="place-action-btn call" onclick="event.stopPropagation(); callPlace('${place.phone}')" ${!hasPhone ? 'disabled' : ''}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            ${hasPhone ? '전화' : '번호없음'}
+                        </button>
+                        <button class="place-action-btn direction" onclick="event.stopPropagation(); openPlaceDirection('${place.place_name}', ${place.y}, ${place.x})">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                            </svg>
+                            길찾기
+                        </button>
+                    </div>
+                `;
+                listEl.appendChild(item);
+            });
+
+            document.getElementById('placeResultPanel').classList.add('open');
+        }
+
+        function displayPlaceMarkers(places) {
+            clearPlaceMarkers();
+
+            const imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+            const imageSize = new kakao.maps.Size(24, 35);
+            const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+            places.forEach((place, i) => {
+                const marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(place.y, place.x),
+                    image: markerImage
+                });
+
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    moveToPlePlace(place);
+                });
+
+                placeMarkers.push(marker);
+            });
+        }
+
+        function clearPlaceMarkers() {
+            placeMarkers.forEach(marker => marker.setMap(null));
+            placeMarkers = [];
+        }
+
+        function moveToPlePlace(place) {
+            const position = new kakao.maps.LatLng(place.y, place.x);
+
+            if (isMapLocked) {
+                showToast('화면 고정을 해제하면 이동합니다');
+                return;
+            }
+
+            map.setCenter(position);
+            map.setLevel(3);
+        }
+
+        function callPlace(phone) {
+            if (!phone) {
+                showToast('전화번호가 없습니다');
+                return;
+            }
+            window.location.href = `tel:${phone}`;
+        }
+
+        function openPlaceDirection(placeName, lat, lng) {
+            const name = encodeURIComponent(placeName);
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                window.location.href = `kakaomap://route?ep=${lat},${lng}&by=CAR`;
+                setTimeout(() => {
+                    window.open(`https://map.kakao.com/link/to/${name},${lat},${lng}`, '_blank');
+                }, 1000);
+            } else {
+                window.open(`https://map.kakao.com/link/to/${name},${lat},${lng}`, '_blank');
+            }
+        }
+
+        function closePlaceResult() {
+            document.getElementById('placeResultPanel').classList.remove('open');
         }
     </script>
 </body>
