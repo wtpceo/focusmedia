@@ -271,6 +271,130 @@
             font-weight: 700;
             color: #1a1a1a;
         }
+
+        /* 금액 클릭 스타일 */
+        .price-clickable {
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .price-clickable:hover {
+            transform: scale(1.05);
+        }
+        .price-clickable::after {
+            content: '클릭시 상세';
+            position: absolute;
+            bottom: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            color: #999;
+            white-space: nowrap;
+        }
+
+        /* 금액 상세 모달 */
+        .price-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+            z-index: 2000;
+            padding: 24px;
+            min-width: 300px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s ease;
+        }
+        .price-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .price-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .price-modal-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .price-modal-close {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .price-modal-close:hover {
+            background: #e0e0e0;
+        }
+        .price-modal-close svg {
+            width: 14px;
+            height: 14px;
+            color: #666;
+        }
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .price-item:last-of-type {
+            border-bottom: none;
+        }
+        .price-period {
+            font-size: 15px;
+            color: #555;
+            font-weight: 500;
+        }
+        .price-discount {
+            font-size: 11px;
+            color: #ef4444;
+            margin-left: 6px;
+            font-weight: 600;
+        }
+        .price-amount {
+            font-size: 17px;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+        .price-vat {
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f0f0f0;
+        }
+        .price-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s;
+        }
+        .price-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
         .info-actions { display: flex; gap: 10px; }
         .info-btn {
             flex: 1;
@@ -867,9 +991,9 @@
                     <div class="info-label">대당가</div>
                     <div class="info-value" id="infoUnitPrice">-</div>
                 </div>
-                <div class="info-item" style="grid-column: span 2;">
+                <div class="info-item" style="grid-column: span 2;" onclick="showPriceDetail()" id="priceItem">
                     <div class="info-label">4주 금액</div>
-                    <div class="info-value" id="infoPrice" style="font-size:16px; color:#3b82f6;">-</div>
+                    <div class="info-value price-clickable" id="infoPrice" style="font-size:16px; color:#3b82f6;">-</div>
                 </div>
             </div>
             <div class="info-actions">
@@ -896,6 +1020,33 @@
     </div>
 
     <div class="toast" id="toast"></div>
+
+    <!-- 금액 상세 모달 -->
+    <div class="price-overlay" id="priceOverlay" onclick="closePriceModal()"></div>
+    <div class="price-modal" id="priceModal">
+        <div class="price-modal-header">
+            <span class="price-modal-title">광고 금액 안내</span>
+            <button class="price-modal-close" onclick="closePriceModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="price-item">
+            <span class="price-period">4주</span>
+            <span class="price-amount" id="price4week">-</span>
+        </div>
+        <div class="price-item">
+            <span class="price-period">24주<span class="price-discount">5% 할인</span></span>
+            <span class="price-amount" id="price24week">-</span>
+        </div>
+        <div class="price-item">
+            <span class="price-period">48주<span class="price-discount">10% 할인</span></span>
+            <span class="price-amount" id="price48week">-</span>
+        </div>
+        <div class="price-vat">※ 부가세 별도</div>
+    </div>
 
     <!-- 주변 업체 검색 결과 패널 -->
     <div class="place-result-panel" id="placeResultPanel">
@@ -1081,6 +1232,9 @@
             document.getElementById('infoQuantity').textContent = loc.quantity ? loc.quantity + '대' : '-';
             document.getElementById('infoUnitPrice').textContent = loc.unit_price ? loc.unit_price.toLocaleString() : '-';
             document.getElementById('infoPrice').textContent = loc.price_4w ? loc.price_4w.toLocaleString() + '원' : '-';
+
+            // 금액 상세 모달용 4주 금액 저장
+            currentPrice4week = loc.price_4w || 0;
 
             document.getElementById('infoPanel').classList.add('open');
             document.querySelector('.overlay').classList.add('active');
@@ -1532,6 +1686,35 @@
 
         function closePlaceResult() {
             document.getElementById('placeResultPanel').classList.remove('open');
+        }
+
+        // 금액 상세 모달 기능
+        let currentPrice4week = 0;
+
+        function showPriceDetail() {
+            if (!selectedLocation || !currentPrice4week) {
+                showToast('금액 정보가 없습니다');
+                return;
+            }
+
+            // 4주 금액
+            const price4 = currentPrice4week;
+            // 24주 금액 (4주 * 6 = 24주, 5% 할인)
+            const price24 = Math.round(price4 * 6 * 0.95);
+            // 48주 금액 (4주 * 12 = 48주, 10% 할인)
+            const price48 = Math.round(price4 * 12 * 0.90);
+
+            document.getElementById('price4week').textContent = price4.toLocaleString() + '원';
+            document.getElementById('price24week').textContent = price24.toLocaleString() + '원';
+            document.getElementById('price48week').textContent = price48.toLocaleString() + '원';
+
+            document.getElementById('priceOverlay').classList.add('open');
+            document.getElementById('priceModal').classList.add('open');
+        }
+
+        function closePriceModal() {
+            document.getElementById('priceOverlay').classList.remove('open');
+            document.getElementById('priceModal').classList.remove('open');
         }
     </script>
 </body>
