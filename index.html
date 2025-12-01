@@ -272,6 +272,51 @@
             color: #1a1a1a;
         }
 
+        /* 영업제한 업종 섹션 */
+        .restriction-section {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+        .restriction-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #dc2626;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .restriction-title svg {
+            width: 16px;
+            height: 16px;
+        }
+        .restriction-items {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .restriction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+        .restriction-label {
+            color: #666;
+        }
+        .restriction-value {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .restriction-date {
+            font-size: 12px;
+            color: #888;
+            margin-left: 8px;
+        }
+
         /* 금액 클릭 스타일 */
         .price-clickable {
             cursor: pointer;
@@ -975,6 +1020,19 @@
                 <span class="info-grade-badge" id="infoGradeBadge">-</span>
             </div>
             <div class="info-address" id="infoAddress">-</div>
+            <!-- 영업제한 업종 섹션 -->
+            <div class="restriction-section" id="restrictionSection" style="display: none;">
+                <div class="restriction-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    영업제한 업종
+                </div>
+                <div class="restriction-items" id="restrictionItems">
+                </div>
+            </div>
             <div class="info-grid">
                 <div class="info-item">
                     <div class="info-label">세대수</div>
@@ -1281,6 +1339,47 @@
 
             // 금액 상세 모달용 4주 금액 저장
             currentPrice4week = loc.price_4w || 0;
+
+            // 영업제한 업종 표시
+            const restrictionSection = document.getElementById('restrictionSection');
+            const restrictionItems = document.getElementById('restrictionItems');
+            const hasRestriction1 = loc.restriction1_type && loc.restriction1_type.trim();
+            const hasRestriction2 = loc.restriction2_type && loc.restriction2_type.trim();
+
+            if (hasRestriction1 || hasRestriction2) {
+                restrictionSection.style.display = 'block';
+                let itemsHtml = '';
+
+                if (hasRestriction1) {
+                    const date1 = loc.restriction1_date ? `(~${loc.restriction1_date})` : '';
+                    itemsHtml += `
+                        <div class="restriction-item">
+                            <span class="restriction-label">구좌1</span>
+                            <span>
+                                <span class="restriction-value">${loc.restriction1_type}</span>
+                                <span class="restriction-date">${date1}</span>
+                            </span>
+                        </div>
+                    `;
+                }
+
+                if (hasRestriction2) {
+                    const date2 = loc.restriction2_date ? `(~${loc.restriction2_date})` : '';
+                    itemsHtml += `
+                        <div class="restriction-item">
+                            <span class="restriction-label">구좌2</span>
+                            <span>
+                                <span class="restriction-value">${loc.restriction2_type}</span>
+                                <span class="restriction-date">${date2}</span>
+                            </span>
+                        </div>
+                    `;
+                }
+
+                restrictionItems.innerHTML = itemsHtml;
+            } else {
+                restrictionSection.style.display = 'none';
+            }
 
             document.getElementById('infoPanel').classList.add('open');
             document.querySelector('.overlay').classList.add('active');
