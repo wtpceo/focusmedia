@@ -91,6 +91,79 @@
         .search-clear.show { display: flex; }
         .search-clear svg { width: 16px; height: 16px; color: #666; }
 
+        /* 통합 검색 드롭다운 */
+        .search-dropdown {
+            position: absolute;
+            top: 52px;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            max-height: 60vh;
+            overflow-y: auto;
+            display: none;
+            z-index: 1001;
+        }
+        .search-dropdown.show { display: block; }
+        .search-dropdown-section {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .search-dropdown-section:last-child { border-bottom: none; }
+        .search-dropdown-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            background: #f8f9fa;
+        }
+        .search-dropdown-title svg { width: 14px; height: 14px; }
+        .search-dropdown-list { }
+        .search-dropdown-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #f5f5f5;
+            transition: background 0.15s;
+        }
+        .search-dropdown-item:last-child { border-bottom: none; }
+        .search-dropdown-item:hover { background: #f5f5f5; }
+        .search-dropdown-item:active { background: #eee; }
+        .search-dropdown-item-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        .search-dropdown-item-address {
+            font-size: 12px;
+            color: #888;
+        }
+        .search-dropdown-item-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+        .search-dropdown-item-badge.apt { background: #3b82f6; color: #fff; }
+        .search-dropdown-item-badge.place { background: #22c55e; color: #fff; }
+        .search-dropdown-empty {
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+        }
+        .search-dropdown-loading {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+        }
+
         /* 지도 */
         #map {
             width: 100%;
@@ -440,22 +513,23 @@
             opacity: 1;
             pointer-events: auto;
         }
-        .info-actions { display: flex; gap: 10px; }
+        .info-actions { display: flex; gap: 8px; flex-wrap: wrap; }
         .info-btn {
             flex: 1;
-            padding: 14px;
-            border-radius: 12px;
+            min-width: 80px;
+            padding: 12px 8px;
+            border-radius: 10px;
             border: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 4px;
             transition: all 0.2s;
         }
-        .info-btn svg { width: 18px; height: 18px; }
+        .info-btn svg { width: 16px; height: 16px; }
         .info-btn.primary { background: #FEE500; color: #000; }
         .info-btn.primary:hover { background: #fdd835; }
         .info-btn.secondary { background: #f0f0f0; color: #333; }
@@ -864,13 +938,37 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
         </span>
-        <input type="text" class="search-input" placeholder="아파트명, 주소 검색" id="searchInput">
+        <input type="text" class="search-input" placeholder="아파트, 장소, 업체명 검색" id="searchInput">
         <button class="search-clear" id="searchClear" onclick="clearSearch()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
         </button>
+        <!-- 통합 검색 결과 드롭다운 -->
+        <div class="search-dropdown" id="searchDropdown">
+            <div class="search-dropdown-section" id="apartmentResults">
+                <div class="search-dropdown-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                    </svg>
+                    설치 아파트
+                </div>
+                <div class="search-dropdown-list" id="apartmentResultList"></div>
+            </div>
+            <div class="search-dropdown-section" id="kakaoResults">
+                <div class="search-dropdown-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    카카오맵 검색
+                </div>
+                <div class="search-dropdown-list" id="kakaoResultList"></div>
+            </div>
+        </div>
     </div>
 
     <div id="map"></div>
@@ -1070,6 +1168,13 @@
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                     </svg>
                     주소복사
+                </button>
+                <button class="info-btn secondary" onclick="openKakaoMapDetail()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    카카오맵
                 </button>
                 <button class="info-btn primary" onclick="openKakaoMap()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1313,6 +1418,11 @@
             const badge = document.getElementById('infoGradeBadge');
             badge.textContent = loc.grade || '-';
             badge.className = 'info-grade-badge ' + getGradeClass(loc.grade);
+            badge.style.background = '';  // 인라인 스타일 초기화
+            badge.style.color = '';
+
+            // 아파트 정보 항목들 다시 표시
+            document.querySelectorAll('.info-grid .info-item').forEach(el => el.style.display = '');
 
             // 타운보드 여부 확인 (만첨 또는 가동)
             const isTownboard = loc.type === 'townboard' || loc.type === 'townboard_op';
@@ -1388,24 +1498,203 @@
         function initSearch() {
             const input = document.getElementById('searchInput');
             const clearBtn = document.getElementById('searchClear');
+            const dropdown = document.getElementById('searchDropdown');
             let timer;
+            let kakaoTimer;
 
             input.addEventListener('input', function() {
-                clearBtn.classList.toggle('show', this.value.length > 0);
+                const query = this.value.trim();
+                clearBtn.classList.toggle('show', query.length > 0);
+
                 clearTimeout(timer);
-                timer = setTimeout(() => {
-                    currentFilters.search = this.value.toLowerCase();
+                clearTimeout(kakaoTimer);
+
+                if (query.length < 2) {
+                    dropdown.classList.remove('show');
+                    currentFilters.search = '';
                     applyFilterLogic();
+                    return;
+                }
+
+                timer = setTimeout(() => {
+                    // 아파트 검색
+                    searchApartments(query);
+                    // 카카오맵 검색
+                    kakaoTimer = setTimeout(() => {
+                        searchKakaoPlaces(query);
+                    }, 100);
                 }, 300);
             });
+
+            input.addEventListener('focus', function() {
+                if (this.value.trim().length >= 2) {
+                    dropdown.classList.add('show');
+                }
+            });
+
+            // 드롭다운 외부 클릭 시 닫기
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.search-bar')) {
+                    dropdown.classList.remove('show');
+                }
+            });
+
+            // Enter 키로 카카오맵 검색
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = this.value.trim();
+                    if (query.length >= 2) {
+                        searchKakaoPlaces(query, true);
+                    }
+                }
+            });
+        }
+
+        function searchApartments(query) {
+            const q = query.toLowerCase();
+            const results = locations.filter(d =>
+                d.name?.toLowerCase().includes(q) ||
+                d.address?.toLowerCase().includes(q) ||
+                d.dong?.toLowerCase().includes(q)
+            ).slice(0, 5);
+
+            const listEl = document.getElementById('apartmentResultList');
+            const sectionEl = document.getElementById('apartmentResults');
+
+            if (results.length === 0) {
+                sectionEl.style.display = 'none';
+            } else {
+                sectionEl.style.display = 'block';
+                listEl.innerHTML = results.map(loc => `
+                    <div class="search-dropdown-item" onclick="selectApartment('${loc.name}')">
+                        <div class="search-dropdown-item-name">
+                            ${loc.name}
+                            <span class="search-dropdown-item-badge apt">${loc.type === 'focusmedia' ? '포커스' : '타운보드'}</span>
+                        </div>
+                        <div class="search-dropdown-item-address">${loc.address}</div>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('searchDropdown').classList.add('show');
+        }
+
+        function searchKakaoPlaces(query, moveToFirst = false) {
+            const listEl = document.getElementById('kakaoResultList');
+            const sectionEl = document.getElementById('kakaoResults');
+
+            listEl.innerHTML = '<div class="search-dropdown-loading">검색 중...</div>';
+            sectionEl.style.display = 'block';
+
+            places.keywordSearch(query, function(data, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    if (moveToFirst && data.length > 0) {
+                        // Enter 키로 검색 시 첫 번째 결과로 이동
+                        selectKakaoPlace(data[0]);
+                        return;
+                    }
+
+                    listEl.innerHTML = data.slice(0, 5).map((place, i) => `
+                        <div class="search-dropdown-item" onclick="selectKakaoPlaceByIndex(${i}, '${query}')">
+                            <div class="search-dropdown-item-name">
+                                ${place.place_name}
+                                <span class="search-dropdown-item-badge place">${place.category_group_name || '장소'}</span>
+                            </div>
+                            <div class="search-dropdown-item-address">${place.road_address_name || place.address_name}</div>
+                        </div>
+                    `).join('');
+
+                    // 검색 결과 임시 저장
+                    window.lastKakaoResults = data.slice(0, 5);
+                } else {
+                    listEl.innerHTML = '<div class="search-dropdown-empty">카카오맵 검색 결과 없음</div>';
+                }
+            });
+        }
+
+        function selectApartment(name) {
+            const loc = locations.find(l => l.name === name);
+            if (loc) {
+                document.getElementById('searchDropdown').classList.remove('show');
+                document.getElementById('searchInput').value = loc.name;
+
+                if (loc.lat && loc.lng) {
+                    map.setCenter(new kakao.maps.LatLng(loc.lat, loc.lng));
+                    map.setLevel(3);
+                }
+                showInfo(loc);
+            }
+        }
+
+        function selectKakaoPlaceByIndex(index, query) {
+            if (window.lastKakaoResults && window.lastKakaoResults[index]) {
+                selectKakaoPlace(window.lastKakaoResults[index]);
+            }
+        }
+
+        function selectKakaoPlace(place) {
+            document.getElementById('searchDropdown').classList.remove('show');
+            document.getElementById('searchInput').value = place.place_name;
+
+            const position = new kakao.maps.LatLng(place.y, place.x);
+            map.setCenter(position);
+            map.setLevel(3);
+
+            // 선택한 장소에 마커 표시
+            clearPlaceMarkers();
+            const imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+            const imageSize = new kakao.maps.Size(24, 35);
+            const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+            const marker = new kakao.maps.Marker({
+                map: map,
+                position: position,
+                image: markerImage
+            });
+            placeMarkers.push(marker);
+
+            // 장소 정보 표시
+            showKakaoPlaceInfo(place);
+        }
+
+        function showKakaoPlaceInfo(place) {
+            // 카카오맵 장소 정보를 info-panel에 표시
+            selectedLocation = {
+                name: place.place_name,
+                address: place.road_address_name || place.address_name,
+                lat: parseFloat(place.y),
+                lng: parseFloat(place.x),
+                phone: place.phone,
+                category: place.category_group_name,
+                place_url: place.place_url,
+                isKakaoPlace: true
+            };
+
+            document.getElementById('infoName').textContent = place.place_name;
+            document.getElementById('infoAddress').textContent = place.road_address_name || place.address_name;
+
+            const badge = document.getElementById('infoGradeBadge');
+            badge.textContent = place.category_group_name || '장소';
+            badge.className = 'info-grade-badge';
+            badge.style.background = '#22c55e';
+            badge.style.color = '#fff';
+
+            // 아파트 정보는 숨기기
+            document.getElementById('restrictionSection').style.display = 'none';
+            document.querySelectorAll('.info-grid .info-item').forEach(el => el.style.display = 'none');
+
+            document.getElementById('infoPanel').classList.add('open');
+            document.querySelector('.overlay').classList.add('active');
         }
 
         function clearSearch() {
             const input = document.getElementById('searchInput');
             input.value = '';
             document.getElementById('searchClear').classList.remove('show');
+            document.getElementById('searchDropdown').classList.remove('show');
             currentFilters.search = '';
             applyFilterLogic();
+            clearPlaceMarkers();
             input.focus();
         }
 
@@ -1604,6 +1893,27 @@
                 } else {
                     window.open(`https://map.kakao.com/link/search/${addr}`, '_blank');
                 }
+            }
+        }
+
+        function openKakaoMapDetail() {
+            if (!selectedLocation) return;
+
+            // 카카오맵 장소인 경우 place_url 사용
+            if (selectedLocation.isKakaoPlace && selectedLocation.place_url) {
+                window.open(selectedLocation.place_url, '_blank');
+                return;
+            }
+
+            // 아파트인 경우 이름으로 검색
+            const query = encodeURIComponent(selectedLocation.name);
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                window.location.href = `kakaomap://search?q=${query}`;
+                setTimeout(() => {
+                    window.open(`https://map.kakao.com/link/search/${query}`, '_blank');
+                }, 1000);
+            } else {
+                window.open(`https://map.kakao.com/link/search/${query}`, '_blank');
             }
         }
 
