@@ -151,6 +151,7 @@
         }
         .search-dropdown-item-badge.apt { background: #3b82f6; color: #fff; }
         .search-dropdown-item-badge.place { background: #22c55e; color: #fff; }
+        .search-dropdown-item-badge.htpost { background: #f97316; color: #fff; }
         .search-dropdown-empty {
             padding: 20px;
             text-align: center;
@@ -388,6 +389,35 @@
             font-size: 12px;
             color: #888;
             margin-left: 8px;
+        }
+
+        /* HT POST 비고 섹션 */
+        .note-section {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+        .note-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ea580c;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .note-title svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+        .note-section.warning {
+            background: #fef2f2;
+            border-color: #fecaca;
+        }
+        .note-section.warning .note-title {
+            color: #dc2626;
         }
 
         /* 금액 클릭 스타일 */
@@ -1063,6 +1093,7 @@
                 <button class="filter-chip" data-value="focusmedia">포커스미디어</button>
                 <button class="filter-chip" data-value="townboard">타운보드 만첨</button>
                 <button class="filter-chip" data-value="townboard_op">타운보드 가동</button>
+                <button class="filter-chip" data-value="htpost">HT POST</button>
             </div>
         </div>
         <div class="filter-section">
@@ -1129,6 +1160,18 @@
                     영업제한 업종
                 </div>
                 <div class="restriction-items" id="restrictionItems">
+                </div>
+            </div>
+            <!-- HT POST 비고 섹션 -->
+            <div class="note-section" id="noteSection" style="display: none;">
+                <div class="note-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                    <span id="noteContent"></span>
                 </div>
             </div>
             <div class="info-grid">
@@ -1360,6 +1403,16 @@
                 `);
                 const imageSize = new kakao.maps.Size(24, 35);
                 markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+            } else if (loc.type === 'htpost') {
+                // HT POST: 주황색 마커
+                const imageSrc = 'data:image/svg+xml;base64,' + btoa(`
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="35" viewBox="0 0 24 35">
+                        <path d="M12 0C5.4 0 0 5.4 0 12c0 7.5 12 23 12 23s12-15.5 12-23C24 5.4 18.6 0 12 0z" fill="#f97316"/>
+                        <circle cx="12" cy="12" r="6" fill="white"/>
+                    </svg>
+                `);
+                const imageSize = new kakao.maps.Size(24, 35);
+                markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             }
             // 포커스미디어: 기본 마커 (파란색)
 
@@ -1415,17 +1468,26 @@
             document.getElementById('infoName').textContent = loc.name;
             document.getElementById('infoAddress').textContent = loc.address;
 
+            // 타운보드 또는 HT POST 여부 확인
+            const isTownboard = loc.type === 'townboard' || loc.type === 'townboard_op';
+            const isHtpost = loc.type === 'htpost';
+
             const badge = document.getElementById('infoGradeBadge');
-            badge.textContent = loc.grade || '-';
-            badge.className = 'info-grade-badge ' + getGradeClass(loc.grade);
             badge.style.background = '';  // 인라인 스타일 초기화
             badge.style.color = '';
 
+            if (isHtpost) {
+                badge.textContent = 'HT POST';
+                badge.className = 'info-grade-badge';
+                badge.style.background = '#f97316';
+                badge.style.color = '#fff';
+            } else {
+                badge.textContent = loc.grade || '-';
+                badge.className = 'info-grade-badge ' + getGradeClass(loc.grade);
+            }
+
             // 아파트 정보 항목들 다시 표시
             document.querySelectorAll('.info-grid .info-item').forEach(el => el.style.display = '');
-
-            // 타운보드 여부 확인 (만첨 또는 가동)
-            const isTownboard = loc.type === 'townboard' || loc.type === 'townboard_op';
 
             document.getElementById('infoHouseholds').textContent = loc.households ? loc.households.toLocaleString() : '-';
             document.getElementById('infoPopulation').textContent = loc.population ? loc.population.toLocaleString() : '-';
@@ -1440,9 +1502,16 @@
             if (isTownboard) {
                 unitPriceItem.style.display = 'none';
                 priceItem.style.display = 'none';
+            } else if (isHtpost) {
+                // HT POST: 대당가 숨기고, 월금액으로 표시
+                unitPriceItem.style.display = 'none';
+                priceItem.style.display = '';
+                document.getElementById('infoPrice').parentElement.querySelector('.info-label').textContent = '월 금액';
+                document.getElementById('infoPrice').textContent = loc.price_4w ? loc.price_4w.toLocaleString() + '원' : '-';
             } else {
                 unitPriceItem.style.display = '';
                 priceItem.style.display = '';
+                document.getElementById('infoPrice').parentElement.querySelector('.info-label').textContent = '4주 금액';
                 document.getElementById('infoUnitPrice').textContent = loc.unit_price ? loc.unit_price.toLocaleString() : '-';
                 document.getElementById('infoPrice').textContent = loc.price_4w ? loc.price_4w.toLocaleString() + '원' : '-';
             }
@@ -1489,6 +1558,25 @@
                 restrictionItems.innerHTML = itemsHtml;
             } else {
                 restrictionSection.style.display = 'none';
+            }
+
+            // HT POST 비고 정보 표시
+            const noteSection = document.getElementById('noteSection');
+            const noteContent = document.getElementById('noteContent');
+            const hasNote = loc.note && loc.note.trim() && loc.note !== 'nan' && loc.note !== 'NaN';
+
+            if (hasNote) {
+                noteSection.style.display = 'block';
+                noteContent.textContent = loc.note;
+
+                // 특정 키워드에 따른 스타일 변경
+                if (loc.note.includes('설치 이슈') || loc.note.includes('판매 불가')) {
+                    noteSection.classList.add('warning');
+                } else {
+                    noteSection.classList.remove('warning');
+                }
+            } else {
+                noteSection.style.display = 'none';
             }
 
             document.getElementById('infoPanel').classList.add('open');
@@ -1565,15 +1653,24 @@
                 sectionEl.style.display = 'none';
             } else {
                 sectionEl.style.display = 'block';
-                listEl.innerHTML = results.map(loc => `
+                listEl.innerHTML = results.map(loc => {
+                    let typeName = '포커스';
+                    let badgeStyle = 'apt';
+                    if (loc.type === 'townboard' || loc.type === 'townboard_op') {
+                        typeName = '타운보드';
+                    } else if (loc.type === 'htpost') {
+                        typeName = 'HT POST';
+                        badgeStyle = 'htpost';
+                    }
+                    return `
                     <div class="search-dropdown-item" onclick="selectApartment('${loc.name}')">
                         <div class="search-dropdown-item-name">
                             ${loc.name}
-                            <span class="search-dropdown-item-badge apt">${loc.type === 'focusmedia' ? '포커스' : '타운보드'}</span>
+                            <span class="search-dropdown-item-badge ${badgeStyle}">${typeName}</span>
                         </div>
                         <div class="search-dropdown-item-address">${loc.address}</div>
                     </div>
-                `).join('');
+                `}).join('');
             }
 
             document.getElementById('searchDropdown').classList.add('show');
