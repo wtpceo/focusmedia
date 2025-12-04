@@ -1294,7 +1294,6 @@
         let isPlaceSearchOpen = false;
         let places;  // 카카오 장소 검색 객체
         let placeMarkers = [];  // 주변 업체 마커들
-        let clusterer;  // 마커 클러스터러
 
         document.addEventListener('DOMContentLoaded', async function() {
             await loadData();
@@ -1341,46 +1340,6 @@
             map = new kakao.maps.Map(container, options);
             geocoder = new kakao.maps.services.Geocoder();
             places = new kakao.maps.services.Places(map);  // 장소 검색 객체 초기화
-
-            // 마커 클러스터러 초기화
-            clusterer = new kakao.maps.MarkerClusterer({
-                map: map,
-                averageCenter: true,  // 클러스터 중심을 마커들의 평균 위치로
-                minLevel: 4,  // 클러스터 할 최소 지도 레벨
-                disableClickZoom: false,  // 클러스터 클릭 시 확대
-                styles: [{
-                    width: '50px',
-                    height: '50px',
-                    background: 'rgba(59, 130, 246, 0.8)',
-                    borderRadius: '25px',
-                    color: '#fff',
-                    textAlign: 'center',
-                    fontWeight: 'bold',
-                    lineHeight: '50px',
-                    fontSize: '14px'
-                }, {
-                    width: '60px',
-                    height: '60px',
-                    background: 'rgba(139, 92, 246, 0.8)',
-                    borderRadius: '30px',
-                    color: '#fff',
-                    textAlign: 'center',
-                    fontWeight: 'bold',
-                    lineHeight: '60px',
-                    fontSize: '16px'
-                }, {
-                    width: '70px',
-                    height: '70px',
-                    background: 'rgba(239, 68, 68, 0.8)',
-                    borderRadius: '35px',
-                    color: '#fff',
-                    textAlign: 'center',
-                    fontWeight: 'bold',
-                    lineHeight: '70px',
-                    fontSize: '18px'
-                }]
-            });
-
             kakao.maps.event.addListener(map, 'click', closeInfoPanel);
             geocodeAndCreateMarkers();
             initPlaceSearch();  // 주변 업체 검색 초기화
@@ -1390,12 +1349,10 @@
             let processed = 0;
             let success = 0;
             const total = filteredLocations.length;
-            const clusterMarkers = [];
 
             for (let loc of filteredLocations) {
                 if (loc.lat && loc.lng) {
-                    const marker = createMarker(loc);
-                    if (marker) clusterMarkers.push(marker);
+                    createMarker(loc);
                     success++;
                     processed++;
                     continue;
@@ -1406,8 +1363,7 @@
                         if (status === kakao.maps.services.Status.OK) {
                             loc.lat = parseFloat(result[0].y);
                             loc.lng = parseFloat(result[0].x);
-                            const marker = createMarker(loc);
-                            if (marker) clusterMarkers.push(marker);
+                            createMarker(loc);
                             success++;
                         }
                         processed++;
@@ -1419,9 +1375,6 @@
                 });
                 await new Promise(r => setTimeout(r, 50));
             }
-
-            // 클러스터러에 마커 추가
-            clusterer.addMarkers(clusterMarkers);
 
             document.getElementById('loading').classList.add('hidden');
             document.getElementById('visibleCount').textContent = success.toLocaleString();
@@ -1465,6 +1418,7 @@
 
             const marker = new kakao.maps.Marker({
                 position: markerPosition,
+                map: map,
                 image: markerImage
             });
             kakao.maps.event.addListener(marker, 'click', function() {
@@ -1473,7 +1427,6 @@
                 map.setLevel(3);
             });
             markers.push({ marker, data: loc });
-            return marker;
         }
 
         function saveCoordinates() {
@@ -1896,8 +1849,6 @@
         }
 
         function applyFilterLogic() {
-            // 기존 마커 제거
-            clusterer.clear();
             markers.forEach(m => m.marker.setMap(null));
             markers = [];
 
@@ -1938,18 +1889,13 @@
 
             let mapCount = 0;
             let firstLoc = null;
-            const clusterMarkers = [];
             filteredLocations.forEach(loc => {
                 if (loc.lat && loc.lng) {
-                    const marker = createMarker(loc);
-                    if (marker) clusterMarkers.push(marker);
+                    createMarker(loc);
                     if (!firstLoc) firstLoc = loc;
                     mapCount++;
                 }
             });
-
-            // 클러스터러에 마커 추가
-            clusterer.addMarkers(clusterMarkers);
 
             // 필터된 결과가 있으면 모든 마커가 보이도록 지도 범위 조정
             if (firstLoc && !currentFilters.gu.includes('all')) {
