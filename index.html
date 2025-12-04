@@ -1352,7 +1352,6 @@
 
             for (let loc of filteredLocations) {
                 if (loc.lat && loc.lng) {
-                    createMarker(loc);
                     success++;
                     processed++;
                     continue;
@@ -1363,7 +1362,6 @@
                         if (status === kakao.maps.services.Status.OK) {
                             loc.lat = parseFloat(result[0].y);
                             loc.lng = parseFloat(result[0].x);
-                            createMarker(loc);
                             success++;
                         }
                         processed++;
@@ -1376,15 +1374,51 @@
                 await new Promise(r => setTimeout(r, 50));
             }
 
+            // 좌표 저장 후 오프셋 적용하여 마커 생성
+            saveCoordinates();
+            createMarkersWithOffset(filteredLocations);
+
             document.getElementById('loading').classList.add('hidden');
             document.getElementById('visibleCount').textContent = success.toLocaleString();
             updateListView();
-            saveCoordinates();
         }
 
-        function createMarker(loc) {
+        // 같은 위치의 마커들에 오프셋 적용
+        function createMarkersWithOffset(locs) {
+            // 좌표별로 그룹화 (소수점 4자리까지 같으면 같은 위치로 판단)
+            const coordGroups = {};
+            locs.forEach(loc => {
+                if (!loc.lat || !loc.lng) return;
+                const key = `${loc.lat.toFixed(4)}_${loc.lng.toFixed(4)}`;
+                if (!coordGroups[key]) coordGroups[key] = [];
+                coordGroups[key].push(loc);
+            });
+
+            // 각 그룹에 오프셋 적용하여 마커 생성
+            const offset = 0.00015; // 약 15m
+            Object.values(coordGroups).forEach(group => {
+                if (group.length === 1) {
+                    // 단일 마커는 그대로
+                    createMarker(group[0]);
+                } else {
+                    // 여러 마커가 겹치면 오프셋 적용
+                    const angleStep = (2 * Math.PI) / group.length;
+                    group.forEach((loc, idx) => {
+                        const angle = angleStep * idx - Math.PI / 2; // 위쪽부터 시작
+                        const offsetLat = loc.lat + offset * Math.cos(angle);
+                        const offsetLng = loc.lng + offset * Math.sin(angle);
+                        createMarker(loc, offsetLat, offsetLng);
+                    });
+                }
+            });
+        }
+
+        function createMarker(loc, offsetLat, offsetLng) {
             if (!loc.lat || !loc.lng) return;
-            const markerPosition = new kakao.maps.LatLng(loc.lat, loc.lng);
+            // 오프셋이 있으면 사용, 없으면 원래 좌표 사용
+            const lat = offsetLat !== undefined ? offsetLat : loc.lat;
+            const lng = offsetLng !== undefined ? offsetLng : loc.lng;
+            const markerPosition = new kakao.maps.LatLng(lat, lng);
 
             // 타입에 따라 다른 마커 이미지 사용
             let markerImage = null;
@@ -1891,11 +1925,13 @@
             let firstLoc = null;
             filteredLocations.forEach(loc => {
                 if (loc.lat && loc.lng) {
-                    createMarker(loc);
                     if (!firstLoc) firstLoc = loc;
                     mapCount++;
                 }
             });
+
+            // 오프셋 적용하여 마커 생성
+            createMarkersWithOffset(filteredLocations);
 
             // 필터된 결과가 있으면 모든 마커가 보이도록 지도 범위 조정
             if (firstLoc && !currentFilters.gu.includes('all')) {
