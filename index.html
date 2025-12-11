@@ -602,8 +602,6 @@
         .float-btn:active { transform: translateY(0); }
         .float-btn svg { width: 22px; height: 22px; color: #333; }
         .float-btn.active { background: #FEE500; }
-        .float-btn.roadview-active { background: #3b82f6; }
-        .float-btn.roadview-active svg { color: #fff; }
 
         /* 로드뷰 컨테이너 */
         .roadview-container {
@@ -647,22 +645,6 @@
             text-align: center;
             max-width: 90%;
         }
-        .roadview-mode-toast {
-            position: fixed;
-            top: 130px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #3b82f6;
-            color: #fff;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-size: 14px;
-            z-index: 1500;
-            display: none;
-            box-shadow: 0 4px 12px rgba(59,130,246,0.4);
-        }
-        .roadview-mode-toast.show { display: block; }
-
         /* 통계 배지 */
         .stats-badge {
             position: fixed;
@@ -1099,13 +1081,6 @@
     </div>
 
     <div class="floating-btns">
-        <button class="float-btn" onclick="toggleRoadviewMode()" id="roadviewToggle" aria-label="로드뷰">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="8" r="4"></circle>
-                <path d="M12 12v8"></path>
-                <path d="M8 20h8"></path>
-            </svg>
-        </button>
         <button class="float-btn" onclick="togglePlaceSearch()" id="placeSearchToggle" aria-label="주변 업체 검색">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -1311,9 +1286,6 @@
 
     <div class="toast" id="toast"></div>
 
-    <!-- 로드뷰 모드 안내 -->
-    <div class="roadview-mode-toast" id="roadviewModeToast">🚶 지도를 클릭하면 해당 위치의 로드뷰가 표시됩니다</div>
-
     <!-- 로드뷰 컨테이너 -->
     <div class="roadview-container" id="roadviewContainer">
         <div id="roadview"></div>
@@ -1388,8 +1360,6 @@
         // 로드뷰 관련 변수
         let roadview;
         let roadviewClient;
-        let isRoadviewMode = false;
-        let roadviewClickListener = null;
 
         document.addEventListener('DOMContentLoaded', async function() {
             await loadData();
@@ -2111,36 +2081,12 @@
             roadviewClient = new kakao.maps.RoadviewClient();
         }
 
-        function toggleRoadviewMode() {
-            isRoadviewMode = !isRoadviewMode;
-            const btn = document.getElementById('roadviewToggle');
-            const toast = document.getElementById('roadviewModeToast');
-
-            if (isRoadviewMode) {
-                btn.classList.add('roadview-active');
-                toast.classList.add('show');
-
-                // 지도 클릭 이벤트 추가
-                roadviewClickListener = function(mouseEvent) {
-                    const latlng = mouseEvent.latLng;
-                    showRoadview(latlng.getLat(), latlng.getLng());
-                };
-                kakao.maps.event.addListener(map, 'click', roadviewClickListener);
-                showToast('로드뷰 모드가 켜졌습니다');
-            } else {
-                btn.classList.remove('roadview-active');
-                toast.classList.remove('show');
-
-                // 지도 클릭 이벤트 제거
-                if (roadviewClickListener) {
-                    kakao.maps.event.removeListener(map, 'click', roadviewClickListener);
-                    roadviewClickListener = null;
-                }
-                showToast('로드뷰 모드가 꺼졌습니다');
-            }
-        }
-
         function showRoadview(lat, lng) {
+            // 로드뷰 클라이언트가 초기화되지 않았으면 초기화
+            if (!roadviewClient) {
+                roadviewClient = new kakao.maps.RoadviewClient();
+            }
+
             const position = new kakao.maps.LatLng(lat, lng);
 
             roadviewClient.getNearestPanoId(position, 50, function(panoId) {
