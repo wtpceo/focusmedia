@@ -152,6 +152,7 @@
         .search-dropdown-item-badge.apt { background: #3b82f6; color: #fff; }
         .search-dropdown-item-badge.place { background: #22c55e; color: #fff; }
         .search-dropdown-item-badge.htpost { background: #f97316; color: #fff; }
+        .search-dropdown-item-badge.cgv { background: #8b5cf6; color: #fff; }
         .search-dropdown-empty {
             padding: 20px;
             text-align: center;
@@ -1136,6 +1137,7 @@
                 <button class="filter-chip" data-value="townboard">타운보드 만첨</button>
                 <button class="filter-chip" data-value="townboard_op">타운보드 가동</button>
                 <button class="filter-chip" data-value="htpost">HT POST</button>
+                <button class="filter-chip" data-value="cgv">CGV 스크린</button>
             </div>
         </div>
         <div class="filter-section">
@@ -1374,6 +1376,17 @@
             try {
                 const response = await fetch('data.json');
                 locations = await response.json();
+
+                // CGV 데이터 로드 및 통합
+                try {
+                    const cgvResponse = await fetch('cgv_converted.json');
+                    const cgvData = await cgvResponse.json();
+                    locations = locations.concat(cgvData);
+                    console.log('CGV 데이터 로드 완료:', cgvData.length + '개');
+                } catch (cgvErr) {
+                    console.log('CGV 데이터 없음 (정상)');
+                }
+
                 loadSavedCoordinates();
                 filteredLocations = [...locations];
 
@@ -1513,6 +1526,16 @@
                 `);
                 const imageSize = new kakao.maps.Size(24, 35);
                 markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+            } else if (loc.type === 'cgv') {
+                // CGV: 보라색 마커
+                const imageSrc = 'data:image/svg+xml;base64,' + btoa(`
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="35" viewBox="0 0 24 35">
+                        <path d="M12 0C5.4 0 0 5.4 0 12c0 7.5 12 23 12 23s12-15.5 12-23C24 5.4 18.6 0 12 0z" fill="#8b5cf6"/>
+                        <circle cx="12" cy="12" r="6" fill="white"/>
+                    </svg>
+                `);
+                const imageSize = new kakao.maps.Size(24, 35);
+                markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             }
             // 포커스미디어: 기본 마커 (파란색)
 
@@ -1568,9 +1591,10 @@
             document.getElementById('infoName').textContent = loc.name;
             document.getElementById('infoAddress').textContent = loc.address;
 
-            // 타운보드 또는 HT POST 여부 확인
+            // 타운보드 또는 HT POST 또는 CGV 여부 확인
             const isTownboard = loc.type === 'townboard' || loc.type === 'townboard_op';
             const isHtpost = loc.type === 'htpost';
+            const isCgv = loc.type === 'cgv';
 
             const badge = document.getElementById('infoGradeBadge');
             badge.style.background = '';  // 인라인 스타일 초기화
@@ -1581,6 +1605,11 @@
                 badge.className = 'info-grade-badge';
                 badge.style.background = '#f97316';
                 badge.style.color = '#fff';
+            } else if (isCgv) {
+                badge.textContent = 'CGV';
+                badge.className = 'info-grade-badge';
+                badge.style.background = '#8b5cf6';
+                badge.style.color = '#fff';
             } else {
                 badge.textContent = loc.grade || '-';
                 badge.className = 'info-grade-badge ' + getGradeClass(loc.grade);
@@ -1589,11 +1618,31 @@
             // 아파트 정보 항목들 다시 표시
             document.querySelectorAll('.info-grid .info-item').forEach(el => el.style.display = '');
 
-            document.getElementById('infoHouseholds').textContent = loc.households ? loc.households.toLocaleString() : '-';
-            document.getElementById('infoPopulation').textContent = loc.population ? loc.population.toLocaleString() : '-';
-            document.getElementById('infoFloors').textContent = loc.floors ? loc.floors + 'F' : '-';
-            document.getElementById('infoArea').textContent = loc.area ? (typeof loc.area === 'number' ? loc.area + '평' : loc.area) : '-';
-            document.getElementById('infoQuantity').textContent = loc.quantity ? loc.quantity + '대' : '-';
+            // 라벨 초기화
+            document.getElementById('infoHouseholds').parentElement.querySelector('.info-label').textContent = '세대수';
+            document.getElementById('infoPopulation').parentElement.querySelector('.info-label').textContent = '예상인구';
+            document.getElementById('infoFloors').parentElement.querySelector('.info-label').textContent = '층수';
+            document.getElementById('infoArea').parentElement.querySelector('.info-label').textContent = '면적';
+
+            if (isCgv) {
+                // CGV: 스크린수, 좌석수, 지역 표시
+                document.getElementById('infoHouseholds').parentElement.querySelector('.info-label').textContent = '스크린';
+                document.getElementById('infoHouseholds').textContent = loc.screens ? loc.screens + '관' : '-';
+                document.getElementById('infoPopulation').parentElement.querySelector('.info-label').textContent = '좌석수';
+                document.getElementById('infoPopulation').textContent = loc.seats ? loc.seats.toLocaleString() + '석' : '-';
+                document.getElementById('infoFloors').parentElement.querySelector('.info-label').textContent = '지역';
+                document.getElementById('infoFloors').textContent = loc.area || '-';
+                document.getElementById('infoArea').parentElement.style.display = 'none';
+                document.getElementById('infoQuantity').parentElement.style.display = 'none';
+            } else {
+                document.getElementById('infoHouseholds').textContent = loc.households ? loc.households.toLocaleString() : '-';
+                document.getElementById('infoPopulation').textContent = loc.population ? loc.population.toLocaleString() : '-';
+                document.getElementById('infoFloors').textContent = loc.floors ? loc.floors + 'F' : '-';
+                document.getElementById('infoArea').textContent = loc.area ? (typeof loc.area === 'number' ? loc.area + '평' : loc.area) : '-';
+                document.getElementById('infoArea').parentElement.style.display = '';
+                document.getElementById('infoQuantity').textContent = loc.quantity ? loc.quantity + '대' : '-';
+                document.getElementById('infoQuantity').parentElement.style.display = '';
+            }
 
             // 타운보드는 대당가, 4주 금액 숨김
             const unitPriceItem = document.getElementById('infoUnitPrice').parentElement;
@@ -1608,6 +1657,12 @@
                 priceItem.style.display = '';
                 document.getElementById('infoPrice').parentElement.querySelector('.info-label').textContent = '월 금액';
                 document.getElementById('infoPrice').textContent = loc.price_4w ? loc.price_4w.toLocaleString() + '원' : '-';
+            } else if (isCgv) {
+                // CGV: 대당가 숨기고, 15초 단가로 표시
+                unitPriceItem.style.display = 'none';
+                priceItem.style.display = '';
+                document.getElementById('infoPrice').parentElement.querySelector('.info-label').textContent = '15초 단가';
+                document.getElementById('infoPrice').textContent = loc.price ? loc.price.toLocaleString() + '원' : '-';
             } else {
                 unitPriceItem.style.display = '';
                 priceItem.style.display = '';
@@ -1761,6 +1816,9 @@
                     } else if (loc.type === 'htpost') {
                         typeName = 'HT POST';
                         badgeStyle = 'htpost';
+                    } else if (loc.type === 'cgv') {
+                        typeName = 'CGV';
+                        badgeStyle = 'cgv';
                     }
                     return `
                     <div class="search-dropdown-item" onclick="selectApartment('${loc.name}')">
@@ -2031,15 +2089,37 @@
                     if (isListView) toggleView();
                 };
 
+                // CGV인 경우 다른 정보 표시
+                let badgeHtml = '';
+                let infoHtml = '';
+                if (loc.type === 'cgv') {
+                    badgeHtml = `<span class="grade-badge" style="background:#8b5cf6;color:#fff;">CGV</span>`;
+                    infoHtml = `
+                        <span>스크린 <strong>${loc.screens || '-'}관</strong></span>
+                        <span>15초 <strong>${loc.price?.toLocaleString() || '-'}원</strong></span>
+                    `;
+                } else if (loc.type === 'htpost') {
+                    badgeHtml = `<span class="grade-badge" style="background:#f97316;color:#fff;">HT POST</span>`;
+                    infoHtml = `
+                        <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
+                        <span>월 <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
+                    `;
+                } else {
+                    badgeHtml = `<span class="grade-badge ${getGradeClass(loc.grade)}">${loc.grade || '-'}</span>`;
+                    infoHtml = `
+                        <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
+                        <span>4주 <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
+                    `;
+                }
+
                 item.innerHTML = `
                     <div class="list-item-header">
                         <span class="list-item-name">${loc.name}</span>
-                        <span class="grade-badge ${getGradeClass(loc.grade)}">${loc.grade || '-'}</span>
+                        ${badgeHtml}
                     </div>
                     <div class="list-item-address">${loc.address}</div>
                     <div class="list-item-info">
-                        <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
-                        <span>4주 <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
+                        ${infoHtml}
                     </div>
                 `;
                 listContent.appendChild(item);
