@@ -153,6 +153,7 @@
         .search-dropdown-item-badge.place { background: #22c55e; color: #fff; }
         .search-dropdown-item-badge.htpost { background: #f97316; color: #fff; }
         .search-dropdown-item-badge.cgv { background: #8b5cf6; color: #fff; }
+        .search-dropdown-item-badge.megabox { background: #06b6d4; color: #fff; }
         .search-dropdown-empty {
             padding: 20px;
             text-align: center;
@@ -1138,6 +1139,7 @@
                 <button class="filter-chip" data-value="townboard_op">타운보드 가동</button>
                 <button class="filter-chip" data-value="htpost">HT POST</button>
                 <button class="filter-chip" data-value="cgv">CGV 스크린</button>
+                <button class="filter-chip" data-value="megabox">메가박스</button>
             </div>
         </div>
         <div class="filter-section">
@@ -1387,6 +1389,16 @@
                     console.log('CGV 데이터 없음 (정상)');
                 }
 
+                // 메가박스 데이터 로드 및 통합
+                try {
+                    const megaboxResponse = await fetch('megabox_converted.json');
+                    const megaboxData = await megaboxResponse.json();
+                    locations = locations.concat(megaboxData);
+                    console.log('메가박스 데이터 로드 완료:', megaboxData.length + '개');
+                } catch (megaboxErr) {
+                    console.log('메가박스 데이터 없음 (정상)');
+                }
+
                 loadSavedCoordinates();
                 filteredLocations = [...locations];
 
@@ -1536,6 +1548,16 @@
                 `);
                 const imageSize = new kakao.maps.Size(24, 35);
                 markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+            } else if (loc.type === 'megabox') {
+                // 메가박스: 청록색 마커
+                const imageSrc = 'data:image/svg+xml;base64,' + btoa(`
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="35" viewBox="0 0 24 35">
+                        <path d="M12 0C5.4 0 0 5.4 0 12c0 7.5 12 23 12 23s12-15.5 12-23C24 5.4 18.6 0 12 0z" fill="#06b6d4"/>
+                        <circle cx="12" cy="12" r="6" fill="white"/>
+                    </svg>
+                `);
+                const imageSize = new kakao.maps.Size(24, 35);
+                markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             }
             // 포커스미디어: 기본 마커 (파란색)
 
@@ -1591,10 +1613,11 @@
             document.getElementById('infoName').textContent = loc.name;
             document.getElementById('infoAddress').textContent = loc.address;
 
-            // 타운보드 또는 HT POST 또는 CGV 여부 확인
+            // 타운보드 또는 HT POST 또는 CGV 또는 메가박스 여부 확인
             const isTownboard = loc.type === 'townboard' || loc.type === 'townboard_op';
             const isHtpost = loc.type === 'htpost';
             const isCgv = loc.type === 'cgv';
+            const isMegabox = loc.type === 'megabox';
 
             const badge = document.getElementById('infoGradeBadge');
             badge.style.background = '';  // 인라인 스타일 초기화
@@ -1610,6 +1633,11 @@
                 badge.className = 'info-grade-badge';
                 badge.style.background = '#8b5cf6';
                 badge.style.color = '#fff';
+            } else if (isMegabox) {
+                badge.textContent = '메가박스';
+                badge.className = 'info-grade-badge';
+                badge.style.background = '#06b6d4';
+                badge.style.color = '#fff';
             } else {
                 badge.textContent = loc.grade || '-';
                 badge.className = 'info-grade-badge ' + getGradeClass(loc.grade);
@@ -1624,8 +1652,8 @@
             document.getElementById('infoFloors').parentElement.querySelector('.info-label').textContent = '층수';
             document.getElementById('infoArea').parentElement.querySelector('.info-label').textContent = '면적';
 
-            if (isCgv) {
-                // CGV: 스크린수, 좌석수, 지역 표시
+            if (isCgv || isMegabox) {
+                // CGV/메가박스: 스크린수, 좌석수, 지역 표시
                 document.getElementById('infoHouseholds').parentElement.querySelector('.info-label').textContent = '스크린';
                 document.getElementById('infoHouseholds').textContent = loc.screens ? loc.screens + '관' : '-';
                 document.getElementById('infoPopulation').parentElement.querySelector('.info-label').textContent = '좌석수';
@@ -1657,8 +1685,8 @@
                 priceItem.style.display = '';
                 document.getElementById('infoPrice').parentElement.querySelector('.info-label').textContent = '월 금액';
                 document.getElementById('infoPrice').textContent = loc.price_4w ? loc.price_4w.toLocaleString() + '원' : '-';
-            } else if (isCgv) {
-                // CGV: 대당가 숨기고, 15초 단가로 표시
+            } else if (isCgv || isMegabox) {
+                // CGV/메가박스: 대당가 숨기고, 15초 단가로 표시
                 unitPriceItem.style.display = 'none';
                 priceItem.style.display = '';
                 document.getElementById('infoPrice').parentElement.querySelector('.info-label').textContent = '15초 단가';
@@ -1819,6 +1847,9 @@
                     } else if (loc.type === 'cgv') {
                         typeName = 'CGV';
                         badgeStyle = 'cgv';
+                    } else if (loc.type === 'megabox') {
+                        typeName = '메가박스';
+                        badgeStyle = 'megabox';
                     }
                     return `
                     <div class="search-dropdown-item" onclick="selectApartment('${loc.name}')">
@@ -2089,11 +2120,17 @@
                     if (isListView) toggleView();
                 };
 
-                // CGV인 경우 다른 정보 표시
+                // CGV/메가박스인 경우 다른 정보 표시
                 let badgeHtml = '';
                 let infoHtml = '';
                 if (loc.type === 'cgv') {
                     badgeHtml = `<span class="grade-badge" style="background:#8b5cf6;color:#fff;">CGV</span>`;
+                    infoHtml = `
+                        <span>스크린 <strong>${loc.screens || '-'}관</strong></span>
+                        <span>15초 <strong>${loc.price?.toLocaleString() || '-'}원</strong></span>
+                    `;
+                } else if (loc.type === 'megabox') {
+                    badgeHtml = `<span class="grade-badge" style="background:#06b6d4;color:#fff;">메가박스</span>`;
                     infoHtml = `
                         <span>스크린 <strong>${loc.screens || '-'}관</strong></span>
                         <span>15초 <strong>${loc.price?.toLocaleString() || '-'}원</strong></span>
