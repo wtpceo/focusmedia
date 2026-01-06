@@ -38,7 +38,7 @@ def clean_date(value):
         return ''
 
 def main():
-    input_file = '/Users/wtpceo/Desktop/01.위플 프로젝트/01.개발/08.homepages_1/03.focus/엘리베이터TV 설치리스트(외부용)_251201.xlsx'
+    input_file = '/Users/wtpceo/Desktop/01.위플 프로젝트/01.개발/08.homepages_1/03.focus/엘리베이터TV 설치리스트(외부용)_260105.xlsx'
     output_file = '/Users/wtpceo/Desktop/01.위플 프로젝트/01.개발/08.homepages_1/03.focus/data_focusmedia.json'
 
     # 엑셀 파일 읽기 (헤더는 3행, 0-indexed로 3)
@@ -62,11 +62,11 @@ def main():
         if not address:
             continue
 
-        # 영업제한 업종 정보
-        restriction1_type = clean_text(row.get('구좌1 영업제한 업종', ''))
-        restriction1_date = clean_date(row.get('구좌1 영업제한 기한', ''))
-        restriction2_type = clean_text(row.get('구좌2 영업제한 업종', ''))
-        restriction2_date = clean_date(row.get('구좌2 영업제한기한', ''))
+        # 영업제한 업종 정보 (컬럼명에 줄바꿈 포함)
+        restriction1_type = clean_text(row.get('구좌1 \n영업제한 업종', ''))
+        restriction1_date = clean_date(row.get('구좌1 \n영업제한 기한', ''))
+        restriction2_type = clean_text(row.get('구좌2 \n영업제한 업종', ''))
+        restriction2_date = clean_date(row.get('구좌2 \n영업제한기한', ''))
 
         # 프리미엄 여부 확인
         premium = clean_text(row.get('프리미엄 여부', ''))
