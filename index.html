@@ -154,6 +154,7 @@
         .search-dropdown-item-badge.htpost { background: #f97316; color: #fff; }
         .search-dropdown-item-badge.cgv { background: #8b5cf6; color: #fff; }
         .search-dropdown-item-badge.megabox { background: #06b6d4; color: #fff; }
+        .search-dropdown-item-badge.mediameet { background: #ec4899; color: #fff; }
         .search-dropdown-empty {
             padding: 20px;
             text-align: center;
@@ -1140,6 +1141,7 @@
                 <button class="filter-chip" data-value="htpost">HT POST</button>
                 <button class="filter-chip" data-value="cgv">CGV 스크린</button>
                 <button class="filter-chip" data-value="megabox">메가박스</button>
+                <button class="filter-chip" data-value="mediameet">MEDIA MEET</button>
             </div>
         </div>
         <div class="filter-section">
@@ -1558,6 +1560,16 @@
                 `);
                 const imageSize = new kakao.maps.Size(24, 35);
                 markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+            } else if (loc.type === 'mediameet') {
+                // MEDIA MEET: 핑크색 마커
+                const imageSrc = 'data:image/svg+xml;base64,' + btoa(`
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="35" viewBox="0 0 24 35">
+                        <path d="M12 0C5.4 0 0 5.4 0 12c0 7.5 12 23 12 23s12-15.5 12-23C24 5.4 18.6 0 12 0z" fill="#ec4899"/>
+                        <circle cx="12" cy="12" r="6" fill="white"/>
+                    </svg>
+                `);
+                const imageSize = new kakao.maps.Size(24, 35);
+                markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             }
             // 포커스미디어: 기본 마커 (파란색)
 
@@ -1613,11 +1625,12 @@
             document.getElementById('infoName').textContent = loc.name;
             document.getElementById('infoAddress').textContent = loc.address;
 
-            // 타운보드 또는 HT POST 또는 CGV 또는 메가박스 여부 확인
+            // 타운보드 또는 HT POST 또는 CGV 또는 메가박스 또는 MEDIA MEET 여부 확인
             const isTownboard = loc.type === 'townboard' || loc.type === 'townboard_op';
             const isHtpost = loc.type === 'htpost';
             const isCgv = loc.type === 'cgv';
             const isMegabox = loc.type === 'megabox';
+            const isMediameet = loc.type === 'mediameet';
 
             const badge = document.getElementById('infoGradeBadge');
             badge.style.background = '';  // 인라인 스타일 초기화
@@ -1637,6 +1650,11 @@
                 badge.textContent = '메가박스';
                 badge.className = 'info-grade-badge';
                 badge.style.background = '#06b6d4';
+                badge.style.color = '#fff';
+            } else if (isMediameet) {
+                badge.textContent = 'MEDIA MEET';
+                badge.className = 'info-grade-badge';
+                badge.style.background = '#ec4899';
                 badge.style.color = '#fff';
             } else {
                 badge.textContent = loc.grade || '-';
@@ -1691,6 +1709,12 @@
                 priceItem.style.display = '';
                 document.getElementById('infoPrice').parentElement.querySelector('.info-label').textContent = '15초 단가';
                 document.getElementById('infoPrice').textContent = loc.price ? loc.price.toLocaleString() + '원' : '-';
+            } else if (isMediameet) {
+                // MEDIA MEET: 대당가 숨기고, 15초 단가로 표시
+                unitPriceItem.style.display = 'none';
+                priceItem.style.display = '';
+                document.getElementById('infoPrice').parentElement.querySelector('.info-label').textContent = '15초 단가';
+                document.getElementById('infoPrice').textContent = loc.unit_price ? loc.unit_price.toLocaleString() + '원' : '-';
             } else {
                 unitPriceItem.style.display = '';
                 priceItem.style.display = '';
@@ -1850,6 +1874,9 @@
                     } else if (loc.type === 'megabox') {
                         typeName = '메가박스';
                         badgeStyle = 'megabox';
+                    } else if (loc.type === 'mediameet') {
+                        typeName = 'MEDIA MEET';
+                        badgeStyle = 'mediameet';
                     }
                     return `
                     <div class="search-dropdown-item" onclick="selectApartment('${loc.name}')">
@@ -2140,6 +2167,12 @@
                     infoHtml = `
                         <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
                         <span>월 <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
+                    `;
+                } else if (loc.type === 'mediameet') {
+                    badgeHtml = `<span class="grade-badge" style="background:#ec4899;color:#fff;">MEDIA MEET</span>`;
+                    infoHtml = `
+                        <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
+                        <span>15초 <strong>${loc.unit_price?.toLocaleString() || '-'}원</strong></span>
                     `;
                 } else {
                     badgeHtml = `<span class="grade-badge ${getGradeClass(loc.grade)}">${loc.grade || '-'}</span>`;
