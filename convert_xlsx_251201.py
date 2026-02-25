@@ -38,8 +38,8 @@ def clean_date(value):
         return ''
 
 def main():
-    input_file = '/Users/wtpceo/Desktop/01.위플 프로젝트/01.개발/08.homepages_1/03.focus/엘리베이터TV 설치리스트(외부용)_260105.xlsx'
-    output_file = '/Users/wtpceo/Desktop/01.위플 프로젝트/01.개발/08.homepages_1/03.focus/data_focusmedia.json'
+    input_file = '/Users/kimminwoo/Documents/업무/00.개발/1.focus/엘리베이터TV 설치리스트(외부용)_260223.xlsx'
+    output_file = '/Users/kimminwoo/Documents/업무/00.개발/1.focus/data_focusmedia.json'
 
     # 엑셀 파일 읽기 (헤더는 3행, 0-indexed로 3)
     df = pd.read_excel(input_file, header=3)
