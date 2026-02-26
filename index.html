@@ -1138,6 +1138,7 @@
                 <button class="filter-chip" data-value="focusmedia">포커스미디어</button>
                 <button class="filter-chip" data-value="townboard">타운보드 만첨</button>
                 <button class="filter-chip" data-value="townboard_op">타운보드 가동</button>
+                <button class="filter-chip" data-value="townboard_l">타운보드L</button>
                 <button class="filter-chip" data-value="htpost">HT POST</button>
                 <button class="filter-chip" data-value="cgv">CGV 스크린</button>
                 <button class="filter-chip" data-value="megabox">메가박스</button>
@@ -1530,6 +1531,16 @@
                 `);
                 const imageSize = new kakao.maps.Size(24, 35);
                 markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+            } else if (loc.type === 'townboard_l') {
+                // 타운보드L: 초록색 마커
+                const imageSrc = 'data:image/svg+xml;base64,' + btoa(`
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="35" viewBox="0 0 24 35">
+                        <path d="M12 0C5.4 0 0 5.4 0 12c0 7.5 12 23 12 23s12-15.5 12-23C24 5.4 18.6 0 12 0z" fill="#22c55e"/>
+                        <circle cx="12" cy="12" r="6" fill="white"/>
+                    </svg>
+                `);
+                const imageSize = new kakao.maps.Size(24, 35);
+                markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             } else if (loc.type === 'htpost') {
                 // HT POST: 주황색 마커
                 const imageSrc = 'data:image/svg+xml;base64,' + btoa(`
@@ -1626,7 +1637,7 @@
             document.getElementById('infoAddress').textContent = loc.address;
 
             // 타운보드 또는 HT POST 또는 CGV 또는 메가박스 또는 MEDIA MEET 여부 확인
-            const isTownboard = loc.type === 'townboard' || loc.type === 'townboard_op';
+            const isTownboard = loc.type === 'townboard' || loc.type === 'townboard_op' || loc.type === 'townboard_l';
             const isHtpost = loc.type === 'htpost';
             const isCgv = loc.type === 'cgv';
             const isMegabox = loc.type === 'megabox';
@@ -1863,7 +1874,7 @@
                 listEl.innerHTML = results.map(loc => {
                     let typeName = '포커스';
                     let badgeStyle = 'apt';
-                    if (loc.type === 'townboard' || loc.type === 'townboard_op') {
+                    if (loc.type === 'townboard' || loc.type === 'townboard_op' || loc.type === 'townboard_l') {
                         typeName = '타운보드';
                     } else if (loc.type === 'htpost') {
                         typeName = 'HT POST';

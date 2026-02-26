@@ -103,7 +103,7 @@ def try_geocode(address, name):
     return None, None
 
 def main():
-    input_file = '/Users/wtpceo/Desktop/01.위플 프로젝트/01.개발/08.homepages_1/03.focus/data.json'
+    input_file = '/Users/kimminwoo/Documents/업무/00.개발/1.focus/data.json'
 
     with open(input_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
