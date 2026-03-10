@@ -8,9 +8,9 @@ HTPOST 가동리스트 엑셀 → JSON 변환 스크립트
 import pandas as pd
 import json
 
-INPUT_FILE = 'HTPOST 가동리스트_로컬파트너사_260121.xlsx'
+INPUT_FILE = '[현대에이치티] 단지별 로컬광고단가.xlsx'
 OUTPUT_FILE = 'data_htpost.json'
-SHEET_NAME = 'HT_로컬파트너사'
+SHEET_NAME = '가격정책'
 HEADER_ROW = 2  # 0-indexed (3행)
 
 def clean_number(value):
@@ -53,7 +53,7 @@ def main():
             'building_type': '',
             'households': clean_number(row.get('세대수', 0)),
             'quantity': clean_number(row.get('실제수량', 0)),
-            'price_4w': clean_number(row.get('Unnamed: 7', 0)),  # 금액(월) - 머지 헤더
+            'price_4w': clean_number(row.get('Unnamed: 9', 0)),  # 제안가(월) - 머지 헤더
             'type': 'htpost',
             'lat': None,
             'lng': None

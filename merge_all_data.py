@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-모든 데이터를 병합하는 스크립트 (260223 버전)
+모든 데이터를 병합하는 스크립트 (260309 버전)
 - 포커스미디어 (data_focusmedia.json)
 - 타운보드S 가동 (엑셀 직접 변환)
 - 타운보드L 가동 (엑셀 직접 변환)
-- 타운보드 만첨 (기존 data.json에서 보존)
+- 타운보드 만첨 (엑셀 직접 변환)
 - HTPOST (data_htpost.json)
+- HTPOST 전자게시판 (엑셀 직접 변환)
 - MEDIA MEET (data_mediameet.json)
 - 기존 좌표 정보 유지
 """
@@ -89,6 +90,89 @@ def convert_townboard_sheet(excel_file, sheet_name, media_filter, type_name):
     return data
 
 
+def convert_townboard_mancheom(excel_file):
+    """타운보드 만첨 엑셀 → 리스트 변환"""
+    print(f"\n=== 타운보드(만첨) 변환 중 ===")
+    df = pd.read_excel(excel_file, sheet_name='만첨리스트', header=6)
+    df = df.dropna(subset=['단지명'])
+    # 문자열인 단지명만 유지 (총합계 등 제거)
+    df = df[df['단지명'].apply(lambda x: isinstance(x, str) and len(str(x).strip()) > 0)]
+    print(f"  유효 데이터: {len(df)}개")
+
+    data = []
+    for idx, row in df.iterrows():
+        name = clean_text(row['단지명'])
+        if not name:
+            continue
+
+        region1 = clean_text(row.get('지역1', ''))
+        region2 = clean_text(row.get('지역2', ''))
+        region3 = clean_text(row.get('지역3(법정)', ''))
+        city = CITY_MAP.get(region1, region1)
+
+        address_parts = [p for p in [city, region2, region3] if p]
+        address = ' '.join(address_parts)
+
+        item = {
+            'name': name,
+            'code': '',
+            'city': city,
+            'gu': region2,
+            'dong': region3,
+            'address': address,
+            'building_type': clean_text(row.get('구분', '아파트')),
+            'year': clean_number(row.get('입주년도', 0)) if not pd.isna(row.get('입주년도')) else None,
+            'floors': None,
+            'area': clean_text(row.get('평형', '')),
+            'households': clean_number(row.get('세대수', 0)) if not pd.isna(row.get('세대수')) else None,
+            'population': None,
+            'grade': None,
+            'quantity': clean_number(row.get('가동수량', 0)),
+            'unit_price': None,
+            'price_4w': None,
+            'install_date': '',
+            'type': 'townboard'
+        }
+        data.append(item)
+
+    print(f"  변환 완료: {len(data)}개")
+    return data
+
+
+def convert_htpost_board(excel_file):
+    """HTPOST 전자게시판 엑셀 → 리스트 변환"""
+    print(f"\n=== HTPOST전자게시판 변환 중 ===")
+    df = pd.read_excel(excel_file, sheet_name='디지털게시판 설치리스트', header=3)
+    df = df.dropna(subset=['현장명'])
+    print(f"  유효 데이터: {len(df)}개")
+
+    data = []
+    for idx, row in df.iterrows():
+        name = clean_text(row['현장명'])
+        if not name:
+            continue
+
+        item = {
+            'name': name,
+            'city': clean_text(row.get('지역', '')),
+            'gu': '',
+            'dong': '',
+            'address': clean_text(row.get('주소', '')),
+            'building_type': '',
+            'households': clean_number(row.get('세대수', 0)),
+            'quantity': clean_number(row.get('수량', 0)),
+            'unit_price': clean_number(row.get('광고료 세부내역', 0)),
+            'price_4w': clean_number(row.get('Unnamed: 10', 0)),
+            'type': 'htpost_board',
+            'lat': None,
+            'lng': None
+        }
+        data.append(item)
+
+    print(f"  변환 완료: {len(data)}개")
+    return data
+
+
 def main():
     # 1. 기존 data.json에서 좌표 정보 추출
     old_data_file = os.path.join(BASE_DIR, 'data.json')
@@ -116,7 +200,7 @@ def main():
     print(f"\n새 포커스미디어 데이터: {len(new_fm_data)}개")
 
     # 3. 타운보드 엑셀에서 직접 변환
-    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260223.xlsx')
+    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260303.xlsx')
 
     # 타운보드S (가동)
     new_tb_s_data = convert_townboard_sheet(
@@ -124,11 +208,11 @@ def main():
 
     # 타운보드L (가동)
     new_tb_l_data = convert_townboard_sheet(
-        townboard_file, '타운보드L(전국 10,000대)', '타운보드L', 'townboard_l')
+        townboard_file, '타운보드L(전국 10,000대)', '타운보드', 'townboard_l')
 
-    # 4. 기존 townboard (만첨) 데이터 유지
-    old_townboard_mancheom = [item for item in old_data if item.get('type') == 'townboard']
-    print(f"\n기존 타운보드(만첨) 데이터 유지: {len(old_townboard_mancheom)}개")
+    # 4. 타운보드 만첨: 엑셀 직접 변환
+    mancheom_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260304(공유).xlsx')
+    new_tb_mancheom_data = convert_townboard_mancheom(mancheom_file)
 
     # 5. HTPOST 데이터 로드
     htpost_file = os.path.join(BASE_DIR, 'data_htpost.json')
@@ -142,9 +226,13 @@ def main():
         mediameet_data = json.load(f)
     print(f"MEDIA MEET 데이터: {len(mediameet_data)}개")
 
-    # 7. 모든 데이터에 좌표 적용
+    # 7. HTPOST 전자게시판 (신규)
+    htpost_board_file = os.path.join(BASE_DIR, '[현대에이치티] 2026년 아파트디지털게시판 리스트, 단가표 (4).xlsx')
+    htpost_board_data = convert_htpost_board(htpost_board_file)
+
+    # 8. 모든 데이터에 좌표 적용
     all_items = (new_fm_data + new_tb_s_data + new_tb_l_data +
-                 old_townboard_mancheom + htpost_data + mediameet_data)
+                 new_tb_mancheom_data + htpost_data + htpost_board_data + mediameet_data)
     coords_applied = 0
     for item in all_items:
         if not item.get('lat') and item['name'] in coords_map:
@@ -154,7 +242,7 @@ def main():
 
     print(f"\n좌표 새로 적용: {coords_applied}개")
 
-    # 8. 전체 병합
+    # 9. 전체 병합
     all_data = all_items
     print(f"\n=== 최종 데이터 ===")
     final_counts = Counter(item.get('type') for item in all_data)
@@ -162,14 +250,14 @@ def main():
         print(f"  - {t}: {c}개")
     print(f"  총합: {len(all_data)}개")
 
-    # 9. 저장
+    # 10. 저장
     output_file = os.path.join(BASE_DIR, 'data.json')
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(all_data, f, ensure_ascii=False, indent=2)
 
     print(f"\n저장 완료: {output_file}")
 
-    # 10. 영업제한 업종 통계
+    # 11. 영업제한 업종 통계
     with_restriction = [d for d in all_data if d.get('restriction1_type') or d.get('restriction2_type')]
     print(f"영업제한 업종 있는 데이터: {len(with_restriction)}개")
 
