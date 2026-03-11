@@ -6,8 +6,7 @@
 - 타운보드S 가동 (엑셀 직접 변환)
 - 타운보드L 가동 (엑셀 직접 변환)
 - 타운보드 만첨 (엑셀 직접 변환)
-- HTPOST (data_htpost.json)
-- HTPOST 전자게시판 (엑셀 직접 변환)
+- HTPOST 영상 + 전단지 (엑셀 직접 변환, 두 타입으로 분리)
 - MEDIA MEET (data_mediameet.json)
 - 기존 좌표 정보 유지
 """
@@ -139,20 +138,23 @@ def convert_townboard_mancheom(excel_file):
     return data
 
 
-def convert_htpost_board(excel_file):
-    """HTPOST 전자게시판 엑셀 → 리스트 변환"""
-    print(f"\n=== HTPOST전자게시판 변환 중 ===")
-    df = pd.read_excel(excel_file, sheet_name='디지털게시판 설치리스트', header=3)
+def convert_htpost_new(excel_file):
+    """[현대에이치티] 단지별 로컬광고단가.xlsx → 영상(htpost) + 전단지(htpost_leaflet)"""
+    print(f"\n=== HTPOST 변환 중 (영상 + 전단지 분리) ===")
+    df = pd.read_excel(excel_file, sheet_name='가격정책', header=2)
     df = df.dropna(subset=['현장명'])
+    df = df[df['지역'] != '구분']  # 반복 헤더 행 제거
     print(f"  유효 데이터: {len(df)}개")
 
-    data = []
+    video_data = []
+    leaflet_data = []
+
     for idx, row in df.iterrows():
         name = clean_text(row['현장명'])
         if not name:
             continue
 
-        item = {
+        base = {
             'name': name,
             'city': clean_text(row.get('지역', '')),
             'gu': '',
@@ -160,17 +162,28 @@ def convert_htpost_board(excel_file):
             'address': clean_text(row.get('주소', '')),
             'building_type': '',
             'households': clean_number(row.get('세대수', 0)),
-            'quantity': clean_number(row.get('수량', 0)),
-            'unit_price': clean_number(row.get('광고료 세부내역', 0)),
-            'price_4w': clean_number(row.get('Unnamed: 10', 0)),
-            'type': 'htpost_board',
+            'quantity': clean_number(row.get('실제수량', 0)),
             'lat': None,
-            'lng': None
+            'lng': None,
         }
-        data.append(item)
 
-    print(f"  변환 완료: {len(data)}개")
-    return data
+        # 영상 (모든 단지)
+        video_data.append({**base,
+            'price_4w': clean_number(row.get('Unnamed: 9', 0)),
+            'type': 'htpost'
+        })
+
+        # 전단지 (게시판 가능 단지만 - '가능', '가능 (보장)' 포함)
+        leaflet_yn = clean_text(row.get('게시판전단광고', ''))
+        if leaflet_yn.startswith('가능'):
+            price_per_week = clean_number(row.get('Unnamed: 11', 0))
+            leaflet_data.append({**base,
+                'price_4w': price_per_week * 4,
+                'type': 'htpost_leaflet'
+            })
+
+    print(f"  영상: {len(video_data)}개, 전단지: {len(leaflet_data)}개")
+    return video_data, leaflet_data
 
 
 def main():
@@ -200,7 +213,7 @@ def main():
     print(f"\n새 포커스미디어 데이터: {len(new_fm_data)}개")
 
     # 3. 타운보드 엑셀에서 직접 변환
-    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260303.xlsx')
+    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260309.xlsx')
 
     # 타운보드S (가동)
     new_tb_s_data = convert_townboard_sheet(
@@ -208,17 +221,15 @@ def main():
 
     # 타운보드L (가동)
     new_tb_l_data = convert_townboard_sheet(
-        townboard_file, '타운보드L(전국 10,000대)', '타운보드', 'townboard_l')
+        townboard_file, '타운보드L(전국 10,000대)', '타운보드L', 'townboard_l')
 
     # 4. 타운보드 만첨: 엑셀 직접 변환
     mancheom_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260304(공유).xlsx')
     new_tb_mancheom_data = convert_townboard_mancheom(mancheom_file)
 
-    # 5. HTPOST 데이터 로드
-    htpost_file = os.path.join(BASE_DIR, 'data_htpost.json')
-    with open(htpost_file, 'r', encoding='utf-8') as f:
-        htpost_data = json.load(f)
-    print(f"HTPOST 데이터: {len(htpost_data)}개")
+    # 5. HTPOST 데이터 (영상 + 전단지, 엑셀 직접 변환)
+    htpost_excel_file = os.path.join(BASE_DIR, '[현대에이치티] 단지별 로컬광고단가.xlsx')
+    htpost_video_data, htpost_leaflet_data = convert_htpost_new(htpost_excel_file)
 
     # 6. MEDIA MEET 데이터 로드
     mediameet_file = os.path.join(BASE_DIR, 'data_mediameet.json')
@@ -226,13 +237,9 @@ def main():
         mediameet_data = json.load(f)
     print(f"MEDIA MEET 데이터: {len(mediameet_data)}개")
 
-    # 7. HTPOST 전자게시판 (신규)
-    htpost_board_file = os.path.join(BASE_DIR, '[현대에이치티] 2026년 아파트디지털게시판 리스트, 단가표 (4).xlsx')
-    htpost_board_data = convert_htpost_board(htpost_board_file)
-
-    # 8. 모든 데이터에 좌표 적용
+    # 7. 모든 데이터에 좌표 적용
     all_items = (new_fm_data + new_tb_s_data + new_tb_l_data +
-                 new_tb_mancheom_data + htpost_data + htpost_board_data + mediameet_data)
+                 new_tb_mancheom_data + htpost_video_data + htpost_leaflet_data + mediameet_data)
     coords_applied = 0
     for item in all_items:
         if not item.get('lat') and item['name'] in coords_map:

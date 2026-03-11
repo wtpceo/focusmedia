@@ -111161,7 +111161,7 @@
     "households": 776,
     "population": null,
     "grade": null,
-    "quantity": 19,
+    "quantity": 0,
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
@@ -115788,28 +115788,6 @@
     "type": "townboard_op",
     "lat": 37.528550707647,
     "lng": 127.085692023782
-  },
-  {
-    "name": "구로에스케이뷰",
-    "code": "",
-    "city": "서울특별시",
-    "gu": "구로",
-    "dong": "구로",
-    "address": "서울특별시구로구새말로25",
-    "building_type": "아파트",
-    "year": 1991,
-    "floors": null,
-    "area": "32",
-    "households": 186,
-    "population": null,
-    "grade": null,
-    "quantity": 4,
-    "unit_price": null,
-    "price_4w": null,
-    "install_date": "",
-    "type": "townboard_op",
-    "lat": 37.5025768906338,
-    "lng": 126.883051381767
   },
   {
     "name": "태형아파트",
@@ -122056,6 +122034,46 @@
     "type": "townboard_op",
     "lat": 37.6644977270046,
     "lng": 127.064483155729
+  },
+  {
+    "name": "번동주공1단지아파트",
+    "code": "",
+    "city": "서울특별시",
+    "gu": "강북",
+    "dong": "번",
+    "address": "서울특별시강북구한천로105길23",
+    "building_type": "아파트",
+    "year": 1991,
+    "floors": null,
+    "area": "18,22,26,30,32",
+    "households": 1430,
+    "population": null,
+    "grade": null,
+    "quantity": 16,
+    "unit_price": null,
+    "price_4w": null,
+    "install_date": "",
+    "type": "townboard_op"
+  },
+  {
+    "name": "풍납극동아파트",
+    "code": "",
+    "city": "서울특별시",
+    "gu": "송파",
+    "dong": "풍납",
+    "address": "서울송파구올림픽로45길11",
+    "building_type": "아파트",
+    "year": 1987,
+    "floors": null,
+    "area": "25,29",
+    "households": 415,
+    "population": null,
+    "grade": null,
+    "quantity": 10,
+    "unit_price": null,
+    "price_4w": null,
+    "install_date": "",
+    "type": "townboard_op"
   },
   {
     "name": "거여6단지아파트",
@@ -130035,7 +130053,7 @@
     "households": 365,
     "population": null,
     "grade": null,
-    "quantity": 11,
+    "quantity": 12,
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
@@ -176702,28 +176720,6 @@
     "lng": 127.149516663653
   },
   {
-    "name": "럭키석수_L",
-    "code": "",
-    "city": "경기도",
-    "gu": "안양",
-    "dong": "석수",
-    "address": "경기도안양시만안구석수로40",
-    "building_type": "아파트",
-    "year": 2021,
-    "floors": null,
-    "area": "25,28,30,40",
-    "households": 735,
-    "population": null,
-    "grade": null,
-    "quantity": 0,
-    "unit_price": null,
-    "price_4w": null,
-    "install_date": "",
-    "type": "townboard_l",
-    "lat": 37.4087898467891,
-    "lng": 126.908578052948
-  },
-  {
     "name": "장암더샵포레스트_L",
     "code": "",
     "city": "경기도",
@@ -180178,6 +180174,106 @@
     "lng": 126.491540271626
   },
   {
+    "name": "부영2차_L",
+    "code": "",
+    "city": "제주특별자치도",
+    "gu": "제주",
+    "dong": "노형",
+    "address": "제주특별자치도제주시노형동754-4부영2차",
+    "building_type": "아파트",
+    "year": 1998,
+    "floors": null,
+    "area": "20",
+    "households": 710,
+    "population": null,
+    "grade": null,
+    "quantity": 12,
+    "unit_price": null,
+    "price_4w": null,
+    "install_date": "",
+    "type": "townboard_l"
+  },
+  {
+    "name": "래미안라그란데_L",
+    "code": "",
+    "city": "서울특별시",
+    "gu": "동대문",
+    "dong": "이문",
+    "address": "서울동대문구이문동257-42",
+    "building_type": "아파트",
+    "year": 2025,
+    "floors": null,
+    "area": "22,23,25,30,31,34,40,46",
+    "households": 3069,
+    "population": null,
+    "grade": null,
+    "quantity": 157,
+    "unit_price": null,
+    "price_4w": null,
+    "install_date": "",
+    "type": "townboard_l"
+  },
+  {
+    "name": "송도럭스오션에스케이뷰_L",
+    "code": "",
+    "city": "인천광역시",
+    "gu": "연수",
+    "dong": "송도",
+    "address": "인천시연수구랜드마크로350",
+    "building_type": "아파트",
+    "year": 2025,
+    "floors": null,
+    "area": "34,35,36,39,40,42,43,52,55,56,57,58",
+    "households": 1114,
+    "population": null,
+    "grade": null,
+    "quantity": 22,
+    "unit_price": null,
+    "price_4w": null,
+    "install_date": "",
+    "type": "townboard_l"
+  },
+  {
+    "name": "반포써밋_L",
+    "code": "",
+    "city": "서울특별시",
+    "gu": "서초",
+    "dong": "반포",
+    "address": "서울특별시 서초구 고무래로 89",
+    "building_type": "아파트",
+    "year": 2018,
+    "floors": null,
+    "area": "19,23,32,33,41,43,51",
+    "households": 764,
+    "population": null,
+    "grade": null,
+    "quantity": 16,
+    "unit_price": null,
+    "price_4w": null,
+    "install_date": "",
+    "type": "townboard_l"
+  },
+  {
+    "name": "우성캐릭터199아파트_L",
+    "code": "",
+    "city": "서울특별시",
+    "gu": "강남",
+    "dong": "도곡",
+    "address": "서울시 강남구 언주로 118",
+    "building_type": "아파트",
+    "year": 1998,
+    "floors": null,
+    "area": "23,24,33,35,41,45,54",
+    "households": 199,
+    "population": null,
+    "grade": null,
+    "quantity": 12,
+    "unit_price": null,
+    "price_4w": null,
+    "install_date": "",
+    "type": "townboard_l"
+  },
+  {
     "name": "부산더샵센텀파크2차",
     "code": "",
     "city": "부산광역시",
@@ -180230,10 +180326,10 @@
     "building_type": "",
     "households": 240,
     "quantity": 8,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.7279490528164,
-    "lng": 127.110297485676
+    "lng": 127.110297485676,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "광천 e편한세상",
@@ -180244,10 +180340,10 @@
     "building_type": "",
     "households": 1096,
     "quantity": 42,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 35.162165052796,
-    "lng": 126.877576244102
+    "lng": 126.877576244102,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "목포남교트윈스타",
@@ -180258,10 +180354,10 @@
     "building_type": "",
     "households": 204,
     "quantity": 7,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 34.79316775771,
-    "lng": 126.382906214503
+    "lng": 126.382906214503,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "구월아시아드선수촌6단지",
@@ -180272,10 +180368,10 @@
     "building_type": "",
     "households": 602,
     "quantity": 29,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.4418626070071,
-    "lng": 126.713410684577
+    "lng": 126.713410684577,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "구월아시아드선수촌7단지",
@@ -180286,10 +180382,10 @@
     "building_type": "",
     "households": 1109,
     "quantity": 19,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 37.4405101226815,
-    "lng": 126.712938306055
+    "lng": 126.712938306055,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "노원프레미어스엠코",
@@ -180300,10 +180396,10 @@
     "building_type": "",
     "households": 234,
     "quantity": 8,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 37.6182161017816,
-    "lng": 127.07591204414
+    "lng": 127.07591204414,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "힐스테이트송도더테라스",
@@ -180314,10 +180410,10 @@
     "building_type": "",
     "households": 2784,
     "quantity": 42,
-    "price_4w": 230000,
-    "type": "htpost",
     "lat": 37.410352365805,
-    "lng": 126.626616559837
+    "lng": 126.626616559837,
+    "price_4w": 230000,
+    "type": "htpost"
   },
   {
     "name": "오산세마효성",
@@ -180328,10 +180424,10 @@
     "building_type": "",
     "households": 392,
     "quantity": 23,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.1964643554148,
-    "lng": 127.030698968635
+    "lng": 127.030698968635,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "송도아메리칸타운아이파크(주상복합)",
@@ -180342,10 +180438,10 @@
     "building_type": "",
     "households": 830,
     "quantity": 10,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.3850839460596,
-    "lng": 126.662170942629
+    "lng": 126.662170942629,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "상무힐스테이트",
@@ -180356,10 +180452,10 @@
     "building_type": "",
     "households": 336,
     "quantity": 25,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 35.1551633933339,
-    "lng": 126.862063923488
+    "lng": 126.862063923488,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "원주 대원칸타빌",
@@ -180370,10 +180466,10 @@
     "building_type": "",
     "households": 907,
     "quantity": 40,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 37.3701827956034,
-    "lng": 127.960225263539
+    "lng": 127.960225263539,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "계양효성해링턴플레이스",
@@ -180384,10 +180480,10 @@
     "building_type": "",
     "households": 1669,
     "quantity": 83,
-    "price_4w": 230000,
-    "type": "htpost",
     "lat": 37.5290181899951,
-    "lng": 126.745830271564
+    "lng": 126.745830271564,
+    "price_4w": 230000,
+    "type": "htpost"
   },
   {
     "name": "이화신동아파밀리에",
@@ -180398,10 +180494,10 @@
     "building_type": "",
     "households": 399,
     "quantity": 13,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.5801030971124,
-    "lng": 126.736379349741
+    "lng": 126.736379349741,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "계양임광그대가",
@@ -180412,10 +180508,10 @@
     "building_type": "",
     "households": 373,
     "quantity": 17,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.5282536556638,
-    "lng": 126.743023912047
+    "lng": 126.743023912047,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "논현하늘마을LH4단지",
@@ -180426,10 +180522,10 @@
     "building_type": "",
     "households": 412,
     "quantity": 4,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.4027868130869,
-    "lng": 126.715748180202
+    "lng": 126.715748180202,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "검단신도시한신더휴",
@@ -180440,10 +180536,10 @@
     "building_type": "",
     "households": 936,
     "quantity": 53,
-    "price_4w": 230000,
-    "type": "htpost",
     "lat": 37.5893661084055,
-    "lng": 126.705841777901
+    "lng": 126.705841777901,
+    "price_4w": 230000,
+    "type": "htpost"
   },
   {
     "name": "평택지제역 힐스테이트",
@@ -180454,10 +180550,10 @@
     "building_type": "",
     "households": 1519,
     "quantity": 30,
-    "price_4w": 230000,
-    "type": "htpost",
     "lat": 37.0219836953587,
-    "lng": 127.079175109089
+    "lng": 127.079175109089,
+    "price_4w": 230000,
+    "type": "htpost"
   },
   {
     "name": "남양주 진건한신2차",
@@ -180468,10 +180564,10 @@
     "building_type": "",
     "households": 258,
     "quantity": 10,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.6585763457774,
-    "lng": 127.179753439917
+    "lng": 127.179753439917,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "화정동 유니버시아드3단지",
@@ -180482,10 +180578,10 @@
     "building_type": "",
     "households": 2185,
     "quantity": 102,
-    "price_4w": 230000,
-    "type": "htpost",
     "lat": 35.1426213215698,
-    "lng": 126.88637709245
+    "lng": 126.88637709245,
+    "price_4w": 230000,
+    "type": "htpost"
   },
   {
     "name": "세종 새나루8단지",
@@ -180496,10 +180592,10 @@
     "building_type": "",
     "households": 499,
     "quantity": 23,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 36.489611353153315,
-    "lng": 127.3224103357462
+    "lng": 127.3224103357462,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "힐스테이트 청량리 더퍼스트",
@@ -180510,10 +180606,10 @@
     "building_type": "",
     "households": 315,
     "quantity": 10,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 37.579230143677,
-    "lng": 127.043474539053
+    "lng": 127.043474539053,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "다산역자연앤푸르지오",
@@ -180524,10 +180620,10 @@
     "building_type": "",
     "households": 1272,
     "quantity": 41,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 37.6220106999039,
-    "lng": 127.150627213961
+    "lng": 127.150627213961,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "운암벽산블루밍3단지",
@@ -180538,10 +180634,10 @@
     "building_type": "",
     "households": 1295,
     "quantity": 46,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 35.1747738144994,
-    "lng": 126.878951074658
+    "lng": 126.878951074658,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "화정유니버시아드2단지",
@@ -180552,10 +180648,10 @@
     "building_type": "",
     "households": 778,
     "quantity": 28,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 35.1463735405865,
-    "lng": 126.879687021518
+    "lng": 126.879687021518,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "위시티일산자이4단지아파트",
@@ -180566,10 +180662,10 @@
     "building_type": "",
     "households": 1288,
     "quantity": 39,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 37.6795073212787,
-    "lng": 126.816019722207
+    "lng": 126.816019722207,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "송도롯데캐슬캠퍼스타운",
@@ -180580,10 +180676,10 @@
     "building_type": "",
     "households": 1230,
     "quantity": 26,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 37.3878775490068,
-    "lng": 126.664923491885
+    "lng": 126.664923491885,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "광교더리브",
@@ -180594,10 +180690,10 @@
     "building_type": "",
     "households": 637,
     "quantity": 24,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 37.2892456384021,
-    "lng": 127.06350339081
+    "lng": 127.06350339081,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "일산중산8단지",
@@ -180608,10 +180704,10 @@
     "building_type": "",
     "households": 720,
     "quantity": 30,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.6889222016648,
-    "lng": 126.781168584215
+    "lng": 126.781168584215,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "동백역 월드메르디앙",
@@ -180622,10 +180718,10 @@
     "building_type": "",
     "households": 966,
     "quantity": 27,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 37.263350426297,
-    "lng": 127.153853648834
+    "lng": 127.153853648834,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "광천 현대 힐스테이트",
@@ -180636,10 +180732,10 @@
     "building_type": "",
     "households": 305,
     "quantity": 11,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 35.1627464698249,
-    "lng": 126.88640904036
+    "lng": 126.88640904036,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "청주 테크노폴리스 푸르지오",
@@ -180650,10 +180746,10 @@
     "building_type": "",
     "households": 1034,
     "quantity": 28,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 36.6694954176013,
-    "lng": 127.457702789449
+    "lng": 127.457702789449,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "e편한세상반월나노시티역아파트",
@@ -180664,10 +180760,10 @@
     "building_type": "",
     "households": 1387,
     "quantity": 27,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.2262740665539,
-    "lng": 127.060796158136
+    "lng": 127.060796158136,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "디에트르송도시그니쳐뷰",
@@ -180678,10 +180774,10 @@
     "building_type": "",
     "households": 578,
     "quantity": 13,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.4047169633362,
-    "lng": 126.62655857439
+    "lng": 126.62655857439,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "힐스테이트리슈빌 강일",
@@ -180692,10 +180788,10 @@
     "building_type": "",
     "households": 809,
     "quantity": 40,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.572875145782,
-    "lng": 127.174231855184
+    "lng": 127.174231855184,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "도램마을9단지제일풍경채센트럴",
@@ -180706,10 +180802,10 @@
     "building_type": "",
     "households": 700,
     "quantity": 29,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 36.5106312427802,
-    "lng": 127.263587722513
+    "lng": 127.263587722513,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "한강 쌍용 아파트",
@@ -180720,10 +180816,10 @@
     "building_type": "",
     "households": 161,
     "quantity": 4,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.5122226914266,
-    "lng": 126.953068073811
+    "lng": 126.953068073811,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "산성역자이푸르지오2단지",
@@ -180734,10 +180830,10 @@
     "building_type": "",
     "households": 1270,
     "quantity": 26,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.4498714282879,
-    "lng": 127.149502032579
+    "lng": 127.149502032579,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "산성역자이푸르지오1단지",
@@ -180748,10 +180844,10 @@
     "building_type": "",
     "households": 1852,
     "quantity": 37,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.4458956324542,
-    "lng": 127.147337249734
+    "lng": 127.147337249734,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "하남3지구 모아엘가",
@@ -180762,10 +180858,10 @@
     "building_type": "",
     "households": 703,
     "quantity": 19,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 35.1818844775567,
-    "lng": 126.796126667659
+    "lng": 126.796126667659,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "강동 해리티지자이",
@@ -180776,10 +180872,10 @@
     "building_type": "",
     "households": 1299,
     "quantity": 22,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "회천파밀리에더퍼스트",
@@ -180790,10 +180886,10 @@
     "building_type": "",
     "households": 1304,
     "quantity": 33,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.8169363274838,
-    "lng": 127.05672095367
+    "lng": 127.05672095367,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "롯데캐슬골드파크1차아파트",
@@ -180804,10 +180900,10 @@
     "building_type": "",
     "households": 624,
     "quantity": 17,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.3778182805269,
-    "lng": 127.870854370328
+    "lng": 127.870854370328,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "롯데캐슬더퍼스트2차아파트",
@@ -180818,10 +180914,10 @@
     "building_type": "",
     "households": 1116,
     "quantity": 27,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.3799801380249,
-    "lng": 127.877046954255
+    "lng": 127.877046954255,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "롯데캐슬더퍼스트1차아파트",
@@ -180832,10 +180928,10 @@
     "building_type": "",
     "households": 1243,
     "quantity": 30,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.378160207011014,
-    "lng": 127.87938960790117
+    "lng": 127.87938960790117,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "롯데캐슬골드파크2차아파트",
@@ -180846,10 +180942,10 @@
     "building_type": "",
     "households": 536,
     "quantity": 15,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 37.3818051849144,
-    "lng": 127.872016801398
+    "lng": 127.872016801398,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "왕길역로열파크씨티푸르지오",
@@ -180860,10 +180956,10 @@
     "building_type": "",
     "households": 1500,
     "quantity": 64,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.5959529332926,
-    "lng": 126.64981507768
+    "lng": 126.64981507768,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "한화포레나 인천구월",
@@ -180874,10 +180970,10 @@
     "building_type": "",
     "households": 1115,
     "quantity": 42,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.45887410720166,
-    "lng": 126.71365716748242
+    "lng": 126.71365716748242,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "수완지구 모아엘가",
@@ -180888,10 +180984,10 @@
     "building_type": "",
     "households": 570,
     "quantity": 20,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": 35.187598058671,
-    "lng": 126.824055897078
+    "lng": 126.824055897078,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "개포자이프레지던스",
@@ -180902,10 +180998,10 @@
     "building_type": "",
     "households": 3375,
     "quantity": 142,
-    "price_4w": 290000,
-    "type": "htpost",
     "lat": 37.4861548149371,
-    "lng": 127.068451024326
+    "lng": 127.068451024326,
+    "price_4w": 290000,
+    "type": "htpost"
   },
   {
     "name": "더샵송도마리나베이",
@@ -180916,10 +181012,10 @@
     "building_type": "",
     "households": 3100,
     "quantity": 99,
-    "price_4w": 230000,
-    "type": "htpost",
     "lat": 37.41255742800424,
-    "lng": 126.61162848412329
+    "lng": 126.61162848412329,
+    "price_4w": 230000,
+    "type": "htpost"
   },
   {
     "name": "광명역써밋플레이스아파트",
@@ -180930,10 +181026,10 @@
     "building_type": "",
     "households": 1430,
     "quantity": 41,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 37.4171034624346,
-    "lng": 126.880947375247
+    "lng": 126.880947375247,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "매탄현대힐스테이트",
@@ -180944,10 +181040,10 @@
     "building_type": "",
     "households": 2328,
     "quantity": 56,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 37.2721364915926,
-    "lng": 127.041914258026
+    "lng": 127.041914258026,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "올림픽파크포레온",
@@ -180958,10 +181054,10 @@
     "building_type": "",
     "households": 12032,
     "quantity": 304,
-    "price_4w": 1800000,
-    "type": "htpost",
     "lat": 37.5249677176279,
-    "lng": 127.140290598327
+    "lng": 127.140290598327,
+    "price_4w": 1800000,
+    "type": "htpost"
   },
   {
     "name": "잠실엘스",
@@ -180972,10 +181068,10 @@
     "building_type": "",
     "households": 5678,
     "quantity": 214,
-    "price_4w": 500000,
-    "type": "htpost",
     "lat": 37.5151252476966,
-    "lng": 127.078130036923
+    "lng": 127.078130036923,
+    "price_4w": 500000,
+    "type": "htpost"
   },
   {
     "name": "청주 오창 중앙하이츠빌",
@@ -180986,10 +181082,10 @@
     "building_type": "",
     "households": 1338,
     "quantity": 39,
-    "price_4w": 120000,
-    "type": "htpost",
     "lat": 36.7083013114044,
-    "lng": 127.424252624002
+    "lng": 127.424252624002,
+    "price_4w": 120000,
+    "type": "htpost"
   },
   {
     "name": "힐스테이트자이계양",
@@ -181000,10 +181096,10 @@
     "building_type": "",
     "households": 2371,
     "quantity": 80,
-    "price_4w": 200000,
-    "type": "htpost",
     "lat": 37.5311120218678,
-    "lng": 126.718044029575
+    "lng": 126.718044029575,
+    "price_4w": 200000,
+    "type": "htpost"
   },
   {
     "name": "구월 롯데캐슬골드2단지",
@@ -181014,10 +181110,10 @@
     "building_type": "",
     "households": 3384,
     "quantity": 109,
-    "price_4w": 250000,
-    "type": "htpost",
     "lat": 37.4549274337604,
-    "lng": 126.714969812649
+    "lng": 126.714969812649,
+    "price_4w": 250000,
+    "type": "htpost"
   },
   {
     "name": "대구월성협성퓨포레",
@@ -181028,10 +181124,10 @@
     "building_type": "",
     "households": 996,
     "quantity": 34,
-    "price_4w": 110000,
-    "type": "htpost",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 110000,
+    "type": "htpost"
   },
   {
     "name": "청주센트럴자이",
@@ -181042,10 +181138,10 @@
     "building_type": "",
     "households": 1500,
     "quantity": 48,
-    "price_4w": 120000,
-    "type": "htpost",
     "lat": 36.6011278961228,
-    "lng": 127.500967809429
+    "lng": 127.500967809429,
+    "price_4w": 120000,
+    "type": "htpost"
   },
   {
     "name": "청주가경자이",
@@ -181056,10 +181152,10 @@
     "building_type": "",
     "households": 992,
     "quantity": 23,
-    "price_4w": 120000,
-    "type": "htpost",
     "lat": 36.6165713188813,
-    "lng": 127.426624735614
+    "lng": 127.426624735614,
+    "price_4w": 120000,
+    "type": "htpost"
   },
   {
     "name": "서울강동선사현대아파트",
@@ -181070,10 +181166,10 @@
     "building_type": "",
     "households": 2938,
     "quantity": 68,
-    "price_4w": 250000,
-    "type": "htpost",
     "lat": 37.5534474873056,
-    "lng": 127.125660013035
+    "lng": 127.125660013035,
+    "price_4w": 250000,
+    "type": "htpost"
   },
   {
     "name": "서울동대문장안현대홈타운1차",
@@ -181084,10 +181180,10 @@
     "building_type": "",
     "households": 2182,
     "quantity": 47,
-    "price_4w": 200000,
-    "type": "htpost",
     "lat": 37.5710568281709,
-    "lng": 127.075113657819
+    "lng": 127.075113657819,
+    "price_4w": 200000,
+    "type": "htpost"
   },
   {
     "name": "경기용인보평역서희스타힐스리버파크",
@@ -181098,10 +181194,10 @@
     "building_type": "",
     "households": 1963,
     "quantity": 41,
-    "price_4w": 170000,
-    "type": "htpost",
     "lat": 37.2554902333234,
-    "lng": 127.215617494666
+    "lng": 127.215617494666,
+    "price_4w": 170000,
+    "type": "htpost"
   },
   {
     "name": "광주상무라인동산아파트",
@@ -181112,10 +181208,10 @@
     "building_type": "",
     "households": 884,
     "quantity": 24,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 35.1477337860085,
-    "lng": 126.84473238229
+    "lng": 126.84473238229,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "청주 복대금호어울림",
@@ -181126,10 +181222,10 @@
     "building_type": "",
     "households": 1234,
     "quantity": 33,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 36.6399852156139,
-    "lng": 127.433867615622
+    "lng": 127.433867615622,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "인천학마을영남아파트",
@@ -181140,10 +181236,10 @@
     "building_type": "",
     "households": 1047,
     "quantity": 28,
-    "price_4w": 120000,
-    "type": "htpost",
     "lat": 37.5447934492396,
-    "lng": 126.739483046152
+    "lng": 126.739483046152,
+    "price_4w": 120000,
+    "type": "htpost"
   },
   {
     "name": "광명이편한세상센트레빌",
@@ -181154,10 +181250,10 @@
     "building_type": "",
     "households": 2815,
     "quantity": 87,
-    "price_4w": 180000,
-    "type": "htpost",
     "lat": 37.4695450122615,
-    "lng": 126.868129550715
+    "lng": 126.868129550715,
+    "price_4w": 180000,
+    "type": "htpost"
   },
   {
     "name": "광교호반베르디움",
@@ -181168,10 +181264,10 @@
     "building_type": "",
     "households": 1330,
     "quantity": 42,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.273291095141,
-    "lng": 127.056989747133
+    "lng": 127.056989747133,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "등촌주공3단지",
@@ -181182,10 +181278,10 @@
     "building_type": "",
     "households": 1016,
     "quantity": 9,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 37.5610800692067,
-    "lng": 126.840847656959
+    "lng": 126.840847656959,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "고덕센트럴푸르지오",
@@ -181196,10 +181292,10 @@
     "building_type": "",
     "households": 656,
     "quantity": 14,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 37.5574405229047,
-    "lng": 127.16967893433
+    "lng": 127.16967893433,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "보라매자이더포레스트",
@@ -181210,10 +181306,10 @@
     "building_type": "",
     "households": 959,
     "quantity": 30,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 37.4983519180861,
-    "lng": 126.925286048904
+    "lng": 126.925286048904,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "신흥아이파크",
@@ -181224,10 +181320,10 @@
     "building_type": "",
     "households": 1330,
     "quantity": 30,
-    "price_4w": 120000,
-    "type": "htpost",
     "lat": 37.4573695075725,
-    "lng": 126.633216519398
+    "lng": 126.633216519398,
+    "price_4w": 120000,
+    "type": "htpost"
   },
   {
     "name": "갈매한라비발디",
@@ -181238,10 +181334,10 @@
     "building_type": "",
     "households": 1075,
     "quantity": 28,
-    "price_4w": 60000,
-    "type": "htpost",
     "lat": 37.6356213395214,
-    "lng": 127.119552552332
+    "lng": 127.119552552332,
+    "price_4w": 60000,
+    "type": "htpost"
   },
   {
     "name": "부평캐슬앤더샵퍼스트",
@@ -181252,10 +181348,10 @@
     "building_type": "",
     "households": 1623,
     "quantity": 60,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.5167714638084,
-    "lng": 126.703411087549
+    "lng": 126.703411087549,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "수완노블랜드2차",
@@ -181266,10 +181362,10 @@
     "building_type": "",
     "households": 442,
     "quantity": 14,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 35.1937083622473,
-    "lng": 126.824634010322
+    "lng": 126.824634010322,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "e편한세상부평그랑힐스",
@@ -181280,10 +181376,10 @@
     "building_type": "",
     "households": 5050,
     "quantity": 130,
-    "price_4w": 250000,
-    "type": "htpost",
     "lat": 37.5190073416627,
-    "lng": 126.700963642402
+    "lng": 126.700963642402,
+    "price_4w": 250000,
+    "type": "htpost"
   },
   {
     "name": "인천더샵부평센트럴시티",
@@ -181294,10 +181390,10 @@
     "building_type": "",
     "households": 5678,
     "quantity": 146,
-    "price_4w": 250000,
-    "type": "htpost",
     "lat": 37.4773624178744,
-    "lng": 126.700993091846
+    "lng": 126.700993091846,
+    "price_4w": 250000,
+    "type": "htpost"
   },
   {
     "name": "갈매6단지",
@@ -181308,10 +181404,10 @@
     "building_type": "",
     "households": 1033,
     "quantity": 21,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 37.6273494126549,
-    "lng": 127.113977370977
+    "lng": 127.113977370977,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "송도자이크리스탈오션",
@@ -181322,10 +181418,10 @@
     "building_type": "",
     "households": 1503,
     "quantity": 25,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 37.3866307417191,
-    "lng": 126.611588474368
+    "lng": 126.611588474368,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "동탄레이크파크 자연＆ e편한세상",
@@ -181336,10 +181432,10 @@
     "building_type": "",
     "households": 1227,
     "quantity": 37,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 37.1633963971352,
-    "lng": 127.111172535928
+    "lng": 127.111172535928,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "호반써밋라센트",
@@ -181350,10 +181446,10 @@
     "building_type": "",
     "households": 897,
     "quantity": 23,
-    "price_4w": 80000,
-    "type": "htpost",
     "lat": 37.1643231006523,
-    "lng": 127.0473738046
+    "lng": 127.0473738046,
+    "price_4w": 80000,
+    "type": "htpost"
   },
   {
     "name": "송도자이더스타",
@@ -181364,10 +181460,10 @@
     "building_type": "",
     "households": 1533,
     "quantity": 26,
-    "price_4w": 130000,
-    "type": "htpost",
     "lat": 37.3845588090353,
-    "lng": 126.613280358478
+    "lng": 126.613280358478,
+    "price_4w": 130000,
+    "type": "htpost"
   },
   {
     "name": "광교풍경채어바니티",
@@ -181378,10 +181474,10 @@
     "building_type": "",
     "households": 1766,
     "quantity": 57,
-    "price_4w": 200000,
-    "type": "htpost",
     "lat": 37.2704025676925,
-    "lng": 127.069423602123
+    "lng": 127.069423602123,
+    "price_4w": 200000,
+    "type": "htpost"
   },
   {
     "name": "철산역롯데캐슬&SKVIEW클래스티지",
@@ -181392,10 +181488,10 @@
     "building_type": "",
     "households": 1313,
     "quantity": 23,
-    "price_4w": 120000,
-    "type": "htpost",
     "lat": 37.4807350060176,
-    "lng": 126.865332670084
+    "lng": 126.865332670084,
+    "price_4w": 120000,
+    "type": "htpost"
   },
   {
     "name": "풍무푸르지오",
@@ -181406,10 +181502,10 @@
     "building_type": "",
     "households": 2712,
     "quantity": 49,
-    "price_4w": 200000,
-    "type": "htpost",
     "lat": 37.6084871226626,
-    "lng": 126.734002016316
+    "lng": 126.734002016316,
+    "price_4w": 200000,
+    "type": "htpost"
   },
   {
     "name": "e편한세상신촌 아파트",
@@ -181420,10 +181516,10 @@
     "building_type": "",
     "households": 1910,
     "quantity": 89,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.5580680839066,
-    "lng": 126.951399056142
+    "lng": 126.951399056142,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "트리우스 광명",
@@ -181434,10 +181530,10 @@
     "building_type": "",
     "households": 3344,
     "quantity": 100,
-    "price_4w": 350000,
-    "type": "htpost",
     "lat": 37.4848370853814,
-    "lng": 126.857173991727
+    "lng": 126.857173991727,
+    "price_4w": 350000,
+    "type": "htpost"
   },
   {
     "name": "경기_평촌센텀퍼스트",
@@ -181448,10 +181544,10 @@
     "building_type": "",
     "households": 2886,
     "quantity": 60,
-    "price_4w": 250000,
-    "type": "htpost",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 250000,
+    "type": "htpost"
   },
   {
     "name": "강동롯데캐슬퍼스트",
@@ -181462,10 +181558,10 @@
     "building_type": "",
     "households": 3226,
     "quantity": 41,
-    "price_4w": 300000,
-    "type": "htpost",
     "lat": 37.5551667468122,
-    "lng": 127.143838799591
+    "lng": 127.143838799591,
+    "price_4w": 300000,
+    "type": "htpost"
   },
   {
     "name": "관악벽산블루밍",
@@ -181476,10 +181572,10 @@
     "building_type": "",
     "households": 2105,
     "quantity": 40,
-    "price_4w": 220000,
-    "type": "htpost",
     "lat": 37.4873527233282,
-    "lng": 126.945428874003
+    "lng": 126.945428874003,
+    "price_4w": 220000,
+    "type": "htpost"
   },
   {
     "name": "힐스테이트세운센트럴2단지",
@@ -181490,10 +181586,10 @@
     "building_type": "",
     "households": 329,
     "quantity": 7,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 37.5681000086275,
-    "lng": 126.994413610574
+    "lng": 126.994413610574,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "올림픽파크포레온커뮤니티센터",
@@ -181504,10 +181600,10 @@
     "building_type": "",
     "households": 12032,
     "quantity": 25,
-    "price_4w": 300000,
-    "type": "htpost",
     "lat": 37.5249677176279,
-    "lng": 127.140290598327
+    "lng": 127.140290598327,
+    "price_4w": 300000,
+    "type": "htpost"
   },
   {
     "name": "서울_고덕풍경채어바니티",
@@ -181518,10 +181614,10 @@
     "building_type": "",
     "households": 780,
     "quantity": 25,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.5629968978692,
-    "lng": 127.169474447148
+    "lng": 127.169474447148,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "서울_아크로리버하임아파트",
@@ -181532,10 +181628,10 @@
     "building_type": "",
     "households": 1073,
     "quantity": 32,
-    "price_4w": 200000,
-    "type": "htpost",
     "lat": 37.5096317962488,
-    "lng": 126.962204212791
+    "lng": 126.962204212791,
+    "price_4w": 200000,
+    "type": "htpost"
   },
   {
     "name": "경기_힐스테이트부평",
@@ -181546,10 +181642,10 @@
     "building_type": "",
     "households": 1409,
     "quantity": 24,
-    "price_4w": 200000,
-    "type": "htpost",
     "lat": 37.4838268780381,
-    "lng": 126.704940656257
+    "lng": 126.704940656257,
+    "price_4w": 200000,
+    "type": "htpost"
   },
   {
     "name": "인천_부평역해링턴플레이스",
@@ -181560,10 +181656,10 @@
     "building_type": "",
     "households": 1909,
     "quantity": 32,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": 37.4847251078475,
-    "lng": 126.723036651917
+    "lng": 126.723036651917,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "인천_시티오씨엘4단지",
@@ -181574,10 +181670,10 @@
     "building_type": "",
     "households": 428,
     "quantity": 8,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 37.4397638670521,
-    "lng": 126.650580249274
+    "lng": 126.650580249274,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "경기_이편한세상구성역플랫폼시티",
@@ -181588,10 +181684,10 @@
     "building_type": "",
     "households": 999,
     "quantity": 25,
-    "price_4w": 100000,
-    "type": "htpost",
     "lat": 37.2959125755806,
-    "lng": 127.110772885402
+    "lng": 127.110772885402,
+    "price_4w": 100000,
+    "type": "htpost"
   },
   {
     "name": "서울_답십리파크자이",
@@ -181602,10 +181698,10 @@
     "building_type": "",
     "households": 802,
     "quantity": 19,
-    "price_4w": 160000,
-    "type": "htpost",
     "lat": 37.5677702572124,
-    "lng": 127.058401410042
+    "lng": 127.058401410042,
+    "price_4w": 160000,
+    "type": "htpost"
   },
   {
     "name": "서울_센트레빌아스테리움시그니처",
@@ -181616,10 +181712,10 @@
     "building_type": "",
     "households": 752,
     "quantity": 20,
-    "price_4w": 160000,
-    "type": "htpost",
     "lat": 37.6041057910281,
-    "lng": 126.907409235632
+    "lng": 126.907409235632,
+    "price_4w": 160000,
+    "type": "htpost"
   },
   {
     "name": "경기_안양역푸르지오더샵",
@@ -181630,10 +181726,10 @@
     "building_type": "",
     "households": 2736,
     "quantity": 44,
-    "price_4w": 250000,
-    "type": "htpost",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 250000,
+    "type": "htpost"
   },
   {
     "name": "경기_힐스테이트푸르지오수원1,2단지,커뮤니티",
@@ -181644,10 +181740,10 @@
     "building_type": "",
     "households": 2586,
     "quantity": 78,
-    "price_4w": 200000,
-    "type": "htpost",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 200000,
+    "type": "htpost"
   },
   {
     "name": "경기_광명자이더샵포레나1,2,3단지",
@@ -181658,10 +181754,10 @@
     "building_type": "",
     "households": 3585,
     "quantity": 71,
-    "price_4w": 300000,
-    "type": "htpost",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 300000,
+    "type": "htpost"
   },
   {
     "name": "경기_평촌트리지아 1,2,3단지",
@@ -181672,10 +181768,10 @@
     "building_type": "",
     "households": 2417,
     "quantity": 48,
-    "price_4w": 200000,
-    "type": "htpost",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 200000,
+    "type": "htpost"
   },
   {
     "name": "서울_청량리한양수자인그라시엘",
@@ -181686,10 +181782,10 @@
     "building_type": "",
     "households": 1152,
     "quantity": 25,
-    "price_4w": 150000,
-    "type": "htpost",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 150000,
+    "type": "htpost"
   },
   {
     "name": "경기_광명센트럴아이파크",
@@ -181700,10 +181796,10 @@
     "building_type": "",
     "households": 1957,
     "quantity": 34,
-    "price_4w": 220000,
-    "type": "htpost",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 220000,
+    "type": "htpost"
   },
   {
     "name": "경기_힐스테이트 더 운정",
@@ -181714,25 +181810,10 @@
     "building_type": "",
     "households": 744,
     "quantity": 7,
-    "price_4w": 60000,
-    "type": "htpost",
     "lat": null,
-    "lng": null
-  },
-  {
-    "name": "의정부 고산수자인디에스티지1단지",
-    "city": "경기",
-    "gu": "",
-    "dong": "",
-    "address": "경기 의정부시 서광로 121",
-    "building_type": "",
-    "households": 240,
-    "quantity": 8,
-    "unit_price": 9000,
-    "price_4w": 72000,
-    "type": "htpost_board",
-    "lat": 37.7279490528164,
-    "lng": 127.110297485676
+    "lng": null,
+    "price_4w": 60000,
+    "type": "htpost"
   },
   {
     "name": "광천 e편한세상",
@@ -181743,26 +181824,10 @@
     "building_type": "",
     "households": 1096,
     "quantity": 42,
-    "unit_price": 9000,
-    "price_4w": 378000,
-    "type": "htpost_board",
     "lat": 35.162165052796,
-    "lng": 126.877576244102
-  },
-  {
-    "name": "목포남교트윈스타",
-    "city": "목포",
-    "gu": "",
-    "dong": "",
-    "address": "전남 목포시 수문로 32",
-    "building_type": "",
-    "households": 204,
-    "quantity": 7,
-    "unit_price": 9000,
-    "price_4w": 63000,
-    "type": "htpost_board",
-    "lat": 34.79316775771,
-    "lng": 126.382906214503
+    "lng": 126.877576244102,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "구월아시아드선수촌6단지",
@@ -181773,11 +181838,10 @@
     "building_type": "",
     "households": 602,
     "quantity": 29,
-    "unit_price": 9000,
-    "price_4w": 261000,
-    "type": "htpost_board",
     "lat": 37.4418626070071,
-    "lng": 126.713410684577
+    "lng": 126.713410684577,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "구월아시아드선수촌7단지",
@@ -181788,56 +181852,10 @@
     "building_type": "",
     "households": 1109,
     "quantity": 19,
-    "unit_price": 9000,
-    "price_4w": 171000,
-    "type": "htpost_board",
     "lat": 37.4405101226815,
-    "lng": 126.712938306055
-  },
-  {
-    "name": "노원프레미어스엠코",
-    "city": "서울",
-    "gu": "",
-    "dong": "",
-    "address": "서울시 노원구 동일로 986",
-    "building_type": "",
-    "households": 234,
-    "quantity": 8,
-    "unit_price": 9000,
-    "price_4w": 72000,
-    "type": "htpost_board",
-    "lat": 37.6182161017816,
-    "lng": 127.07591204414
-  },
-  {
-    "name": "힐스테이트송도더테라스",
-    "city": "인천",
-    "gu": "",
-    "dong": "",
-    "address": "인천시 연수구 송도동 316",
-    "building_type": "",
-    "households": 2784,
-    "quantity": 42,
-    "unit_price": 9000,
-    "price_4w": 378000,
-    "type": "htpost_board",
-    "lat": 37.410352365805,
-    "lng": 126.626616559837
-  },
-  {
-    "name": "오산세마효성",
-    "city": "경기",
-    "gu": "",
-    "dong": "",
-    "address": "경기도 오산시 양산동 667-1",
-    "building_type": "",
-    "households": 392,
-    "quantity": 23,
-    "unit_price": 9000,
-    "price_4w": 207000,
-    "type": "htpost_board",
-    "lat": 37.1964643554148,
-    "lng": 127.030698968635
+    "lng": 126.712938306055,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "송도아메리칸타운아이파크(주상복합)",
@@ -181848,11 +181866,10 @@
     "building_type": "",
     "households": 830,
     "quantity": 10,
-    "unit_price": 9000,
-    "price_4w": 90000,
-    "type": "htpost_board",
     "lat": 37.3850839460596,
-    "lng": 126.662170942629
+    "lng": 126.662170942629,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "상무힐스테이트",
@@ -181863,26 +181880,10 @@
     "building_type": "",
     "households": 336,
     "quantity": 25,
-    "unit_price": 9000,
-    "price_4w": 225000,
-    "type": "htpost_board",
     "lat": 35.1551633933339,
-    "lng": 126.862063923488
-  },
-  {
-    "name": "원주 대원칸타빌",
-    "city": "원주",
-    "gu": "",
-    "dong": "",
-    "address": "강원도 원주시 태장동 2737",
-    "building_type": "",
-    "households": 907,
-    "quantity": 40,
-    "unit_price": 9000,
-    "price_4w": 360000,
-    "type": "htpost_board",
-    "lat": 37.3701827956034,
-    "lng": 127.960225263539
+    "lng": 126.862063923488,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "계양효성해링턴플레이스",
@@ -181893,11 +181894,10 @@
     "building_type": "",
     "households": 1669,
     "quantity": 83,
-    "unit_price": 9000,
-    "price_4w": 747000,
-    "type": "htpost_board",
     "lat": 37.5290181899951,
-    "lng": 126.745830271564
+    "lng": 126.745830271564,
+    "price_4w": 320000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "이화신동아파밀리에",
@@ -181908,11 +181908,10 @@
     "building_type": "",
     "households": 399,
     "quantity": 13,
-    "unit_price": 9000,
-    "price_4w": 117000,
-    "type": "htpost_board",
     "lat": 37.5801030971124,
-    "lng": 126.736379349741
+    "lng": 126.736379349741,
+    "price_4w": 120000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "계양임광그대가",
@@ -181923,11 +181922,10 @@
     "building_type": "",
     "households": 373,
     "quantity": 17,
-    "unit_price": 9000,
-    "price_4w": 153000,
-    "type": "htpost_board",
     "lat": 37.5282536556638,
-    "lng": 126.743023912047
+    "lng": 126.743023912047,
+    "price_4w": 120000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "논현하늘마을LH4단지",
@@ -181938,11 +181936,10 @@
     "building_type": "",
     "households": 412,
     "quantity": 4,
-    "unit_price": 9000,
-    "price_4w": 36000,
-    "type": "htpost_board",
     "lat": 37.4027868130869,
-    "lng": 126.715748180202
+    "lng": 126.715748180202,
+    "price_4w": 120000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "검단신도시한신더휴",
@@ -181953,26 +181950,10 @@
     "building_type": "",
     "households": 936,
     "quantity": 53,
-    "unit_price": 9000,
-    "price_4w": 477000,
-    "type": "htpost_board",
     "lat": 37.5893661084055,
-    "lng": 126.705841777901
-  },
-  {
-    "name": "평택지제역 힐스테이트",
-    "city": "경기",
-    "gu": "",
-    "dong": "",
-    "address": "경기도 평택시 지제동삭1로 91",
-    "building_type": "",
-    "households": 1519,
-    "quantity": 30,
-    "unit_price": 9000,
-    "price_4w": 270000,
-    "type": "htpost_board",
-    "lat": 37.0219836953587,
-    "lng": 127.079175109089
+    "lng": 126.705841777901,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "남양주 진건한신2차",
@@ -181983,11 +181964,10 @@
     "building_type": "",
     "households": 258,
     "quantity": 10,
-    "unit_price": 9000,
-    "price_4w": 90000,
-    "type": "htpost_board",
     "lat": 37.6585763457774,
-    "lng": 127.179753439917
+    "lng": 127.179753439917,
+    "price_4w": 240000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "화정동 유니버시아드3단지",
@@ -181998,11 +181978,10 @@
     "building_type": "",
     "households": 2185,
     "quantity": 102,
-    "unit_price": 9000,
-    "price_4w": 918000,
-    "type": "htpost_board",
     "lat": 35.1426213215698,
-    "lng": 126.88637709245
+    "lng": 126.88637709245,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "세종 새나루8단지",
@@ -182013,26 +181992,24 @@
     "building_type": "",
     "households": 499,
     "quantity": 23,
-    "unit_price": 9000,
-    "price_4w": 207000,
-    "type": "htpost_board",
     "lat": 36.489611353153315,
-    "lng": 127.3224103357462
+    "lng": 127.3224103357462,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "힐스테이트 청량리 더퍼스트",
     "city": "서울",
     "gu": "",
     "dong": "",
-    "address": "서울시 동대문구 왕산로36길 6",
+    "address": "서울특별시 동대문구 왕산로36길 6",
     "building_type": "",
     "households": 315,
     "quantity": 10,
-    "unit_price": 9000,
-    "price_4w": 90000,
-    "type": "htpost_board",
     "lat": 37.579230143677,
-    "lng": 127.043474539053
+    "lng": 127.043474539053,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "다산역자연앤푸르지오",
@@ -182043,26 +182020,10 @@
     "building_type": "",
     "households": 1272,
     "quantity": 41,
-    "unit_price": 9000,
-    "price_4w": 369000,
-    "type": "htpost_board",
     "lat": 37.6220106999039,
-    "lng": 127.150627213961
-  },
-  {
-    "name": "운암벽산블루밍3단지",
-    "city": "광주",
-    "gu": "",
-    "dong": "",
-    "address": "광주시 북구 운암동 69",
-    "building_type": "",
-    "households": 1295,
-    "quantity": 46,
-    "unit_price": 9000,
-    "price_4w": 414000,
-    "type": "htpost_board",
-    "lat": 35.1747738144994,
-    "lng": 126.878951074658
+    "lng": 127.150627213961,
+    "price_4w": 560000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "화정유니버시아드2단지",
@@ -182073,11 +182034,10 @@
     "building_type": "",
     "households": 778,
     "quantity": 28,
-    "unit_price": 9000,
-    "price_4w": 252000,
-    "type": "htpost_board",
     "lat": 35.1463735405865,
-    "lng": 126.879687021518
+    "lng": 126.879687021518,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "위시티일산자이4단지아파트",
@@ -182088,11 +182048,10 @@
     "building_type": "",
     "households": 1288,
     "quantity": 39,
-    "unit_price": 9000,
-    "price_4w": 351000,
-    "type": "htpost_board",
     "lat": 37.6795073212787,
-    "lng": 126.816019722207
+    "lng": 126.816019722207,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "송도롯데캐슬캠퍼스타운",
@@ -182103,11 +182062,10 @@
     "building_type": "",
     "households": 1230,
     "quantity": 26,
-    "unit_price": 9000,
-    "price_4w": 234000,
-    "type": "htpost_board",
     "lat": 37.3878775490068,
-    "lng": 126.664923491885
+    "lng": 126.664923491885,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "광교더리브",
@@ -182118,11 +182076,10 @@
     "building_type": "",
     "households": 637,
     "quantity": 24,
-    "unit_price": 9000,
-    "price_4w": 216000,
-    "type": "htpost_board",
     "lat": 37.2892456384021,
-    "lng": 127.06350339081
+    "lng": 127.06350339081,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "일산중산8단지",
@@ -182133,11 +182090,10 @@
     "building_type": "",
     "households": 720,
     "quantity": 30,
-    "unit_price": 9000,
-    "price_4w": 270000,
-    "type": "htpost_board",
     "lat": 37.6889222016648,
-    "lng": 126.781168584215
+    "lng": 126.781168584215,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "동백역 월드메르디앙",
@@ -182148,11 +182104,10 @@
     "building_type": "",
     "households": 966,
     "quantity": 27,
-    "unit_price": 9000,
-    "price_4w": 243000,
-    "type": "htpost_board",
     "lat": 37.263350426297,
-    "lng": 127.153853648834
+    "lng": 127.153853648834,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "광천 현대 힐스테이트",
@@ -182163,11 +182118,10 @@
     "building_type": "",
     "households": 305,
     "quantity": 11,
-    "unit_price": 9000,
-    "price_4w": 99000,
-    "type": "htpost_board",
     "lat": 35.1627464698249,
-    "lng": 126.88640904036
+    "lng": 126.88640904036,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "청주 테크노폴리스 푸르지오",
@@ -182178,11 +182132,10 @@
     "building_type": "",
     "households": 1034,
     "quantity": 28,
-    "unit_price": 9000,
-    "price_4w": 252000,
-    "type": "htpost_board",
     "lat": 36.6694954176013,
-    "lng": 127.457702789449
+    "lng": 127.457702789449,
+    "price_4w": 280000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "e편한세상반월나노시티역아파트",
@@ -182193,11 +182146,10 @@
     "building_type": "",
     "households": 1387,
     "quantity": 27,
-    "unit_price": 9000,
-    "price_4w": 243000,
-    "type": "htpost_board",
     "lat": 37.2262740665539,
-    "lng": 127.060796158136
+    "lng": 127.060796158136,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "디에트르송도시그니쳐뷰",
@@ -182208,26 +182160,24 @@
     "building_type": "",
     "households": 578,
     "quantity": 13,
-    "unit_price": 9000,
-    "price_4w": 117000,
-    "type": "htpost_board",
     "lat": 37.4047169633362,
-    "lng": 126.62655857439
+    "lng": 126.62655857439,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "힐스테이트리슈빌 강일",
     "city": "서울",
     "gu": "",
     "dong": "",
-    "address": "서울 강동구 아리수로93다길 80",
+    "address": "서울 강동구 아리수로93다길 80 힐스테이트 리슈빌강일",
     "building_type": "",
     "households": 809,
     "quantity": 40,
-    "unit_price": 9000,
-    "price_4w": 360000,
-    "type": "htpost_board",
     "lat": 37.572875145782,
-    "lng": 127.174231855184
+    "lng": 127.174231855184,
+    "price_4w": 0,
+    "type": "htpost_leaflet"
   },
   {
     "name": "도램마을9단지제일풍경채센트럴",
@@ -182238,11 +182188,10 @@
     "building_type": "",
     "households": 700,
     "quantity": 29,
-    "unit_price": 9000,
-    "price_4w": 261000,
-    "type": "htpost_board",
     "lat": 36.5106312427802,
-    "lng": 127.263587722513
+    "lng": 127.263587722513,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "한강 쌍용 아파트",
@@ -182253,11 +182202,10 @@
     "building_type": "",
     "households": 161,
     "quantity": 4,
-    "unit_price": 9000,
-    "price_4w": 36000,
-    "type": "htpost_board",
     "lat": 37.5122226914266,
-    "lng": 126.953068073811
+    "lng": 126.953068073811,
+    "price_4w": 120000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "산성역자이푸르지오2단지",
@@ -182268,11 +182216,10 @@
     "building_type": "",
     "households": 1270,
     "quantity": 26,
-    "unit_price": 9000,
-    "price_4w": 234000,
-    "type": "htpost_board",
     "lat": 37.4498714282879,
-    "lng": 127.149502032579
+    "lng": 127.149502032579,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "산성역자이푸르지오1단지",
@@ -182283,11 +182230,10 @@
     "building_type": "",
     "households": 1852,
     "quantity": 37,
-    "unit_price": 9000,
-    "price_4w": 333000,
-    "type": "htpost_board",
     "lat": 37.4458956324542,
-    "lng": 127.147337249734
+    "lng": 127.147337249734,
+    "price_4w": 280000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "하남3지구 모아엘가",
@@ -182298,11 +182244,10 @@
     "building_type": "",
     "households": 703,
     "quantity": 19,
-    "unit_price": 9000,
-    "price_4w": 171000,
-    "type": "htpost_board",
     "lat": 35.1818844775567,
-    "lng": 126.796126667659
+    "lng": 126.796126667659,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "강동 해리티지자이",
@@ -182313,11 +182258,10 @@
     "building_type": "",
     "households": 1299,
     "quantity": 22,
-    "unit_price": 9000,
-    "price_4w": 198000,
-    "type": "htpost_board",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "회천파밀리에더퍼스트",
@@ -182328,11 +182272,10 @@
     "building_type": "",
     "households": 1304,
     "quantity": 33,
-    "unit_price": 9000,
-    "price_4w": 297000,
-    "type": "htpost_board",
     "lat": 37.8169363274838,
-    "lng": 127.05672095367
+    "lng": 127.05672095367,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "롯데캐슬골드파크1차아파트",
@@ -182343,11 +182286,10 @@
     "building_type": "",
     "households": 624,
     "quantity": 17,
-    "unit_price": 9000,
-    "price_4w": 153000,
-    "type": "htpost_board",
     "lat": 37.3778182805269,
-    "lng": 127.870854370328
+    "lng": 127.870854370328,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "롯데캐슬더퍼스트2차아파트",
@@ -182358,11 +182300,10 @@
     "building_type": "",
     "households": 1116,
     "quantity": 27,
-    "unit_price": 9000,
-    "price_4w": 243000,
-    "type": "htpost_board",
     "lat": 37.3799801380249,
-    "lng": 127.877046954255
+    "lng": 127.877046954255,
+    "price_4w": 120000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "롯데캐슬더퍼스트1차아파트",
@@ -182373,11 +182314,10 @@
     "building_type": "",
     "households": 1243,
     "quantity": 30,
-    "unit_price": 9000,
-    "price_4w": 270000,
-    "type": "htpost_board",
     "lat": 37.378160207011014,
-    "lng": 127.87938960790117
+    "lng": 127.87938960790117,
+    "price_4w": 0,
+    "type": "htpost_leaflet"
   },
   {
     "name": "롯데캐슬골드파크2차아파트",
@@ -182388,11 +182328,10 @@
     "building_type": "",
     "households": 536,
     "quantity": 15,
-    "unit_price": 9000,
-    "price_4w": 135000,
-    "type": "htpost_board",
     "lat": 37.3818051849144,
-    "lng": 127.872016801398
+    "lng": 127.872016801398,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "왕길역로열파크씨티푸르지오",
@@ -182403,11 +182342,10 @@
     "building_type": "",
     "households": 1500,
     "quantity": 64,
-    "unit_price": 9000,
-    "price_4w": 576000,
-    "type": "htpost_board",
     "lat": 37.5959529332926,
-    "lng": 126.64981507768
+    "lng": 126.64981507768,
+    "price_4w": 280000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "한화포레나 인천구월",
@@ -182418,11 +182356,10 @@
     "building_type": "",
     "households": 1115,
     "quantity": 42,
-    "unit_price": 9000,
-    "price_4w": 378000,
-    "type": "htpost_board",
     "lat": 37.45887410720166,
-    "lng": 126.71365716748242
+    "lng": 126.71365716748242,
+    "price_4w": 280000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "수완지구 모아엘가",
@@ -182433,11 +182370,10 @@
     "building_type": "",
     "households": 570,
     "quantity": 20,
-    "unit_price": 9000,
-    "price_4w": 180000,
-    "type": "htpost_board",
     "lat": 35.187598058671,
-    "lng": 126.824055897078
+    "lng": 126.824055897078,
+    "price_4w": 0,
+    "type": "htpost_leaflet"
   },
   {
     "name": "개포자이프레지던스",
@@ -182448,11 +182384,10 @@
     "building_type": "",
     "households": 3375,
     "quantity": 142,
-    "unit_price": 9000,
-    "price_4w": 1278000,
-    "type": "htpost_board",
     "lat": 37.4861548149371,
-    "lng": 127.068451024326
+    "lng": 127.068451024326,
+    "price_4w": 600000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "더샵송도마리나베이",
@@ -182463,11 +182398,10 @@
     "building_type": "",
     "households": 3100,
     "quantity": 99,
-    "unit_price": 9000,
-    "price_4w": 891000,
-    "type": "htpost_board",
     "lat": 37.41255742800424,
-    "lng": 126.61162848412329
+    "lng": 126.61162848412329,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "광명역써밋플레이스아파트",
@@ -182478,11 +182412,10 @@
     "building_type": "",
     "households": 1430,
     "quantity": 41,
-    "unit_price": 9000,
-    "price_4w": 369000,
-    "type": "htpost_board",
     "lat": 37.4171034624346,
-    "lng": 126.880947375247
+    "lng": 126.880947375247,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "매탄현대힐스테이트",
@@ -182493,26 +182426,10 @@
     "building_type": "",
     "households": 2328,
     "quantity": 56,
-    "unit_price": 9000,
-    "price_4w": 504000,
-    "type": "htpost_board",
     "lat": 37.2721364915926,
-    "lng": 127.041914258026
-  },
-  {
-    "name": "올림픽파크포레온",
-    "city": "서울",
-    "gu": "",
-    "dong": "",
-    "address": "서울시 강동구 양재대로 1300",
-    "building_type": "",
-    "households": 12032,
-    "quantity": 304,
-    "unit_price": 9000,
-    "price_4w": 2736000,
-    "type": "htpost_board",
-    "lat": 37.5249677176279,
-    "lng": 127.140290598327
+    "lng": 127.041914258026,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "잠실엘스",
@@ -182523,11 +182440,10 @@
     "building_type": "",
     "households": 5678,
     "quantity": 214,
-    "unit_price": 9000,
-    "price_4w": 1926000,
-    "type": "htpost_board",
     "lat": 37.5151252476966,
-    "lng": 127.078130036923
+    "lng": 127.078130036923,
+    "price_4w": 1600000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "청주 오창 중앙하이츠빌",
@@ -182538,11 +182454,10 @@
     "building_type": "",
     "households": 1338,
     "quantity": 39,
-    "unit_price": 9000,
-    "price_4w": 351000,
-    "type": "htpost_board",
     "lat": 36.7083013114044,
-    "lng": 127.424252624002
+    "lng": 127.424252624002,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "힐스테이트자이계양",
@@ -182553,11 +182468,10 @@
     "building_type": "",
     "households": 2371,
     "quantity": 80,
-    "unit_price": 9000,
-    "price_4w": 720000,
-    "type": "htpost_board",
     "lat": 37.5311120218678,
-    "lng": 126.718044029575
+    "lng": 126.718044029575,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "구월 롯데캐슬골드2단지",
@@ -182568,11 +182482,10 @@
     "building_type": "",
     "households": 3384,
     "quantity": 109,
-    "unit_price": 9000,
-    "price_4w": 981000,
-    "type": "htpost_board",
     "lat": 37.4549274337604,
-    "lng": 126.714969812649
+    "lng": 126.714969812649,
+    "price_4w": 480000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "대구월성협성퓨포레",
@@ -182583,11 +182496,10 @@
     "building_type": "",
     "households": 996,
     "quantity": 34,
-    "unit_price": 9000,
-    "price_4w": 306000,
-    "type": "htpost_board",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 280000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "청주센트럴자이",
@@ -182598,11 +182510,10 @@
     "building_type": "",
     "households": 1500,
     "quantity": 48,
-    "unit_price": 9000,
-    "price_4w": 432000,
-    "type": "htpost_board",
     "lat": 36.6011278961228,
-    "lng": 127.500967809429
+    "lng": 127.500967809429,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "청주가경자이",
@@ -182613,11 +182524,10 @@
     "building_type": "",
     "households": 992,
     "quantity": 23,
-    "unit_price": 9000,
-    "price_4w": 207000,
-    "type": "htpost_board",
     "lat": 36.6165713188813,
-    "lng": 127.426624735614
+    "lng": 127.426624735614,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "서울강동선사현대아파트",
@@ -182628,11 +182538,10 @@
     "building_type": "",
     "households": 2938,
     "quantity": 68,
-    "unit_price": 9000,
-    "price_4w": 612000,
-    "type": "htpost_board",
     "lat": 37.5534474873056,
-    "lng": 127.125660013035
+    "lng": 127.125660013035,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "서울동대문장안현대홈타운1차",
@@ -182643,11 +182552,10 @@
     "building_type": "",
     "households": 2182,
     "quantity": 47,
-    "unit_price": 9000,
-    "price_4w": 423000,
-    "type": "htpost_board",
     "lat": 37.5710568281709,
-    "lng": 127.075113657819
+    "lng": 127.075113657819,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "경기용인보평역서희스타힐스리버파크",
@@ -182658,11 +182566,10 @@
     "building_type": "",
     "households": 1963,
     "quantity": 41,
-    "unit_price": 9000,
-    "price_4w": 369000,
-    "type": "htpost_board",
     "lat": 37.2554902333234,
-    "lng": 127.215617494666
+    "lng": 127.215617494666,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "광주상무라인동산아파트",
@@ -182673,11 +182580,10 @@
     "building_type": "",
     "households": 884,
     "quantity": 24,
-    "unit_price": 9000,
-    "price_4w": 216000,
-    "type": "htpost_board",
     "lat": 35.1477337860085,
-    "lng": 126.84473238229
+    "lng": 126.84473238229,
+    "price_4w": 120000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "청주 복대금호어울림",
@@ -182688,11 +182594,10 @@
     "building_type": "",
     "households": 1234,
     "quantity": 33,
-    "unit_price": 9000,
-    "price_4w": 297000,
-    "type": "htpost_board",
     "lat": 36.6399852156139,
-    "lng": 127.433867615622
+    "lng": 127.433867615622,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "인천학마을영남아파트",
@@ -182703,11 +182608,10 @@
     "building_type": "",
     "households": 1047,
     "quantity": 28,
-    "unit_price": 9000,
-    "price_4w": 252000,
-    "type": "htpost_board",
     "lat": 37.5447934492396,
-    "lng": 126.739483046152
+    "lng": 126.739483046152,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "광명이편한세상센트레빌",
@@ -182718,11 +182622,10 @@
     "building_type": "",
     "households": 2815,
     "quantity": 87,
-    "unit_price": 9000,
-    "price_4w": 783000,
-    "type": "htpost_board",
     "lat": 37.4695450122615,
-    "lng": 126.868129550715
+    "lng": 126.868129550715,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "광교호반베르디움",
@@ -182733,11 +182636,10 @@
     "building_type": "",
     "households": 1330,
     "quantity": 42,
-    "unit_price": 9000,
-    "price_4w": 378000,
-    "type": "htpost_board",
     "lat": 37.273291095141,
-    "lng": 127.056989747133
+    "lng": 127.056989747133,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "등촌주공3단지",
@@ -182748,11 +182650,10 @@
     "building_type": "",
     "households": 1016,
     "quantity": 9,
-    "unit_price": 9000,
-    "price_4w": 81000,
-    "type": "htpost_board",
     "lat": 37.5610800692067,
-    "lng": 126.840847656959
+    "lng": 126.840847656959,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "고덕센트럴푸르지오",
@@ -182763,11 +182664,10 @@
     "building_type": "",
     "households": 656,
     "quantity": 14,
-    "unit_price": 9000,
-    "price_4w": 126000,
-    "type": "htpost_board",
     "lat": 37.5574405229047,
-    "lng": 127.16967893433
+    "lng": 127.16967893433,
+    "price_4w": 240000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "보라매자이더포레스트",
@@ -182778,11 +182678,10 @@
     "building_type": "",
     "households": 959,
     "quantity": 30,
-    "unit_price": 9000,
-    "price_4w": 270000,
-    "type": "htpost_board",
     "lat": 37.4983519180861,
-    "lng": 126.925286048904
+    "lng": 126.925286048904,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "신흥아이파크",
@@ -182793,11 +182692,10 @@
     "building_type": "",
     "households": 1330,
     "quantity": 30,
-    "unit_price": 9000,
-    "price_4w": 270000,
-    "type": "htpost_board",
     "lat": 37.4573695075725,
-    "lng": 126.633216519398
+    "lng": 126.633216519398,
+    "price_4w": 120000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "갈매한라비발디",
@@ -182808,11 +182706,10 @@
     "building_type": "",
     "households": 1075,
     "quantity": 28,
-    "unit_price": 9000,
-    "price_4w": 252000,
-    "type": "htpost_board",
     "lat": 37.6356213395214,
-    "lng": 127.119552552332
+    "lng": 127.119552552332,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "부평캐슬앤더샵퍼스트",
@@ -182823,11 +182720,10 @@
     "building_type": "",
     "households": 1623,
     "quantity": 60,
-    "unit_price": 9000,
-    "price_4w": 540000,
-    "type": "htpost_board",
     "lat": 37.5167714638084,
-    "lng": 126.703411087549
+    "lng": 126.703411087549,
+    "price_4w": 280000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "수완노블랜드2차",
@@ -182838,11 +182734,10 @@
     "building_type": "",
     "households": 442,
     "quantity": 14,
-    "unit_price": 9000,
-    "price_4w": 126000,
-    "type": "htpost_board",
     "lat": 35.1937083622473,
-    "lng": 126.824634010322
+    "lng": 126.824634010322,
+    "price_4w": 120000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "e편한세상부평그랑힐스",
@@ -182853,11 +182748,10 @@
     "building_type": "",
     "households": 5050,
     "quantity": 130,
-    "unit_price": 9000,
-    "price_4w": 1170000,
-    "type": "htpost_board",
     "lat": 37.5190073416627,
-    "lng": 126.700963642402
+    "lng": 126.700963642402,
+    "price_4w": 440000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "인천더샵부평센트럴시티",
@@ -182868,11 +182762,10 @@
     "building_type": "",
     "households": 5678,
     "quantity": 146,
-    "unit_price": 9000,
-    "price_4w": 1314000,
-    "type": "htpost_board",
     "lat": 37.4773624178744,
-    "lng": 126.700993091846
+    "lng": 126.700993091846,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "갈매6단지",
@@ -182883,11 +182776,10 @@
     "building_type": "",
     "households": 1033,
     "quantity": 21,
-    "unit_price": 9000,
-    "price_4w": 189000,
-    "type": "htpost_board",
     "lat": 37.6273494126549,
-    "lng": 127.113977370977
+    "lng": 127.113977370977,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "송도자이크리스탈오션",
@@ -182897,12 +182789,11 @@
     "address": "인천시 연수구 랜드마크로360번길 40",
     "building_type": "",
     "households": 1503,
-    "quantity": 27,
-    "unit_price": 9000,
-    "price_4w": 243000,
-    "type": "htpost_board",
+    "quantity": 25,
     "lat": 37.3866307417191,
-    "lng": 126.611588474368
+    "lng": 126.611588474368,
+    "price_4w": 280000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "동탄레이크파크 자연＆ e편한세상",
@@ -182913,11 +182804,10 @@
     "building_type": "",
     "households": 1227,
     "quantity": 37,
-    "unit_price": 9000,
-    "price_4w": 333000,
-    "type": "htpost_board",
     "lat": 37.1633963971352,
-    "lng": 127.111172535928
+    "lng": 127.111172535928,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "호반써밋라센트",
@@ -182928,11 +182818,10 @@
     "building_type": "",
     "households": 897,
     "quantity": 23,
-    "unit_price": 9000,
-    "price_4w": 207000,
-    "type": "htpost_board",
     "lat": 37.1643231006523,
-    "lng": 127.0473738046
+    "lng": 127.0473738046,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "송도자이더스타",
@@ -182943,11 +182832,10 @@
     "building_type": "",
     "households": 1533,
     "quantity": 26,
-    "unit_price": 9000,
-    "price_4w": 234000,
-    "type": "htpost_board",
     "lat": 37.3845588090353,
-    "lng": 126.613280358478
+    "lng": 126.613280358478,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "광교풍경채어바니티",
@@ -182958,11 +182846,10 @@
     "building_type": "",
     "households": 1766,
     "quantity": 57,
-    "unit_price": 9000,
-    "price_4w": 513000,
-    "type": "htpost_board",
     "lat": 37.2704025676925,
-    "lng": 127.069423602123
+    "lng": 127.069423602123,
+    "price_4w": 320000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "철산역롯데캐슬&SKVIEW클래스티지",
@@ -182973,11 +182860,10 @@
     "building_type": "",
     "households": 1313,
     "quantity": 23,
-    "unit_price": 9000,
-    "price_4w": 207000,
-    "type": "htpost_board",
     "lat": 37.4807350060176,
-    "lng": 126.865332670084
+    "lng": 126.865332670084,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "풍무푸르지오",
@@ -182988,11 +182874,10 @@
     "building_type": "",
     "households": 2712,
     "quantity": 49,
-    "unit_price": 9000,
-    "price_4w": 441000,
-    "type": "htpost_board",
     "lat": 37.6084871226626,
-    "lng": 126.734002016316
+    "lng": 126.734002016316,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "e편한세상신촌 아파트",
@@ -183003,11 +182888,10 @@
     "building_type": "",
     "households": 1910,
     "quantity": 89,
-    "unit_price": 9000,
-    "price_4w": 801000,
-    "type": "htpost_board",
     "lat": 37.5580680839066,
-    "lng": 126.951399056142
+    "lng": 126.951399056142,
+    "price_4w": 600000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "트리우스 광명",
@@ -183018,26 +182902,24 @@
     "building_type": "",
     "households": 3344,
     "quantity": 100,
-    "unit_price": 9000,
-    "price_4w": 900000,
-    "type": "htpost_board",
     "lat": 37.4848370853814,
-    "lng": 126.857173991727
+    "lng": 126.857173991727,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "평촌센텀퍼스트",
+    "name": "경기_평촌센텀퍼스트",
     "city": "경기",
     "gu": "",
     "dong": "",
     "address": "경기도 안양시 동안구 갈산로 15",
     "building_type": "",
     "households": 2886,
-    "quantity": 61,
-    "unit_price": 9000,
-    "price_4w": 549000,
-    "type": "htpost_board",
-    "lat": 37.3721324859263,
-    "lng": 126.960851363502
+    "quantity": 60,
+    "lat": null,
+    "lng": null,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "강동롯데캐슬퍼스트",
@@ -183048,11 +182930,10 @@
     "building_type": "",
     "households": 3226,
     "quantity": 41,
-    "unit_price": 9000,
-    "price_4w": 369000,
-    "type": "htpost_board",
     "lat": 37.5551667468122,
-    "lng": 127.143838799591
+    "lng": 127.143838799591,
+    "price_4w": 800000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "관악벽산블루밍",
@@ -183063,11 +182944,10 @@
     "building_type": "",
     "households": 2105,
     "quantity": 40,
-    "unit_price": 9000,
-    "price_4w": 360000,
-    "type": "htpost_board",
     "lat": 37.4873527233282,
-    "lng": 126.945428874003
+    "lng": 126.945428874003,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "힐스테이트세운센트럴2단지",
@@ -183076,211 +182956,155 @@
     "dong": "",
     "address": "서울 중구 을지로15길 32",
     "building_type": "",
-    "households": 608,
-    "quantity": 8,
-    "unit_price": 9000,
-    "price_4w": 72000,
-    "type": "htpost_board",
+    "households": 329,
+    "quantity": 7,
     "lat": 37.5681000086275,
-    "lng": 126.994413610574
+    "lng": 126.994413610574,
+    "price_4w": 280000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "올림픽파크포레온커뮤니티센터",
-    "city": "서울",
-    "gu": "",
-    "dong": "",
-    "address": "서울시 강동구 양재대로 1300",
-    "building_type": "",
-    "households": 12032,
-    "quantity": 25,
-    "unit_price": 9000,
-    "price_4w": 225000,
-    "type": "htpost_board",
-    "lat": 37.5249677176279,
-    "lng": 127.140290598327
-  },
-  {
-    "name": "고덕풍경채어바니티",
+    "name": "서울_고덕풍경채어바니티",
     "city": "서울",
     "gu": "",
     "dong": "",
     "address": "서울 강동구 아리수로 375",
     "building_type": "",
     "households": 780,
-    "quantity": 26,
-    "unit_price": 9000,
-    "price_4w": 234000,
-    "type": "htpost_board",
-    "lat": null,
-    "lng": null
+    "quantity": 25,
+    "lat": 37.5629968978692,
+    "lng": 127.169474447148,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "아크로리버하임",
+    "name": "서울_아크로리버하임아파트",
     "city": "서울",
     "gu": "",
     "dong": "",
-    "address": "서울 동작구 흑석동 341",
+    "address": "서울 동작구 현충로52(흑석동)",
     "building_type": "",
     "households": 1073,
-    "quantity": 33,
-    "unit_price": 9000,
-    "price_4w": 297000,
-    "type": "htpost_board",
-    "lat": null,
-    "lng": null
+    "quantity": 32,
+    "lat": 37.5096317962488,
+    "lng": 126.962204212791,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "답십리파크자이",
-    "city": "서울",
-    "gu": "",
-    "dong": "",
-    "address": "서울 동대문구 답십리로56길 105",
-    "building_type": "",
-    "households": 802,
-    "quantity": 20,
-    "unit_price": 9000,
-    "price_4w": 180000,
-    "type": "htpost_board",
-    "lat": null,
-    "lng": null
-  },
-  {
-    "name": "센트레빌아스테리움시그니처",
-    "city": "서울",
-    "gu": "",
-    "dong": "",
-    "address": "서울 은평구 갈현로7길 25",
-    "building_type": "",
-    "households": 752,
-    "quantity": 21,
-    "unit_price": 9000,
-    "price_4w": 189000,
-    "type": "htpost_board",
-    "lat": null,
-    "lng": null
-  },
-  {
-    "name": "힐스테이트 송도4차",
-    "city": "인천",
-    "gu": "",
-    "dong": "",
-    "address": "인천광역시 연수구 아카데미로312번길 31",
-    "building_type": "",
-    "households": 1319,
-    "quantity": 24,
-    "unit_price": 9000,
-    "price_4w": 216000,
-    "type": "htpost_board",
-    "lat": null,
-    "lng": null
-  },
-  {
-    "name": "인천 부평힐스테이트",
+    "name": "경기_힐스테이트부평",
     "city": "인천",
     "gu": "",
     "dong": "",
     "address": "인천 부평구 경원대로 1192",
     "building_type": "",
     "households": 1409,
-    "quantity": 27,
-    "unit_price": 9000,
-    "price_4w": 243000,
-    "type": "htpost_board",
-    "lat": null,
-    "lng": null
+    "quantity": 24,
+    "lat": 37.4838268780381,
+    "lng": 126.704940656257,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "e편한세상 구성역플랫폼시티",
+    "name": "인천_부평역해링턴플레이스",
+    "city": "인천",
+    "gu": "",
+    "dong": "",
+    "address": "인천시 부평구 동수로 36",
+    "building_type": "",
+    "households": 1909,
+    "quantity": 32,
+    "lat": 37.4847251078475,
+    "lng": 126.723036651917,
+    "price_4w": 160000,
+    "type": "htpost_leaflet"
+  },
+  {
+    "name": "인천_시티오씨엘4단지",
+    "city": "인천",
+    "gu": "",
+    "dong": "",
+    "address": "인천시 미추홀구 학익로 30",
+    "building_type": "",
+    "households": 428,
+    "quantity": 8,
+    "lat": 37.4397638670521,
+    "lng": 126.650580249274,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
+  },
+  {
+    "name": "경기_이편한세상구성역플랫폼시티",
     "city": "경기",
     "gu": "",
     "dong": "",
-    "address": "경기 용인시 기흥구 마북동 659",
+    "address": "경기도 용인시 기흥구 구성로 15",
     "building_type": "",
     "households": 999,
-    "quantity": 26,
-    "unit_price": 9000,
-    "price_4w": 234000,
-    "type": "htpost_board",
-    "lat": null,
-    "lng": null
+    "quantity": 25,
+    "lat": 37.2959125755806,
+    "lng": 127.110772885402,
+    "price_4w": 200000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "부평역해링턴플레이스",
-    "city": "인천",
+    "name": "서울_답십리파크자이",
+    "city": "서울",
     "gu": "",
     "dong": "",
-    "address": "인천 부평구 동수로 36",
+    "address": "서울시 동대문구 답십리로56길 105",
     "building_type": "",
-    "households": 1909,
-    "quantity": 33,
-    "unit_price": 9000,
-    "price_4w": 297000,
-    "type": "htpost_board",
-    "lat": 37.4847251078475,
-    "lng": 126.723036651917
+    "households": 802,
+    "quantity": 19,
+    "lat": 37.5677702572124,
+    "lng": 127.058401410042,
+    "price_4w": 180000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "인천 씨티오씨엘4단지",
-    "city": "인천",
+    "name": "서울_센트레빌아스테리움시그니처",
+    "city": "서울",
     "gu": "",
     "dong": "",
-    "address": "인천 미추홀구 학익로 30",
+    "address": "서울시 은평구 갈현로7길 25",
     "building_type": "",
-    "households": 428,
-    "quantity": 9,
-    "unit_price": 9000,
-    "price_4w": 81000,
-    "type": "htpost_board",
-    "lat": null,
-    "lng": null
+    "households": 752,
+    "quantity": 20,
+    "lat": 37.6041057910281,
+    "lng": 126.907409235632,
+    "price_4w": 120000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "안양역푸르지오더샵",
+    "name": "경기_안양역푸르지오더샵",
     "city": "경기",
     "gu": "",
     "dong": "",
     "address": "경기 안양시 만안구 안양천서로 249",
     "building_type": "",
     "households": 2736,
-    "quantity": 45,
-    "unit_price": 9000,
-    "price_4w": 405000,
-    "type": "htpost_board",
-    "lat": 37.3983799775541,
-    "lng": 126.926367277614
+    "quantity": 44,
+    "lat": null,
+    "lng": null,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "힐스테이트푸르지오 수원",
+    "name": "경기_힐스테이트푸르지오수원1,2단지,커뮤니티",
     "city": "경기",
     "gu": "",
     "dong": "",
     "address": "경기 수원시 팔달구 효원로93번길 33",
     "building_type": "",
     "households": 2586,
-    "quantity": 80,
-    "unit_price": 9000,
-    "price_4w": 720000,
-    "type": "htpost_board",
+    "quantity": 78,
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "디에이치퍼스티어 아이파크",
-    "city": "서울",
-    "gu": "",
-    "dong": "",
-    "address": "서울 강남구 개포로 310",
-    "building_type": "",
-    "households": 6700,
-    "quantity": 454,
-    "unit_price": 9000,
-    "price_4w": 4086000,
-    "type": "htpost_board",
-    "lat": null,
-    "lng": null
-  },
-  {
-    "name": "광명자이더샵포레나1,2,3단지",
+    "name": "경기_광명자이더샵포레나1,2,3단지",
     "city": "경기",
     "gu": "",
     "dong": "",
@@ -183288,14 +183112,13 @@
     "building_type": "",
     "households": 3585,
     "quantity": 71,
-    "unit_price": 9000,
-    "price_4w": 639000,
-    "type": "htpost_board",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "평촌트리지아 1,2,3단지",
+    "name": "경기_평촌트리지아 1,2,3단지",
     "city": "경기",
     "gu": "",
     "dong": "",
@@ -183303,14 +183126,13 @@
     "building_type": "",
     "households": 2417,
     "quantity": 48,
-    "unit_price": 9000,
-    "price_4w": 432000,
-    "type": "htpost_board",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 400000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "청량리한양수자인그라시엘",
+    "name": "서울_청량리한양수자인그라시엘",
     "city": "서울",
     "gu": "",
     "dong": "",
@@ -183318,14 +183140,13 @@
     "building_type": "",
     "households": 1152,
     "quantity": 25,
-    "unit_price": 9000,
-    "price_4w": 225000,
-    "type": "htpost_board",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 320000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "광명센트럴아이파크",
+    "name": "경기_광명센트럴아이파크",
     "city": "경기",
     "gu": "",
     "dong": "",
@@ -183333,14 +183154,13 @@
     "building_type": "",
     "households": 1957,
     "quantity": 34,
-    "unit_price": 9000,
-    "price_4w": 306000,
-    "type": "htpost_board",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 320000,
+    "type": "htpost_leaflet"
   },
   {
-    "name": "힐스테이트 더 운정",
+    "name": "경기_힐스테이트 더 운정",
     "city": "경기",
     "gu": "",
     "dong": "",
@@ -183348,11 +183168,10 @@
     "building_type": "",
     "households": 744,
     "quantity": 7,
-    "unit_price": 9000,
-    "price_4w": 63000,
-    "type": "htpost_board",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "price_4w": 120000,
+    "type": "htpost_leaflet"
   },
   {
     "name": "세종나릿재마을1단지",

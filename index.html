@@ -152,9 +152,9 @@
         .search-dropdown-item-badge.apt { background: #3b82f6; color: #fff; }
         .search-dropdown-item-badge.place { background: #22c55e; color: #fff; }
         .search-dropdown-item-badge.htpost { background: #f97316; color: #fff; }
+        .search-dropdown-item-badge.htpost_leaflet { background: #16a34a; color: #fff; }
         .search-dropdown-item-badge.cgv { background: #8b5cf6; color: #fff; }
         .search-dropdown-item-badge.megabox { background: #06b6d4; color: #fff; }
-        .search-dropdown-item-badge.htpost_board { background: #1d4ed8; color: #fff; }
         .search-dropdown-item-badge.mediameet { background: #ec4899; color: #fff; }
         .search-dropdown-empty {
             padding: 20px;
@@ -1140,8 +1140,8 @@
                 <button class="filter-chip" data-value="townboard">타운보드 만첨</button>
                 <button class="filter-chip" data-value="townboard_op">타운보드 가동</button>
                 <button class="filter-chip" data-value="townboard_l">타운보드L</button>
-                <button class="filter-chip" data-value="htpost">HT POST</button>
-                <button class="filter-chip" data-value="htpost_board">HT POST 게시판</button>
+                <button class="filter-chip" data-value="htpost">HT POST 영상</button>
+                <button class="filter-chip" data-value="htpost_leaflet">HT POST 전단지</button>
                 <button class="filter-chip" data-value="cgv">CGV 스크린</button>
                 <button class="filter-chip" data-value="megabox">메가박스</button>
                 <button class="filter-chip" data-value="mediameet">MEDIA MEET</button>
@@ -1553,11 +1553,11 @@
                 `);
                 const imageSize = new kakao.maps.Size(24, 35);
                 markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-            } else if (loc.type === 'htpost_board') {
-                // HT POST 전자게시판: 남색 마커
+            } else if (loc.type === 'htpost_leaflet') {
+                // HT POST 전단지: 초록색 마커
                 const imageSrc = 'data:image/svg+xml;base64,' + btoa(`
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="35" viewBox="0 0 24 35">
-                        <path d="M12 0C5.4 0 0 5.4 0 12c0 7.5 12 23 12 23s12-15.5 12-23C24 5.4 18.6 0 12 0z" fill="#1d4ed8"/>
+                        <path d="M12 0C5.4 0 0 5.4 0 12c0 7.5 12 23 12 23s12-15.5 12-23C24 5.4 18.6 0 12 0z" fill="#16a34a"/>
                         <circle cx="12" cy="12" r="6" fill="white"/>
                     </svg>
                 `);
@@ -1650,7 +1650,7 @@
 
             // 타운보드 또는 HT POST 또는 CGV 또는 메가박스 또는 MEDIA MEET 여부 확인
             const isTownboard = loc.type === 'townboard' || loc.type === 'townboard_op' || loc.type === 'townboard_l';
-            const isHtpost = loc.type === 'htpost' || loc.type === 'htpost_board';
+            const isHtpost = loc.type === 'htpost' || loc.type === 'htpost_leaflet';
             const isCgv = loc.type === 'cgv';
             const isMegabox = loc.type === 'megabox';
             const isMediameet = loc.type === 'mediameet';
@@ -1660,14 +1660,14 @@
             badge.style.color = '';
 
             if (loc.type === 'htpost') {
-                badge.textContent = 'HT POST';
+                badge.textContent = 'HT POST 영상';
                 badge.className = 'info-grade-badge';
                 badge.style.background = '#f97316';
                 badge.style.color = '#fff';
-            } else if (loc.type === 'htpost_board') {
-                badge.textContent = 'HT POST 게시판';
+            } else if (loc.type === 'htpost_leaflet') {
+                badge.textContent = 'HT POST 전단지';
                 badge.className = 'info-grade-badge';
-                badge.style.background = '#1d4ed8';
+                badge.style.background = '#16a34a';
                 badge.style.color = '#fff';
             } else if (isCgv) {
                 badge.textContent = 'CGV';
@@ -1726,16 +1726,16 @@
                 unitPriceItem.style.display = 'none';
                 priceItem.style.display = 'none';
             } else if (loc.type === 'htpost') {
-                // HT POST: 대당가 숨기고, 월금액으로 표시
+                // HT POST 영상: 대당가 숨기고, 월금액으로 표시
                 unitPriceItem.style.display = 'none';
                 priceItem.style.display = '';
                 document.getElementById('infoPrice').parentElement.querySelector('.info-label').textContent = '월 금액';
                 document.getElementById('infoPrice').textContent = loc.price_4w ? loc.price_4w.toLocaleString() + '원' : '-';
-            } else if (loc.type === 'htpost_board') {
-                // HT POST 전자게시판: 대당가 숨기고, 15초 월광고료 표시
+            } else if (loc.type === 'htpost_leaflet') {
+                // HT POST 전단지: 대당가 숨기고, 월금액으로 표시
                 unitPriceItem.style.display = 'none';
                 priceItem.style.display = '';
-                document.getElementById('infoPrice').parentElement.querySelector('.info-label').textContent = '15초 월광고료';
+                document.getElementById('infoPrice').parentElement.querySelector('.info-label').textContent = '월 금액';
                 document.getElementById('infoPrice').textContent = loc.price_4w ? loc.price_4w.toLocaleString() + '원' : '-';
             } else if (isCgv || isMegabox) {
                 // CGV/메가박스: 대당가 숨기고, 15초 단가로 표시
@@ -1900,11 +1900,11 @@
                     if (loc.type === 'townboard' || loc.type === 'townboard_op' || loc.type === 'townboard_l') {
                         typeName = '타운보드';
                     } else if (loc.type === 'htpost') {
-                        typeName = 'HT POST';
+                        typeName = 'HT POST 영상';
                         badgeStyle = 'htpost';
-                    } else if (loc.type === 'htpost_board') {
-                        typeName = 'HT POST 게시판';
-                        badgeStyle = 'htpost_board';
+                    } else if (loc.type === 'htpost_leaflet') {
+                        typeName = 'HT POST 전단지';
+                        badgeStyle = 'htpost_leaflet';
                     } else if (loc.type === 'cgv') {
                         typeName = 'CGV';
                         badgeStyle = 'cgv';
@@ -2200,16 +2200,16 @@
                         <span>15초 <strong>${loc.price?.toLocaleString() || '-'}원</strong></span>
                     `;
                 } else if (loc.type === 'htpost') {
-                    badgeHtml = `<span class="grade-badge" style="background:#f97316;color:#fff;">HT POST</span>`;
+                    badgeHtml = `<span class="grade-badge" style="background:#f97316;color:#fff;">HT POST 영상</span>`;
                     infoHtml = `
                         <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
                         <span>월 <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
                     `;
-                } else if (loc.type === 'htpost_board') {
-                    badgeHtml = `<span class="grade-badge" style="background:#1d4ed8;color:#fff;">HT POST 게시판</span>`;
+                } else if (loc.type === 'htpost_leaflet') {
+                    badgeHtml = `<span class="grade-badge" style="background:#16a34a;color:#fff;">HT POST 전단지</span>`;
                     infoHtml = `
                         <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
-                        <span>15초 <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
+                        <span>월 <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
                     `;
                 } else if (loc.type === 'mediameet') {
                     badgeHtml = `<span class="grade-badge" style="background:#ec4899;color:#fff;">MEDIA MEET</span>`;
