@@ -224,7 +224,7 @@ def main():
         townboard_file, '타운보드L(전국 10,000대)', '타운보드L', 'townboard_l')
 
     # 4. 타운보드 만첨: 엑셀 직접 변환
-    mancheom_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260304(공유).xlsx')
+    mancheom_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260316(공유).xlsx')
     new_tb_mancheom_data = convert_townboard_mancheom(mancheom_file)
 
     # 5. HTPOST 데이터 (영상 + 전단지, 엑셀 직접 변환)
