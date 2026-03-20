@@ -46,8 +46,11 @@ def convert_townboard_sheet(excel_file, sheet_name, media_filter, type_name):
 
     df = pd.read_excel(excel_file, sheet_name=sheet_name, header=5)
 
-    # 매체분류 필터링
-    df = df[df['매체분류'] == media_filter].copy()
+    # 매체분류 필터링 (문자열 또는 리스트)
+    if isinstance(media_filter, list):
+        df = df[df['매체분류'].isin(media_filter)].copy()
+    else:
+        df = df[df['매체분류'] == media_filter].copy()
     df = df.dropna(subset=['아파트명'])
     print(f"  유효 데이터: {len(df)}개")
 
@@ -213,15 +216,15 @@ def main():
     print(f"\n새 포커스미디어 데이터: {len(new_fm_data)}개")
 
     # 3. 타운보드 엑셀에서 직접 변환
-    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260309.xlsx')
+    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260316.xlsx')
 
     # 타운보드S (가동)
     new_tb_s_data = convert_townboard_sheet(
         townboard_file, '타운보드S(전국 50,000대)', '타운보드', 'townboard_op')
 
-    # 타운보드L (가동)
+    # 타운보드L (가동) - 시트 내 모든 데이터를 townboard_l로 처리 (리모델링 추가 단지 제외)
     new_tb_l_data = convert_townboard_sheet(
-        townboard_file, '타운보드L(전국 10,000대)', '타운보드L', 'townboard_l')
+        townboard_file, '타운보드L(전국 10,000대)', ['타운보드', '타운보드L'], 'townboard_l')
 
     # 4. 타운보드 만첨: 엑셀 직접 변환
     mancheom_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260316(공유).xlsx')
@@ -231,11 +234,30 @@ def main():
     htpost_excel_file = os.path.join(BASE_DIR, '[현대에이치티] 단지별 로컬광고단가.xlsx')
     htpost_video_data, htpost_leaflet_data = convert_htpost_new(htpost_excel_file)
 
-    # 6. MEDIA MEET 데이터 로드
+    # 6. MEDIA MEET 데이터 로드 → 내부/대기공간 분리
     mediameet_file = os.path.join(BASE_DIR, 'data_mediameet.json')
     with open(mediameet_file, 'r', encoding='utf-8') as f:
-        mediameet_data = json.load(f)
-    print(f"MEDIA MEET 데이터: {len(mediameet_data)}개")
+        mediameet_raw = json.load(f)
+    print(f"MEDIA MEET 원본 데이터: {len(mediameet_raw)}개")
+
+    mediameet_data = []
+    for item in mediameet_raw:
+        qi = item.get('quantity_interior') or 0
+        qw = item.get('quantity_waiting') or 0
+
+        if qi > 0:
+            interior = {**item, 'type': 'mediameet_interior', 'quantity': qi}
+            mediameet_data.append(interior)
+        if qw > 0:
+            waiting = {**item, 'type': 'mediameet_waiting', 'quantity': qw}
+            mediameet_data.append(waiting)
+        if qi == 0 and qw == 0:
+            # 둘 다 0이면 내부로 처리
+            mediameet_data.append({**item, 'type': 'mediameet_interior'})
+
+    mm_interior = sum(1 for d in mediameet_data if d['type'] == 'mediameet_interior')
+    mm_waiting = sum(1 for d in mediameet_data if d['type'] == 'mediameet_waiting')
+    print(f"MEDIA MEET 분리: 내부 {mm_interior}개, 대기공간 {mm_waiting}개 (합계 {len(mediameet_data)}개)")
 
     # 7. 모든 데이터에 좌표 적용
     all_items = (new_fm_data + new_tb_s_data + new_tb_l_data +

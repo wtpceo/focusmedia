@@ -155,7 +155,8 @@
         .search-dropdown-item-badge.htpost_leaflet { background: #16a34a; color: #fff; }
         .search-dropdown-item-badge.cgv { background: #8b5cf6; color: #fff; }
         .search-dropdown-item-badge.megabox { background: #06b6d4; color: #fff; }
-        .search-dropdown-item-badge.mediameet { background: #ec4899; color: #fff; }
+        .search-dropdown-item-badge.mediameet_interior { background: #ec4899; color: #fff; }
+        .search-dropdown-item-badge.mediameet_waiting { background: #a855f7; color: #fff; }
         .search-dropdown-empty {
             padding: 20px;
             text-align: center;
@@ -1144,7 +1145,8 @@
                 <button class="filter-chip" data-value="htpost_leaflet">HT POST 전단지</button>
                 <button class="filter-chip" data-value="cgv">CGV 스크린</button>
                 <button class="filter-chip" data-value="megabox">메가박스</button>
-                <button class="filter-chip" data-value="mediameet">MEDIA MEET</button>
+                <button class="filter-chip" data-value="mediameet_interior">MM 내부</button>
+                <button class="filter-chip" data-value="mediameet_waiting">MM 대기공간</button>
             </div>
         </div>
         <div class="filter-section">
@@ -1583,11 +1585,21 @@
                 `);
                 const imageSize = new kakao.maps.Size(24, 35);
                 markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-            } else if (loc.type === 'mediameet') {
-                // MEDIA MEET: 핑크색 마커
+            } else if (loc.type === 'mediameet_interior') {
+                // MEDIA MEET 내부: 핑크색 마커
                 const imageSrc = 'data:image/svg+xml;base64,' + btoa(`
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="35" viewBox="0 0 24 35">
                         <path d="M12 0C5.4 0 0 5.4 0 12c0 7.5 12 23 12 23s12-15.5 12-23C24 5.4 18.6 0 12 0z" fill="#ec4899"/>
+                        <circle cx="12" cy="12" r="6" fill="white"/>
+                    </svg>
+                `);
+                const imageSize = new kakao.maps.Size(24, 35);
+                markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+            } else if (loc.type === 'mediameet_waiting') {
+                // MEDIA MEET 대기공간: 연보라 마커
+                const imageSrc = 'data:image/svg+xml;base64,' + btoa(`
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="35" viewBox="0 0 24 35">
+                        <path d="M12 0C5.4 0 0 5.4 0 12c0 7.5 12 23 12 23s12-15.5 12-23C24 5.4 18.6 0 12 0z" fill="#a855f7"/>
                         <circle cx="12" cy="12" r="6" fill="white"/>
                     </svg>
                 `);
@@ -1653,7 +1665,7 @@
             const isHtpost = loc.type === 'htpost' || loc.type === 'htpost_leaflet';
             const isCgv = loc.type === 'cgv';
             const isMegabox = loc.type === 'megabox';
-            const isMediameet = loc.type === 'mediameet';
+            const isMediameet = loc.type === 'mediameet_interior' || loc.type === 'mediameet_waiting';
 
             const badge = document.getElementById('infoGradeBadge');
             badge.style.background = '';  // 인라인 스타일 초기화
@@ -1679,10 +1691,15 @@
                 badge.className = 'info-grade-badge';
                 badge.style.background = '#06b6d4';
                 badge.style.color = '#fff';
-            } else if (isMediameet) {
-                badge.textContent = 'MEDIA MEET';
+            } else if (loc.type === 'mediameet_interior') {
+                badge.textContent = 'MM 내부';
                 badge.className = 'info-grade-badge';
                 badge.style.background = '#ec4899';
+                badge.style.color = '#fff';
+            } else if (loc.type === 'mediameet_waiting') {
+                badge.textContent = 'MM 대기공간';
+                badge.className = 'info-grade-badge';
+                badge.style.background = '#a855f7';
                 badge.style.color = '#fff';
             } else {
                 badge.textContent = loc.grade || '-';
@@ -1911,9 +1928,12 @@
                     } else if (loc.type === 'megabox') {
                         typeName = '메가박스';
                         badgeStyle = 'megabox';
-                    } else if (loc.type === 'mediameet') {
-                        typeName = 'MEDIA MEET';
-                        badgeStyle = 'mediameet';
+                    } else if (loc.type === 'mediameet_interior') {
+                        typeName = 'MM 내부';
+                        badgeStyle = 'mediameet_interior';
+                    } else if (loc.type === 'mediameet_waiting') {
+                        typeName = 'MM 대기공간';
+                        badgeStyle = 'mediameet_waiting';
                     }
                     return `
                     <div class="search-dropdown-item" onclick="selectApartment('${loc.name}')">
@@ -2211,8 +2231,14 @@
                         <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
                         <span>월 <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
                     `;
-                } else if (loc.type === 'mediameet') {
-                    badgeHtml = `<span class="grade-badge" style="background:#ec4899;color:#fff;">MEDIA MEET</span>`;
+                } else if (loc.type === 'mediameet_interior') {
+                    badgeHtml = `<span class="grade-badge" style="background:#ec4899;color:#fff;">MM 내부</span>`;
+                    infoHtml = `
+                        <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
+                        <span>15초 <strong>${loc.unit_price?.toLocaleString() || '-'}원</strong></span>
+                    `;
+                } else if (loc.type === 'mediameet_waiting') {
+                    badgeHtml = `<span class="grade-badge" style="background:#a855f7;color:#fff;">MM 대기공간</span>`;
                     infoHtml = `
                         <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
                         <span>15초 <strong>${loc.unit_price?.toLocaleString() || '-'}원</strong></span>
