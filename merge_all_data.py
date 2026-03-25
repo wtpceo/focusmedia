@@ -142,22 +142,21 @@ def convert_townboard_mancheom(excel_file):
 
 
 def convert_htpost_new(excel_file):
-    """[현대에이치티] 단지별 로컬광고단가.xlsx → 영상(htpost) + 전단지(htpost_leaflet)"""
-    print(f"\n=== HTPOST 변환 중 (영상 + 전단지 분리) ===")
-    df = pd.read_excel(excel_file, sheet_name='가격정책', header=2)
+    """HTPOST 가동리스트_로컬파트너사 → 영상(htpost)"""
+    print(f"\n=== HTPOST 영상 변환 중 ===")
+    df = pd.read_excel(excel_file, header=2)
     df = df.dropna(subset=['현장명'])
     df = df[df['지역'] != '구분']  # 반복 헤더 행 제거
     print(f"  유효 데이터: {len(df)}개")
 
     video_data = []
-    leaflet_data = []
 
     for idx, row in df.iterrows():
         name = clean_text(row['현장명'])
         if not name:
             continue
 
-        base = {
+        video_data.append({
             'name': name,
             'city': clean_text(row.get('지역', '')),
             'gu': '',
@@ -168,25 +167,49 @@ def convert_htpost_new(excel_file):
             'quantity': clean_number(row.get('실제수량', 0)),
             'lat': None,
             'lng': None,
-        }
-
-        # 영상 (모든 단지)
-        video_data.append({**base,
-            'price_4w': clean_number(row.get('Unnamed: 9', 0)),
+            'price_4w': clean_number(row.get('Unnamed: 7', 0)),
             'type': 'htpost'
         })
+
+    print(f"  영상: {len(video_data)}개")
+    return video_data
+
+
+def convert_htpost_leaflet(excel_file):
+    """[현대에이치티] 단지별 로컬광고단가.xlsx → 전단지(htpost_leaflet)"""
+    print(f"\n=== HTPOST 전단지 변환 중 ===")
+    df = pd.read_excel(excel_file, sheet_name='가격정책', header=2)
+    df = df.dropna(subset=['현장명'])
+    df = df[df['지역'] != '구분']  # 반복 헤더 행 제거
+
+    leaflet_data = []
+
+    for idx, row in df.iterrows():
+        name = clean_text(row['현장명'])
+        if not name:
+            continue
 
         # 전단지 (게시판 가능 단지만 - '가능', '가능 (보장)' 포함)
         leaflet_yn = clean_text(row.get('게시판전단광고', ''))
         if leaflet_yn.startswith('가능'):
             price_per_week = clean_number(row.get('Unnamed: 11', 0))
-            leaflet_data.append({**base,
+            leaflet_data.append({
+                'name': name,
+                'city': clean_text(row.get('지역', '')),
+                'gu': '',
+                'dong': '',
+                'address': clean_text(row.get('주소', '')),
+                'building_type': '',
+                'households': clean_number(row.get('세대수', 0)),
+                'quantity': clean_number(row.get('실제수량', 0)),
+                'lat': None,
+                'lng': None,
                 'price_4w': price_per_week * 4,
                 'type': 'htpost_leaflet'
             })
 
-    print(f"  영상: {len(video_data)}개, 전단지: {len(leaflet_data)}개")
-    return video_data, leaflet_data
+    print(f"  전단지: {len(leaflet_data)}개")
+    return leaflet_data
 
 
 def main():
@@ -230,9 +253,12 @@ def main():
     mancheom_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260316(공유).xlsx')
     new_tb_mancheom_data = convert_townboard_mancheom(mancheom_file)
 
-    # 5. HTPOST 데이터 (영상 + 전단지, 엑셀 직접 변환)
-    htpost_excel_file = os.path.join(BASE_DIR, '[현대에이치티] 단지별 로컬광고단가.xlsx')
-    htpost_video_data, htpost_leaflet_data = convert_htpost_new(htpost_excel_file)
+    # 5. HTPOST 데이터 (영상: 로컬파트너사 파일, 전단지: 현대에이치티 파일)
+    htpost_video_file = os.path.join(BASE_DIR, 'HTPOST 가동리스트_로컬파트너사_260319.xlsx')
+    htpost_video_data = convert_htpost_new(htpost_video_file)
+
+    htpost_leaflet_file = os.path.join(BASE_DIR, '[현대에이치티] 단지별 로컬광고단가.xlsx')
+    htpost_leaflet_data = convert_htpost_leaflet(htpost_leaflet_file)
 
     # 6. MEDIA MEET 데이터 로드 → 내부/대기공간 분리
     mediameet_file = os.path.join(BASE_DIR, 'data_mediameet.json')
