@@ -8803,7 +8803,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.6093027395134,
+    "lng": 127.137162425132
   },
   {
     "name": "토평한일아파트",
@@ -23825,7 +23827,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.2375500508049,
+    "lng": 127.046439243987
   },
   {
     "name": "매탄임광아파트",
@@ -26391,7 +26395,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.2652582597034,
+    "lng": 127.026458511448
   },
   {
     "name": "한라시그마팰리스",
@@ -33541,7 +33547,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.3629502683613,
+    "lng": 126.963843599214
   },
   {
     "name": "박달동한일U&I",
@@ -33755,7 +33763,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.4049266876337,
+    "lng": 126.904989917573
   },
   {
     "name": "관악산현대홈타운아파트",
@@ -34377,7 +34387,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.3917933800155,
+    "lng": 126.912798672389
   },
   {
     "name": "덕정주공8단지",
@@ -35815,7 +35827,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.2299223038764,
+    "lng": 127.112152113636
   },
   {
     "name": "한보라마을휴먼시아7",
@@ -41645,7 +41659,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.3288525500023,
+    "lng": 127.110910589723
   },
   {
     "name": "죽전현대1차아파트",
@@ -42963,7 +42979,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.3475562677484,
+    "lng": 126.969868482392
   },
   {
     "name": "세양청마루",
@@ -43033,7 +43051,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.3784537951595,
+    "lng": 126.977358335153
   },
   {
     "name": "미원파크빌(101동)",
@@ -54527,7 +54547,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.4947347039754,
+    "lng": 127.036501635363
   },
   {
     "name": "강남루덴스",
@@ -56229,7 +56251,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.5272077395766,
+    "lng": 127.143331897067
   },
   {
     "name": "동호리츠빌",
@@ -58099,7 +58123,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.631718783681,
+    "lng": 127.035584616345
   },
   {
     "name": "서울번동3",
@@ -62633,7 +62659,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.4817481992415,
+    "lng": 126.951459046892
   },
   {
     "name": "관악푸르지오",
@@ -63879,7 +63907,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.4714477335735,
+    "lng": 126.917450108404
   },
   {
     "name": "광장청구아파트",
@@ -68365,7 +68395,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.4560972360351,
+    "lng": 126.899570399225
   },
   {
     "name": "시흥금강아파트",
@@ -70019,7 +70051,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.6733522033164,
+    "lng": 127.050205836219
   },
   {
     "name": "노원월계초안2단지",
@@ -70497,7 +70531,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.6318155292192,
+    "lng": 127.052326972987
   },
   {
     "name": "중계중앙하이츠아파트",
@@ -71599,7 +71635,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.6874839682234,
+    "lng": 127.048462830506
   },
   {
     "name": "방학동신동아4차",
@@ -73349,7 +73387,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.5739642538357,
+    "lng": 127.025747086472
   },
   {
     "name": "래미안허브리츠용두동",
@@ -80787,7 +80827,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.4865276721133,
+    "lng": 127.012932415371
   },
   {
     "name": "서초팰리스",
@@ -85705,7 +85747,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.5962119111888,
+    "lng": 127.041104102789
   },
   {
     "name": "갤럭시하월곡",
@@ -97223,7 +97267,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.5610379790132,
+    "lng": 127.020985832433
   },
   {
     "name": "정석그라시아",
@@ -98325,7 +98371,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.5736890471969,
+    "lng": 127.080369617106
   },
   {
     "name": "면목대원칸타빌",
@@ -99643,7 +99691,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.5569198875472,
+    "lng": 126.746951260454
   },
   {
     "name": "방축대창센시티아파트",
@@ -99857,7 +99907,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.540271784419,
+    "lng": 126.740993831686
   },
   {
     "name": "이화신동아파밀리에아파트",
@@ -106575,7 +106627,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.6045775642824,
+    "lng": 126.650584595218
   },
   {
     "name": "검단힐스테이트5차",
@@ -110629,7 +110683,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.4237639439074,
+    "lng": 126.649812277981
   },
   {
     "name": "연수성호아파트",
@@ -110987,7 +111043,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.4945850057305,
+    "lng": 126.570084357915
   },
   {
     "name": "영종하늘도시kcc스위첸",
@@ -111105,7 +111163,9 @@
     "restriction1_date": "",
     "restriction2_type": "",
     "restriction2_date": "",
-    "type": "focusmedia"
+    "type": "focusmedia",
+    "lat": 37.5020681404191,
+    "lng": 126.567607943119
   },
   {
     "name": "비취맨션2단지아파트",
@@ -121955,7 +122015,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 37.6686359190727,
+    "lng": 127.078205787119
   },
   {
     "name": "신금호파크자이",
@@ -121975,7 +122037,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 37.5562788411556,
+    "lng": 127.018152303
   },
   {
     "name": "길음뉴타운11단지롯데캐슬골드",
@@ -122127,7 +122191,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 37.6245322840606,
+    "lng": 127.046598382732
   },
   {
     "name": "신동아리버파크",
@@ -122147,7 +122213,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 37.5074254730822,
+    "lng": 126.945123370196
   },
   {
     "name": "풍납극동아파트",
@@ -122167,7 +122235,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 37.5268104959684,
+    "lng": 127.116088187018
   },
   {
     "name": "거여6단지아파트",
@@ -124647,7 +124717,7 @@
     "households": 478,
     "population": null,
     "grade": null,
-    "quantity": 16,
+    "quantity": 0,
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
@@ -140188,7 +140258,7 @@
     "lng": 127.070207492176
   },
   {
-    "name": "수원정자두견벽산3차",
+    "name": "두견마을벽산3차",
     "code": "",
     "city": "경기도",
     "gu": "수원",
@@ -140206,8 +140276,8 @@
     "price_4w": null,
     "install_date": "",
     "type": "townboard_op",
-    "lat": 37.29483255754259,
-    "lng": 126.99618346496884
+    "lat": 37.2949764329591,
+    "lng": 126.995599923721
   },
   {
     "name": "평택효성백년가약",
@@ -144869,7 +144939,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 37.3301110319649,
+    "lng": 126.799903615471
   },
   {
     "name": "미리내동성아파트",
@@ -144889,7 +144961,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 37.4997713075003,
+    "lng": 126.769406943702
   },
   {
     "name": "한가람두산아파트",
@@ -144909,7 +144983,31 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 37.3983252850625,
+    "lng": 126.956586468554
+  },
+  {
+    "name": "한일타운아파트",
+    "code": "",
+    "city": "경기도",
+    "gu": "수원",
+    "dong": "조원",
+    "address": "경기도수원시장안구경수대로976번길22",
+    "building_type": "아파트",
+    "year": 1999,
+    "floors": null,
+    "area": "25,33,38,45,50,62",
+    "households": 5282,
+    "population": null,
+    "grade": null,
+    "quantity": 127,
+    "unit_price": null,
+    "price_4w": null,
+    "install_date": "",
+    "type": "townboard_op",
+    "lat": 37.3063107410233,
+    "lng": 127.004693675381
   },
   {
     "name": "광명해모로이연",
@@ -145193,7 +145291,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 37.833377360404,
+    "lng": 127.089250212734
   },
   {
     "name": "강선마을11단지태영아파트",
@@ -145213,7 +145313,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 37.6683495423281,
+    "lng": 126.765680991413
   },
   {
     "name": "김포한강나비마을LH3단지아파트",
@@ -145277,7 +145379,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 37.5963824956399,
+    "lng": 127.169393532306
   },
   {
     "name": "미사강변동일하이빌",
@@ -167099,7 +167203,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 35.1938733167425,
+    "lng": 129.083501569372
   },
   {
     "name": "김해중흥S클래스1",
@@ -167493,7 +167599,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 35.2146544670169,
+    "lng": 128.708214133466
   },
   {
     "name": "월드메르디앙이스턴애비뉴",
@@ -168261,7 +168369,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_op"
+    "type": "townboard_op",
+    "lat": 35.2148410032029,
+    "lng": 128.706240940406
   },
   {
     "name": "대림하이빌타운아파트",
@@ -170543,7 +170653,7 @@
     "households": 348,
     "population": null,
     "grade": null,
-    "quantity": 8,
+    "quantity": 0,
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
@@ -174881,7 +174991,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_l"
+    "type": "townboard_l",
+    "lat": 37.5562788411556,
+    "lng": 127.018152303
   },
   {
     "name": "북한산삼부르네상스아파트_L",
@@ -175564,6 +175676,28 @@
     "type": "townboard_l",
     "lat": 37.6099259937222,
     "lng": 127.015458405282
+  },
+  {
+    "name": "상도더샵1차_L",
+    "code": "",
+    "city": "서울특별시",
+    "gu": "동작",
+    "dong": "상도",
+    "address": "서울특별시동작구상도동521",
+    "building_type": "아파트",
+    "year": 2014,
+    "floors": null,
+    "area": "25,28,29,30,31,33,50,62",
+    "households": 1122,
+    "population": null,
+    "grade": null,
+    "quantity": 31,
+    "unit_price": null,
+    "price_4w": null,
+    "install_date": "",
+    "type": "townboard_l",
+    "lat": 37.5020771686333,
+    "lng": 126.942973546609
   },
   {
     "name": "하남유니온시티에일린의뜰_L",
@@ -177502,7 +177636,7 @@
     "lng": 126.986562593138
   },
   {
-    "name": "두견마을3차벽산아파트_L",
+    "name": "두견마을벽산3차아파트_L",
     "code": "",
     "city": "경기도",
     "gu": "수원",
@@ -180313,7 +180447,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_l"
+    "type": "townboard_l",
+    "lat": 33.4769844958351,
+    "lng": 126.484603918715
   },
   {
     "name": "래미안라그란데_L",
@@ -180333,7 +180469,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_l"
+    "type": "townboard_l",
+    "lat": 37.6000836382077,
+    "lng": 127.060230246956
   },
   {
     "name": "래미안라그란데 상가_L",
@@ -180353,7 +180491,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_l"
+    "type": "townboard_l",
+    "lat": 37.6000836382077,
+    "lng": 127.060230246956
   },
   {
     "name": "송도럭스오션에스케이뷰_L",
@@ -180373,7 +180513,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_l"
+    "type": "townboard_l",
+    "lat": 37.3933181330132,
+    "lng": 126.612369427488
   },
   {
     "name": "반포써밋_L",
@@ -180393,7 +180535,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_l"
+    "type": "townboard_l",
+    "lat": 37.5009525951681,
+    "lng": 127.01850090538
   },
   {
     "name": "우성캐릭터199아파트_L",
@@ -180413,7 +180557,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard_l"
+    "type": "townboard_l",
+    "lat": 37.4869159664401,
+    "lng": 127.051855548139
   },
   {
     "name": "당산삼성래미안",
@@ -180543,7 +180689,9 @@
     "unit_price": null,
     "price_4w": null,
     "install_date": "",
-    "type": "townboard"
+    "type": "townboard",
+    "lat": 35.8579841514512,
+    "lng": 128.619393590123
   },
   {
     "name": "부산해운대센텀스타",
@@ -180724,7 +180872,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 남동구 구월동 1524",
+    "address": "인천 남동구 구월동 1524",
     "building_type": "",
     "households": 602,
     "quantity": 29,
@@ -180766,7 +180914,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 연수구 송도동 316",
+    "address": "인천 연수구 송도동 316",
     "building_type": "",
     "households": 2784,
     "quantity": 42,
@@ -180794,7 +180942,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 연수구 송도동 155",
+    "address": "인천 연수구 송도동 155",
     "building_type": "",
     "households": 830,
     "quantity": 10,
@@ -180819,7 +180967,7 @@
   },
   {
     "name": "원주 대원칸타빌",
-    "city": "원주",
+    "city": "강원",
     "gu": "",
     "dong": "",
     "address": "강원도 원주시 태장동 2737",
@@ -180836,7 +180984,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 계양구 서운동 230",
+    "address": "인천 계양구 서운동 230",
     "building_type": "",
     "households": 1669,
     "quantity": 83,
@@ -180864,7 +181012,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 계양구 서운동 203",
+    "address": "인천 계양구 서운동 203",
     "building_type": "",
     "households": 373,
     "quantity": 17,
@@ -180892,7 +181040,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 서구 당하동 1254-1",
+    "address": "인천 서구 당하동 1254-1",
     "building_type": "",
     "households": 936,
     "quantity": 53,
@@ -181074,7 +181222,7 @@
     "city": "경기",
     "gu": "",
     "dong": "",
-    "address": "경기도 용인시 기흥구 동백죽전대로 283",
+    "address": "경기 용인시 기흥구 동백죽전대로 283",
     "building_type": "",
     "households": 966,
     "quantity": 27,
@@ -181130,7 +181278,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천광역시 연수구 인천타워대로 393",
+    "address": "인천 연수구 인천타워대로 393",
     "building_type": "",
     "households": 578,
     "quantity": 13,
@@ -181232,8 +181380,8 @@
     "building_type": "",
     "households": 1299,
     "quantity": 22,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5396196848963,
+    "lng": 127.149551483961,
     "price_4w": 180000,
     "type": "htpost"
   },
@@ -181312,7 +181460,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 서구 왕길동 133-3번지",
+    "address": "인천 서구 왕길동 133-3번지",
     "building_type": "",
     "households": 1500,
     "quantity": 64,
@@ -181424,7 +181572,7 @@
     "city": "서울",
     "gu": "",
     "dong": "",
-    "address": "서울시 송파구 올림픽로 99",
+    "address": "서울 송파구 올림픽로 99",
     "building_type": "",
     "households": 5678,
     "quantity": 214,
@@ -181466,7 +181614,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 남동구 호구포로 803",
+    "address": "인천 남동구 호구포로 803",
     "building_type": "",
     "households": 3384,
     "quantity": 109,
@@ -181484,8 +181632,8 @@
     "building_type": "",
     "households": 996,
     "quantity": 34,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8242848030931,
+    "lng": 128.521946658613,
     "price_4w": 140000,
     "type": "htpost"
   },
@@ -181564,7 +181712,7 @@
     "city": "광주",
     "gu": "",
     "dong": "",
-    "address": "광주광역시 서구 상무평화로 64(치평동1174-3",
+    "address": "광주광역시 서구 상무평화로 64 치평동1174-3",
     "building_type": "",
     "households": 884,
     "quantity": 24,
@@ -181592,7 +181740,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 계양구 장제로 878",
+    "address": "인천 계양구 장제로 878",
     "building_type": "",
     "households": 1047,
     "quantity": 28,
@@ -181676,7 +181824,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 중구 인항로 30",
+    "address": "인천 중구 인항로 30",
     "building_type": "",
     "households": 1330,
     "quantity": 30,
@@ -181704,7 +181852,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 부평구 산청로 60",
+    "address": "인천 부평구 산청로 60",
     "building_type": "",
     "households": 1623,
     "quantity": 60,
@@ -181746,7 +181894,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 부평구 열우물로 90",
+    "address": "인천 부평구 열우물로 90",
     "building_type": "",
     "households": 5678,
     "quantity": 146,
@@ -181774,7 +181922,7 @@
     "city": "인천",
     "gu": "",
     "dong": "",
-    "address": "인천시 연수구 랜드마크로360번길 40",
+    "address": "인천 연수구 랜드마크로360번길 40",
     "building_type": "",
     "households": 1503,
     "quantity": 25,
@@ -181903,9 +182051,9 @@
     "address": "경기도 안양시 동안구 갈산로 15",
     "building_type": "",
     "households": 2886,
-    "quantity": 60,
-    "lat": null,
-    "lng": null,
+    "quantity": 49,
+    "lat": 37.3721324859263,
+    "lng": 126.960851363502,
     "price_4w": 300000,
     "type": "htpost"
   },
@@ -181944,7 +182092,7 @@
     "dong": "",
     "address": "서울 중구 을지로15길 32",
     "building_type": "",
-    "households": 329,
+    "households": 608,
     "quantity": 7,
     "lat": 37.5681000086275,
     "lng": 126.994413610574,
@@ -181959,7 +182107,7 @@
     "address": "서울시 강동구 양재대로 1300",
     "building_type": "",
     "households": 12032,
-    "quantity": 25,
+    "quantity": 24,
     "lat": 37.5249677176279,
     "lng": 127.140290598327,
     "price_4w": 400000,
@@ -181995,7 +182143,7 @@
   },
   {
     "name": "경기_힐스테이트부평",
-    "city": "인천",
+    "city": "경기",
     "gu": "",
     "dong": "",
     "address": "인천 부평구 경원대로 1192",
@@ -182037,7 +182185,7 @@
   },
   {
     "name": "경기_이편한세상구성역플랫폼시티",
-    "city": "경기",
+    "city": "용인",
     "gu": "",
     "dong": "",
     "address": "경기도 용인시 기흥구 구성로 15",
@@ -182051,7 +182199,7 @@
   },
   {
     "name": "서울_답십리파크자이",
-    "city": "서울",
+    "city": "용인",
     "gu": "",
     "dong": "",
     "address": "서울시 동대문구 답십리로56길 105",
@@ -182065,7 +182213,7 @@
   },
   {
     "name": "서울_센트레빌아스테리움시그니처",
-    "city": "서울",
+    "city": "용인",
     "gu": "",
     "dong": "",
     "address": "서울시 은평구 갈현로7길 25",
@@ -182082,12 +182230,12 @@
     "city": "경기",
     "gu": "",
     "dong": "",
-    "address": "경기 안양시 만안구 안양천서로 249",
+    "address": "경기도 안양시 만안구 안양천서로 249",
     "building_type": "",
     "households": 2736,
     "quantity": 44,
-    "lat": null,
-    "lng": null,
+    "lat": 37.3983799775541,
+    "lng": 126.926367277614,
     "price_4w": 300000,
     "type": "htpost"
   },
@@ -182100,8 +182248,8 @@
     "building_type": "",
     "households": 2586,
     "quantity": 78,
-    "lat": null,
-    "lng": null,
+    "lat": 37.2669191419831,
+    "lng": 127.012135121602,
     "price_4w": 300000,
     "type": "htpost"
   },
@@ -182113,9 +182261,9 @@
     "address": "경기 광명시 사성로75번길 1",
     "building_type": "",
     "households": 3585,
-    "quantity": 71,
-    "lat": null,
-    "lng": null,
+    "quantity": 70,
+    "lat": 37.4886679975374,
+    "lng": 126.861802668609,
     "price_4w": 400000,
     "type": "htpost"
   },
@@ -182124,41 +182272,13 @@
     "city": "경기",
     "gu": "",
     "dong": "",
-    "address": "경기 안양시 동안구 귀인로98번길 12",
+    "address": "경기도 안양시 동안구 귀인로98번길 12",
     "building_type": "",
     "households": 2417,
     "quantity": 48,
-    "lat": null,
-    "lng": null,
+    "lat": 37.3815103054938,
+    "lng": 126.950399019623,
     "price_4w": 300000,
-    "type": "htpost"
-  },
-  {
-    "name": "서울_청량리한양수자인그라시엘",
-    "city": "서울",
-    "gu": "",
-    "dong": "",
-    "address": "서울 동대문구 고산자로32길 78",
-    "building_type": "",
-    "households": 1152,
-    "quantity": 25,
-    "lat": null,
-    "lng": null,
-    "price_4w": 200000,
-    "type": "htpost"
-  },
-  {
-    "name": "경기_광명센트럴아이파크",
-    "city": "경기",
-    "gu": "",
-    "dong": "",
-    "address": "경기 광명시 광이로 49",
-    "building_type": "",
-    "households": 1957,
-    "quantity": 34,
-    "lat": null,
-    "lng": null,
-    "price_4w": 250000,
     "type": "htpost"
   },
   {
@@ -182169,10 +182289,38 @@
     "address": "경기 파주시 와석순환로515번길 70",
     "building_type": "",
     "households": 744,
-    "quantity": 7,
-    "lat": null,
-    "lng": null,
+    "quantity": 6,
+    "lat": 37.7290760322774,
+    "lng": 126.764618359761,
     "price_4w": 100000,
+    "type": "htpost"
+  },
+  {
+    "name": "경기_광명센트럴아이파크",
+    "city": "경기",
+    "gu": "",
+    "dong": "",
+    "address": "경기 광명시 광이로 49",
+    "building_type": "",
+    "households": 1957,
+    "quantity": 33,
+    "lat": 37.4817514533933,
+    "lng": 126.858338072611,
+    "price_4w": 250000,
+    "type": "htpost"
+  },
+  {
+    "name": "서울_청량리한양수자인그라시엘",
+    "city": "서울",
+    "gu": "",
+    "dong": "",
+    "address": "서울특별시 동대문구 고산자로32길 78",
+    "building_type": "",
+    "households": 1152,
+    "quantity": 7,
+    "lat": 37.5775880431542,
+    "lng": 127.042841437254,
+    "price_4w": 200000,
     "type": "htpost"
   },
   {
@@ -182618,8 +182766,8 @@
     "building_type": "",
     "households": 1299,
     "quantity": 22,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5396196848963,
+    "lng": 127.149551483961,
     "price_4w": 400000,
     "type": "htpost_leaflet"
   },
@@ -182856,8 +183004,8 @@
     "building_type": "",
     "households": 996,
     "quantity": 34,
-    "lat": null,
-    "lng": null,
+    "lat": 35.8242848030931,
+    "lng": 128.521946658613,
     "price_4w": 280000,
     "type": "htpost_leaflet"
   },
@@ -183276,8 +183424,8 @@
     "building_type": "",
     "households": 2886,
     "quantity": 60,
-    "lat": null,
-    "lng": null,
+    "lat": 37.3721324859263,
+    "lng": 126.960851363502,
     "price_4w": 400000,
     "type": "htpost_leaflet"
   },
@@ -183444,8 +183592,8 @@
     "building_type": "",
     "households": 2736,
     "quantity": 44,
-    "lat": null,
-    "lng": null,
+    "lat": 37.3983799775541,
+    "lng": 126.926367277614,
     "price_4w": 400000,
     "type": "htpost_leaflet"
   },
@@ -183458,8 +183606,8 @@
     "building_type": "",
     "households": 2586,
     "quantity": 78,
-    "lat": null,
-    "lng": null,
+    "lat": 37.2669191419831,
+    "lng": 127.012135121602,
     "price_4w": 400000,
     "type": "htpost_leaflet"
   },
@@ -183472,8 +183620,8 @@
     "building_type": "",
     "households": 3585,
     "quantity": 71,
-    "lat": null,
-    "lng": null,
+    "lat": 37.4886679975374,
+    "lng": 126.861802668609,
     "price_4w": 400000,
     "type": "htpost_leaflet"
   },
@@ -183486,8 +183634,8 @@
     "building_type": "",
     "households": 2417,
     "quantity": 48,
-    "lat": null,
-    "lng": null,
+    "lat": 37.3815103054938,
+    "lng": 126.950399019623,
     "price_4w": 400000,
     "type": "htpost_leaflet"
   },
@@ -183500,8 +183648,8 @@
     "building_type": "",
     "households": 1152,
     "quantity": 25,
-    "lat": null,
-    "lng": null,
+    "lat": 37.5775880431542,
+    "lng": 127.042841437254,
     "price_4w": 320000,
     "type": "htpost_leaflet"
   },
@@ -183514,8 +183662,8 @@
     "building_type": "",
     "households": 1957,
     "quantity": 34,
-    "lat": null,
-    "lng": null,
+    "lat": 37.4817514533933,
+    "lng": 126.858338072611,
     "price_4w": 320000,
     "type": "htpost_leaflet"
   },
@@ -183528,8 +183676,8 @@
     "building_type": "",
     "households": 744,
     "quantity": 7,
-    "lat": null,
-    "lng": null,
+    "lat": 37.7290760322774,
+    "lng": 126.764618359761,
     "price_4w": 120000,
     "type": "htpost_leaflet"
   },
@@ -187596,8 +187744,8 @@
     "quantity": 11,
     "unit_price": 8000,
     "type": "mediameet_interior",
-    "lat": null,
-    "lng": null
+    "lat": 35.8636199724894,
+    "lng": 128.57686695382
   },
   {
     "name": "대구중구e편한세상남산",
@@ -189021,8 +189169,8 @@
     "quantity": 5,
     "unit_price": 10000,
     "type": "mediameet_interior",
-    "lat": null,
-    "lng": null
+    "lat": 37.4920204306915,
+    "lng": 127.490852865642
   },
   {
     "name": "파주금촌쇠재마을뜨란채5",
@@ -190712,8 +190860,8 @@
     "quantity": 10,
     "unit_price": 8000,
     "type": "mediameet_interior",
-    "lat": null,
-    "lng": null
+    "lat": 36.8826273984842,
+    "lng": 127.147945452121
   },
   {
     "name": "양천벽산블루밍1,2차",
@@ -191282,8 +191430,8 @@
     "quantity": 22,
     "unit_price": 10000,
     "type": "mediameet_interior",
-    "lat": null,
-    "lng": null
+    "lat": 37.5049995414322,
+    "lng": 127.15212762495
   },
   {
     "name": "구로고척성원",
@@ -191377,8 +191525,8 @@
     "quantity": 37,
     "unit_price": 10000,
     "type": "mediameet_interior",
-    "lat": null,
-    "lng": null
+    "lat": 37.2953404384071,
+    "lng": 127.081191231128
   },
   {
     "name": "의정부신도2차3차",
@@ -192175,8 +192323,8 @@
     "quantity": 2,
     "unit_price": 10000,
     "type": "mediameet_interior",
-    "lat": null,
-    "lng": null
+    "lat": 37.7317213269835,
+    "lng": 127.084445324684
   },
   {
     "name": "의정부용현동문2단지",
@@ -192194,8 +192342,8 @@
     "quantity": 2,
     "unit_price": 10000,
     "type": "mediameet_interior",
-    "lat": null,
-    "lng": null
+    "lat": 37.7317213269835,
+    "lng": 127.084445324684
   },
   {
     "name": "양천신월코아루2단지",

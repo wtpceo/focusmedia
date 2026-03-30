@@ -239,7 +239,7 @@ def main():
     print(f"\n새 포커스미디어 데이터: {len(new_fm_data)}개")
 
     # 3. 타운보드 엑셀에서 직접 변환
-    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260316.xlsx')
+    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260323.xlsx')
 
     # 타운보드S (가동)
     new_tb_s_data = convert_townboard_sheet(
