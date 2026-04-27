@@ -38,7 +38,7 @@ def clean_date(value):
         return ''
 
 def main():
-    input_file = '/Users/kimminwoo/Documents/업무/00.개발/1.focus/엘리베이터TV 설치리스트(외부용)_260413.xlsx'
+    input_file = '/Users/kimminwoo/Documents/업무/00.개발/1.focus/엘리베이터TV 설치리스트(외부용)_260421.xlsx'
     output_file = '/Users/kimminwoo/Documents/업무/00.개발/1.focus/data_focusmedia.json'
 
     # 엑셀 파일 읽기 (헤더는 3행, 0-indexed로 3)
