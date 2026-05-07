@@ -254,7 +254,7 @@ def main():
     new_tb_mancheom_data = convert_townboard_mancheom(mancheom_file)
 
     # 5. HTPOST 데이터 (영상: 로컬파트너사 파일, 전단지: 현대에이치티 파일)
-    htpost_video_file = os.path.join(BASE_DIR, 'HTPOST 가동리스트_로컬파트너사_260423.xlsx')
+    htpost_video_file = os.path.join(BASE_DIR, 'HTPOST 가동리스트_로컬파트너사_260507.xlsx')
     htpost_video_data = convert_htpost_new(htpost_video_file)
 
     htpost_leaflet_file = os.path.join(BASE_DIR, '[현대에이치티] 단지별 로컬광고단가.xlsx')
