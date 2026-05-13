@@ -239,7 +239,7 @@ def main():
     print(f"\n새 포커스미디어 데이터: {len(new_fm_data)}개")
 
     # 3. 타운보드 엑셀에서 직접 변환
-    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260504.xlsx')
+    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260511.xlsx')
 
     # 타운보드S (가동)
     new_tb_s_data = convert_townboard_sheet(
@@ -254,7 +254,7 @@ def main():
     new_tb_mancheom_data = convert_townboard_mancheom(mancheom_file)
 
     # 5. HTPOST 데이터 (영상: 로컬파트너사 파일, 전단지: 현대에이치티 파일)
-    htpost_video_file = os.path.join(BASE_DIR, 'HTPOST 가동리스트_로컬파트너사_260507.xlsx')
+    htpost_video_file = os.path.join(BASE_DIR, 'HTPOST 가동리스트_로컬파트너사_260513.xlsx')
     htpost_video_data = convert_htpost_new(htpost_video_file)
 
     htpost_leaflet_file = os.path.join(BASE_DIR, '[현대에이치티] 단지별 로컬광고단가.xlsx')
