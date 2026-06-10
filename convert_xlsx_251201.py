@@ -38,8 +38,9 @@ def clean_date(value):
         return ''
 
 def main():
-    input_file = '/Users/kimminwoo/Documents/업무/00.개발/1.focus/엘리베이터TV 설치리스트(외부용)_260526.xlsx'
-    output_file = '/Users/kimminwoo/Documents/업무/00.개발/1.focus/data_focusmedia.json'
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    input_file = os.path.join(base_dir, '엘리베이터TV 설치리스트(외부용)_260608.xlsx')
+    output_file = os.path.join(base_dir, 'data_focusmedia.json')
 
     # 엑셀 파일 읽기 (헤더는 3행, 0-indexed로 3)
     df = pd.read_excel(input_file, header=3)
@@ -62,11 +63,11 @@ def main():
         if not address:
             continue
 
-        # 영업제한 업종 정보 (컬럼명에 줄바꿈 포함)
-        restriction1_type = clean_text(row.get('구좌1 \n영업제한 업종', ''))
-        restriction1_date = clean_date(row.get('구좌1 \n영업제한 기한', ''))
-        restriction2_type = clean_text(row.get('구좌2 \n영업제한 업종', ''))
-        restriction2_date = clean_date(row.get('구좌2 \n영업제한기한', ''))
+        # 영업제한 업종 정보 (컬럼명에 줄바꿈 포함, 260608부터 공백 없는 형식)
+        restriction1_type = clean_text(row.get('구좌1\n영업제한 업종', ''))
+        restriction1_date = clean_date(row.get('구좌1\n영업제한 기한', ''))
+        restriction2_type = clean_text(row.get('구좌2\n영업제한 업종', ''))
+        restriction2_date = clean_date(row.get('구좌2\n영업제한 기한', ''))
 
         # 프리미엄 여부 확인
         premium = clean_text(row.get('프리미엄 여부', ''))
