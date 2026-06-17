@@ -37,9 +37,18 @@ def clean_date(value):
     except:
         return ''
 
+def get_col(row, *keywords):
+    """컬럼명에서 공백·줄바꿈 제거 후 모든 keyword를 포함하는 컬럼 값 반환.
+    엑셀 회차마다 컬럼명 공백/줄바꿈 위치가 바뀌어도 안정적으로 매칭."""
+    for col in row.index:
+        norm = str(col).replace(' ', '').replace('\n', '')
+        if all(k in norm for k in keywords):
+            return row[col]
+    return ''
+
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    input_file = os.path.join(base_dir, '엘리베이터TV 설치리스트(외부용)_260608.xlsx')
+    input_file = os.path.join(base_dir, '엘리베이터TV 설치리스트(외부용)_260615.xlsx')
     output_file = os.path.join(base_dir, 'data_focusmedia.json')
 
     # 엑셀 파일 읽기 (헤더는 3행, 0-indexed로 3)
@@ -63,11 +72,11 @@ def main():
         if not address:
             continue
 
-        # 영업제한 업종 정보 (컬럼명에 줄바꿈 포함, 260608부터 공백 없는 형식)
-        restriction1_type = clean_text(row.get('구좌1\n영업제한 업종', ''))
-        restriction1_date = clean_date(row.get('구좌1\n영업제한 기한', ''))
-        restriction2_type = clean_text(row.get('구좌2\n영업제한 업종', ''))
-        restriction2_date = clean_date(row.get('구좌2\n영업제한 기한', ''))
+        # 영업제한 업종 정보 (컬럼명 공백·줄바꿈 위치가 회차마다 바뀌어 정규화 매칭)
+        restriction1_type = clean_text(get_col(row, '구좌1', '영업제한업종'))
+        restriction1_date = clean_date(get_col(row, '구좌1', '영업제한기한'))
+        restriction2_type = clean_text(get_col(row, '구좌2', '영업제한업종'))
+        restriction2_date = clean_date(get_col(row, '구좌2', '영업제한기한'))
 
         # 프리미엄 여부 확인
         premium = clean_text(row.get('프리미엄 여부', ''))
