@@ -48,7 +48,7 @@ def get_col(row, *keywords):
 
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    input_file = os.path.join(base_dir, '엘리베이터TV 설치리스트(외부용)_260615.xlsx')
+    input_file = os.path.join(base_dir, '엘리베이터TV 설치리스트(외부용)_260622.xlsx')
     output_file = os.path.join(base_dir, 'data_focusmedia.json')
 
     # 엑셀 파일 읽기 (헤더는 3행, 0-indexed로 3)

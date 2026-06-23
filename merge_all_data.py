@@ -239,7 +239,7 @@ def main():
     print(f"\n새 포커스미디어 데이터: {len(new_fm_data)}개")
 
     # 3. 타운보드 엑셀에서 직접 변환
-    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260615.xlsx')
+    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260622.xlsx')
 
     # 타운보드S (가동)
     new_tb_s_data = convert_townboard_sheet(
@@ -249,9 +249,11 @@ def main():
     new_tb_l_data = convert_townboard_sheet(
         townboard_file, '타운보드L(전국 10,000대)', ['타운보드', '타운보드L'], 'townboard_l')
 
-    # 4. 타운보드 만첨: 엑셀 직접 변환
-    mancheom_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260608(공유).xlsx')
-    new_tb_mancheom_data = convert_townboard_mancheom(mancheom_file)
+    # 4. 타운보드 만첨: S + L 엑셀 직접 변환 (둘 다 'townboard' 타입으로 통합)
+    mancheom_s_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260622(공유).xlsx')
+    mancheom_l_file = os.path.join(BASE_DIR, '타운보드L 만첨단지리스트_260622(공유).xlsx')
+    new_tb_mancheom_data = (convert_townboard_mancheom(mancheom_s_file) +
+                            convert_townboard_mancheom(mancheom_l_file))
 
     # 5. HTPOST 데이터 (영상: 로컬파트너사 파일, 전단지: 현대에이치티 파일)
     htpost_video_file = os.path.join(BASE_DIR, 'HTPOST 가동리스트_로컬파트너사_260602.xlsx')
