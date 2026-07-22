@@ -142,9 +142,10 @@ def convert_townboard_mancheom(excel_file, sheet_name='만첨리스트'):
 
 
 def convert_htpost_new(excel_file):
-    """HTPOST 가동리스트_로컬파트너사 → 영상(htpost)"""
+    """[현대에이치티] 단지별 로컬광고단가_07월 → 영상(htpost)
+    260720 회차부터 영상도 로컬광고단가 통합 파일에서 읽음 ('동영상광고' 제안가(월) 컬럼)"""
     print(f"\n=== HTPOST 영상 변환 중 ===")
-    df = pd.read_excel(excel_file, header=2)
+    df = pd.read_excel(excel_file, sheet_name='가격정책', header=2)
     df = df.dropna(subset=['현장명'])
     df = df[df['지역'] != '구분']  # 반복 헤더 행 제거
     print(f"  유효 데이터: {len(df)}개")
@@ -156,6 +157,10 @@ def convert_htpost_new(excel_file):
         if not name:
             continue
 
+        price = clean_number(row.get('동영상광고', 0))
+        if not price:
+            continue  # '불가' 등 숫자 아닌 값은 영상 미판매 단지로 간주
+
         video_data.append({
             'name': name,
             'city': clean_text(row.get('지역', '')),
@@ -164,10 +169,10 @@ def convert_htpost_new(excel_file):
             'address': clean_text(row.get('주소', '')),
             'building_type': '',
             'households': clean_number(row.get('세대수', 0)),
-            'quantity': clean_number(row.get('실제수량', 0)),
+            'quantity': clean_number(row.get('설치대수', 0)),
             'lat': None,
             'lng': None,
-            'price_4w': clean_number(row.get('Unnamed: 7', 0)),
+            'price_4w': price,
             'type': 'htpost'
         })
 
@@ -190,9 +195,10 @@ def convert_htpost_leaflet(excel_file):
             continue
 
         # 전단지 (게시판 가능 단지만 - '가능', '가능 (보장)' 포함)
+        # 07월 파일부터 '동영상광고' 컬럼 신설로 가격 컬럼이 한 칸 밀림 (Unnamed: 11 → 12)
         leaflet_yn = clean_text(row.get('게시판전단광고', ''))
         if leaflet_yn.startswith('가능'):
-            price_per_week = clean_number(row.get('Unnamed: 11', 0))
+            price_per_week = clean_number(row.get('Unnamed: 12', 0))
             leaflet_data.append({
                 'name': name,
                 'city': clean_text(row.get('지역', '')),
@@ -201,7 +207,7 @@ def convert_htpost_leaflet(excel_file):
                 'address': clean_text(row.get('주소', '')),
                 'building_type': '',
                 'households': clean_number(row.get('세대수', 0)),
-                'quantity': clean_number(row.get('실제수량', 0)),
+                'quantity': clean_number(row.get('설치대수', 0)),
                 'lat': None,
                 'lng': None,
                 'price_4w': price_per_week * 4,
@@ -239,7 +245,7 @@ def main():
     print(f"\n새 포커스미디어 데이터: {len(new_fm_data)}개")
 
     # 3. 타운보드 엑셀에서 직접 변환
-    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260629.xlsx')
+    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260713.xlsx')
 
     # 타운보드S (가동)
     new_tb_s_data = convert_townboard_sheet(
@@ -250,17 +256,15 @@ def main():
         townboard_file, '타운보드L(전국 10,000대)', ['타운보드', '타운보드L'], 'townboard_l')
 
     # 4. 타운보드 만첨: S + L 엑셀 직접 변환 (둘 다 'townboard' 타입으로 통합)
-    mancheom_s_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260629_배포용.xlsx')
-    mancheom_l_file = os.path.join(BASE_DIR, '타운보드L 만첨단지리스트_260629_배포용.xlsx')
-    new_tb_mancheom_data = (convert_townboard_mancheom(mancheom_s_file, 'S 만첨리스트') +
-                            convert_townboard_mancheom(mancheom_l_file, 'L 만첨리스트'))
+    mancheom_s_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260721(공유).xlsx')
+    mancheom_l_file = os.path.join(BASE_DIR, '타운보드L 만첨단지리스트_260721(공유).xlsx')
+    new_tb_mancheom_data = (convert_townboard_mancheom(mancheom_s_file, '만첨리스트') +
+                            convert_townboard_mancheom(mancheom_l_file, '만첨리스트'))
 
-    # 5. HTPOST 데이터 (영상: 로컬파트너사 파일, 전단지: 현대에이치티 파일)
-    htpost_video_file = os.path.join(BASE_DIR, 'HTPOST 가동리스트_로컬파트너사_260602.xlsx')
-    htpost_video_data = convert_htpost_new(htpost_video_file)
-
-    htpost_leaflet_file = os.path.join(BASE_DIR, '[현대에이치티] 단지별 로컬광고단가.xlsx')
-    htpost_leaflet_data = convert_htpost_leaflet(htpost_leaflet_file)
+    # 5. HTPOST 데이터 (260720 회차부터 영상+전단지 모두 로컬광고단가 통합 파일)
+    htpost_file = os.path.join(BASE_DIR, '[현대에이치티] 단지별 로컬광고단가_07월 (1).xlsx')
+    htpost_video_data = convert_htpost_new(htpost_file)
+    htpost_leaflet_data = convert_htpost_leaflet(htpost_file)
 
     # 6. MEDIA MEET 데이터 로드 → 내부/대기공간 분리
     mediameet_file = os.path.join(BASE_DIR, 'data_mediameet.json')
