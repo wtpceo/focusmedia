@@ -8,30 +8,40 @@
 ### 데이터 파일
 | 파일명 | 설명 | 비고 |
 |--------|------|------|
-| `data.json` | 최종 통합 데이터 (포커스미디어 + 타운보드) | 메인 데이터, 7,779개 |
-| `data_focusmedia.json` | 포커스미디어 전용 데이터 | 중간 변환 파일, 4,600개 |
+| `data.json` | 최종 통합 데이터 (포커스미디어 + 타운보드 + HTPOST + MEDIA MEET) | 메인 데이터, 9,629개 |
+| `data_focusmedia.json` | 포커스미디어 전용 데이터 | 중간 변환 파일, 4,730개 |
+| `data_mediameet.json` | MEDIA MEET 전용 데이터 | 중간 변환 파일 |
 | `cgv_converted.json` | CGV 영화관 데이터 (별도 로드) | 143개 |
 | `megabox_converted.json` | 메가박스 영화관 데이터 (별도 로드) | 111개 |
+
+> 이 수치는 회차마다 변함 — 최신값은 업데이트 이력 최상단 참조
 
 ### 소스 파일
 | 파일명 | 설명 |
 |--------|------|
 | `index.html` | 메인 지도 페이지 |
-| `convert_xlsx_251201.py` | 엑셀→JSON 변환 스크립트 |
-| `merge_all_data.py` | 데이터 병합 스크립트 |
+| `convert_xlsx_251201.py` | 포커스미디어 엑셀→JSON 변환 스크립트 (→ `data_focusmedia.json`) |
+| `convert_mediameet.py` | MEDIA MEET 엑셀→JSON 변환 스크립트 (→ `data_mediameet.json`) |
+| `merge_all_data.py` | 전체 병합 스크립트 (타운보드·HTPOST는 이 안에서 엑셀 직접 변환) |
+| `fix_geocode_kakao.py` | 카카오 지오코딩 스크립트 (좌표 없는 신규 단지 채움) |
 
-### 원본 엑셀 파일
-- `엘리베이터TV 설치리스트(외부용)_YYMMDD.xlsx` - 포커스미디어 설치 리스트
+### 원본 엑셀 파일 (YYMMDD = 회차 날짜, 최신 회차 파일명은 업데이트 이력 최상단 참조)
+- `엘리베이터TV 설치리스트(외부용)_YYMMDD.xlsx` — 포커스미디어 설치 리스트
+- `타운보드 가동리스트(로컬상품)_YYMMDD.xlsx` — 타운보드 가동 (S/L 시트 각각)
+- `타운보드S 만첨단지리스트_YYMMDD(공유).xlsx` / `타운보드L 만첨단지리스트_YYMMDD(공유).xlsx` — 타운보드 만첨 (S/L 파일 분리)
+- `[현대에이치티] 단지별 로컬광고단가_MM월.xlsx` — HTPOST 영상+전단지 (260720 회차부터 영상·전단지 모두 이 파일 하나에서 읽음)
+- `MEDIA MEET 설치리스트_YYMMDD.xlsx` — MEDIA MEET 설치 리스트
+- (구버전) `HTPOST 가동리스트_로컬파트너사_YYMMDD.xlsx` — 260720 회차 전까지 영상 소스로 쓰던 파일, 지금은 안 씀
 
 ---
 
 ## 데이터 업데이트 작업 가이드
 
-### 1. 포커스미디어 리스트 업데이트 절차
+한 회차 업데이트는 최대 6개 소스를 다룬다: **포커스미디어 · 타운보드 가동 S/L · 타운보드 만첨 S/L · HTPOST 영상/전단지 · MEDIA MEET**. 회차마다 전부 오는 게 아니라 온 파일만 갱신하고 나머지는 유지한다.
 
 #### Step 1: 새 엑셀 파일 확인
 ```bash
-# 엑셀 파일 컬럼 구조 확인 (헤더는 4행에 있음, 0-indexed로 3)
+# 엑셀 파일 컬럼 구조 확인 (포커스미디어 헤더는 4행에 있음, 0-indexed로 3)
 python3 -c "
 import pandas as pd
 df = pd.read_excel('엘리베이터TV 설치리스트(외부용)_YYMMDD.xlsx', header=3)
@@ -40,20 +50,39 @@ print('총 행수:', len(df))
 "
 ```
 
-#### Step 2: 변환 스크립트 수정 및 실행
+#### Step 2: 포커스미디어 변환
 ```bash
-# convert_xlsx_251201.py 파일의 input_file 경로 수정 후 실행
+# convert_xlsx_251201.py 안의 input_file 경로를 새 회차 파일명으로 수정 후 실행
 python3 convert_xlsx_251201.py
 # 결과: data_focusmedia.json 생성
 ```
 
-#### Step 3: 데이터 병합
+#### Step 3: MEDIA MEET 변환 (MM 새 파일이 온 회차만)
 ```bash
-python3 merge_all_data.py
-# 결과: data.json 업데이트 (포커스미디어 + 타운보드 + 영화관)
+# convert_mediameet.py 안의 INPUT_FILE을 새 회차 파일명으로 수정 후 실행
+python3 convert_mediameet.py
+# 결과: data_mediameet.json 생성
 ```
 
-#### Step 4: 검증
+#### Step 4: 전체 병합
+```bash
+# merge_all_data.py 안에 타운보드 가동/만첨/HTPOST 입력 파일명이 하드코딩되어 있음
+# → 새 회차 파일명으로 수정 후 실행
+python3 merge_all_data.py
+# 하는 일: data_focusmedia.json + data_mediameet.json 로드,
+#          타운보드 가동 S/L·만첨 S/L·HTPOST 영상/전단지는 엑셀에서 직접 변환,
+#          기존 data.json의 좌표를 이름 기준으로 물려받아 data.json 저장
+# (CGV/메가박스는 여기 안 들어감 — 별도 파일로 index.html이 직접 로드)
+```
+
+#### Step 5: 지오코딩 (매 회차 정규 단계)
+```bash
+# 신규 단지는 좌표가 없으므로 매 회차 실행 — 카카오 API로 좌표 채움
+python3 fix_geocode_kakao.py
+# 실행 후 merge_all_data.py 출력의 "좌표 없는 데이터" 개수가 0(또는 기존 예외만)인지 확인
+```
+
+#### Step 6: 검증
 - 브라우저에서 `index.html` 열어서 지도 확인
 - 데이터 개수, 필터링 동작 확인
 
@@ -380,8 +409,24 @@ python3 merge_all_data.py
 ### townboard / townboard_op 타입
 - 타운보드 만첨 단지 / 가동 단지 데이터
 
+### townboard_l 타입
+- 타운보드L 가동 단지 데이터 (가동리스트의 타운보드L 시트에서 변환)
+
+### htpost 타입
+- HTPOST 영상 광고 데이터 (로컬광고단가 파일의 `동영상광고` 제안가 사용)
+
+### htpost_leaflet 타입
+- HTPOST 전단지(게시판) 광고 데이터 (게시판 '가능' 단지만, 주간가×4 = price_4w)
+
+### mediameet_interior 타입
+- MEDIA MEET 엘리베이터 내부 광고 데이터
+
+### mediameet_waiting 타입
+- MEDIA MEET 엘리베이터 대기공간 광고 데이터 (한 단지가 내부·대기공간 둘 다면 2건으로 들어감)
+
 ### cgv / megabox 타입
 - 영화관 스크린 광고 데이터
+- **data.json에 없음** — `cgv_converted.json`·`megabox_converted.json` 별도 파일로 index.html이 직접 로드
 
 ---
 
