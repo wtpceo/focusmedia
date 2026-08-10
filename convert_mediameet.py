@@ -10,7 +10,7 @@ import pandas as pd
 import json
 
 # 설정
-INPUT_FILE = 'MEDIA MEET 설치리스트_260713.xlsx'
+INPUT_FILE = 'MEDIA MEET 설치리스트_260803.xlsx'
 OUTPUT_FILE = 'data_mediameet.json'
 SHEET_NAME = '설치 리스트'
 HEADER_ROW = 4  # 0-indexed (5행)
