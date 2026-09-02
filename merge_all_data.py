@@ -147,9 +147,11 @@ SIDO_PREFIX = re.compile(
 
 
 def strip_sido_prefix(name):
-    """로컬파트너사 파일 현장명에 붙는 공급사 내부 시/도 접두사 제거.
+    """HTPOST 현장명에 붙는 공급사 내부 시/도 접두사 제거.
     ('경기_평촌센텀퍼스트' → '평촌센텀퍼스트')
-    통합파일·전단지 쪽 이름과 표기를 맞춰야 좌표 승계와 영상↔전단지 매칭이 어긋나지 않는다."""
+    로컬파트너사 파일뿐 아니라 로컬광고단가 통합파일에도 섞여 들어오므로
+    HTPOST 3경로(영상 통합·영상 파트너사·전단지) 전부에 적용한다.
+    표기를 맞춰야 좌표 승계와 영상↔전단지 매칭이 어긋나지 않는다."""
     return SIDO_PREFIX.sub('', name)
 
 
@@ -206,7 +208,7 @@ def convert_htpost_new(excel_file):
     video_data = []
 
     for idx, row in df.iterrows():
-        name = clean_text(row['현장명'])
+        name = strip_sido_prefix(clean_text(row['현장명']))
         if not name:
             continue
 
@@ -243,7 +245,7 @@ def convert_htpost_leaflet(excel_file):
     leaflet_data = []
 
     for idx, row in df.iterrows():
-        name = clean_text(row['현장명'])
+        name = strip_sido_prefix(clean_text(row['현장명']))
         if not name:
             continue
 
@@ -298,7 +300,7 @@ def main():
     print(f"\n새 포커스미디어 데이터: {len(new_fm_data)}개")
 
     # 3. 타운보드 엑셀에서 직접 변환
-    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260824.xlsx')
+    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_260831.xlsx')
 
     # 타운보드S (가동)
     new_tb_s_data = convert_townboard_sheet(
@@ -309,18 +311,17 @@ def main():
         townboard_file, '타운보드L(전국 10,000대)', ['타운보드', '타운보드L'], 'townboard_l')
 
     # 4. 타운보드 만첨: S + L 엑셀 직접 변환 (둘 다 'townboard' 타입으로 통합)
-    mancheom_s_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260824_배포용.xlsx')
-    mancheom_l_file = os.path.join(BASE_DIR, '타운보드L 만첨단지리스트_260824_배포용.xlsx')
-    new_tb_mancheom_data = (convert_townboard_mancheom(mancheom_s_file, 'S 만첨리스트') +
-                            convert_townboard_mancheom(mancheom_l_file, 'L 만첨리스트'))
+    mancheom_s_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_260901(공유).xlsx')
+    mancheom_l_file = os.path.join(BASE_DIR, '타운보드L 만첨단지리스트_260901(공유).xlsx')
+    new_tb_mancheom_data = (convert_townboard_mancheom(mancheom_s_file, '만첨리스트') +
+                            convert_townboard_mancheom(mancheom_l_file, '만첨리스트'))
 
     # 5. HTPOST 데이터
-    #    260824 회차: 로컬광고단가 통합파일이 오지 않아 영상만 로컬파트너사(구형식) 파일에서 읽고,
-    #    전단지는 통합파일에 없으므로 직전 회차(08월) 파일 값을 그대로 유지한다.
-    htpost_video_file = os.path.join(BASE_DIR, 'HTPOST 가동리스트_로컬파트너사_260818.xlsx')
-    htpost_leaflet_file = os.path.join(BASE_DIR, '[현대에이치티] 단지별 로컬광고단가_08월.xlsx')
-    htpost_video_data = convert_htpost_video_partner(htpost_video_file)
-    htpost_leaflet_data = convert_htpost_leaflet(htpost_leaflet_file)
+    #    260901 회차: 로컬광고단가 통합파일(09월)이 다시 와서 영상·전단지 모두 이 파일에서 읽는다.
+    #    (통합파일이 안 오는 회차엔 영상만 convert_htpost_video_partner로 로컬파트너사 파일에서 읽음)
+    htpost_file = os.path.join(BASE_DIR, '[현대에이치티] 단지별 로컬광고단가_09.xlsx')
+    htpost_video_data = convert_htpost_new(htpost_file)
+    htpost_leaflet_data = convert_htpost_leaflet(htpost_file)
 
     # 6. MEDIA MEET 데이터 로드 → 내부/대기공간 분리
     mediameet_file = os.path.join(BASE_DIR, 'data_mediameet.json')
