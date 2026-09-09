@@ -48,11 +48,26 @@ def get_col(row, *keywords):
 
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    input_file = os.path.join(base_dir, '엘리베이터TV 설치리스트(외부용)_260901.xlsx')
+    input_file = os.path.join(base_dir, '엘리베이터TV 설치리스트(외부용)_260907.xlsx')
     output_file = os.path.join(base_dir, 'data_focusmedia.json')
 
     # 엑셀 파일 읽기 (헤더는 3행, 0-indexed로 3)
-    df = pd.read_excel(input_file, header=3)
+    # 회차에 따라 시트가 여러 개 오므로(260907: '서울생활권 동네상권정보'+'신규아파트')
+    # 첫 시트에 의존하지 않고 '단지명' 컬럼이 있는 시트를 고른다
+    xls = pd.ExcelFile(input_file)
+    candidates = []
+    for name in xls.sheet_names:
+        d = pd.read_excel(input_file, sheet_name=name, header=3)
+        if '단지명' in d.columns:
+            candidates.append((name, d))
+    if not candidates:
+        raise SystemExit(f"'단지명' 컬럼이 있는 시트를 찾지 못함: {xls.sheet_names}")
+    # 후보가 여럿이면 행이 가장 많은 시트를 쓴다 (일부만 담긴 시트를 조용히 집는 사고 방지)
+    candidates.sort(key=lambda t: len(t[1]), reverse=True)
+    sheet, df = candidates[0]
+    if len(candidates) > 1:
+        print(f"⚠️ '단지명' 시트가 여러 개: {[(n, len(d)) for n, d in candidates]} → 최다 행 시트 '{sheet}' 사용")
+    print(f"사용 시트: {sheet} (전체 {xls.sheet_names})")
 
     print(f"컬럼 목록: {list(df.columns)}")
     print(f"총 행 수: {len(df)}")
