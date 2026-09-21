@@ -9,6 +9,7 @@
 import pandas as pd
 import json
 import os
+import collections
 
 def clean_number(value):
     """숫자 값 정리"""
@@ -45,6 +46,25 @@ def get_col(row, *keywords):
         if all(k in norm for k in keywords):
             return row[col]
     return ''
+
+# 프리미엄 여부 컬럼의 "프리미엄이다" 표기 집합.
+# 260223~260921 18개 회차 전수 실측 결과 실제 표기는 'O'(U+004F) 하나뿐인데,
+# 기존 판정이 'Y'/'예'/'프리미엄'만 인정해 프리미엄이 전 회차 0건으로 떨어졌었다.
+# 'Ｏ'(전각)·'ㅇ'(U+3147)은 같은 글자의 입력기 오타라 함께 인정한다.
+# ⚠️ '○'·'●'는 일부러 뺐다 — 한국 스프레드시트에서 이 둘은 '●'=해당/'○'=비해당
+#    2상태 표기로 쓰이는 일이 있어, 둘 다 인정하면 비프리미엄까지 조용히 True가 된다.
+#    그런 회차가 오면 아래 미지 표기 경고에 걸리므로 그때 보고 판단한다.
+PREMIUM_MARKS = {'O', 'Ｏ', 'ㅇ', 'Y', '예', '프리미엄'}
+
+
+def is_premium_mark(value):
+    """프리미엄 표기 판정. 양끝 공백 제거 + 대문자 정규화 후 집합 매칭.
+    반환: (판정결과, 정규화된 표기) — 미지 표기 경고를 위해 표기를 함께 돌려준다.
+    빈 셀은 clean_text가 이미 ''로 바꿔 넘겨주므로 여기서 NaN을 따로 다루지 않는다
+    (셀에 문자열 'nan'이 적혀 있으면 미지 표기로 경고되는 편이 맞다)."""
+    mark = str(value).strip().upper() if value is not None else ''
+    return (mark in PREMIUM_MARKS), mark
+
 
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -95,6 +115,7 @@ def main():
     print(f"총 행 수: {len(df)}")
 
     locations = []
+    unknown_premium_marks = collections.Counter()
 
     for idx, row in df.iterrows():
         name = clean_text(row.get('단지명', ''))
@@ -115,9 +136,10 @@ def main():
         restriction2_type = clean_text(get_col(row, '구좌2', '영업제한업종'))
         restriction2_date = clean_date(get_col(row, '구좌2', '영업제한기한'))
 
-        # 프리미엄 여부 확인
-        premium = clean_text(row.get('프리미엄 여부', ''))
-        is_premium = premium.upper() == 'Y' or premium == '예' or premium == '프리미엄'
+        # 프리미엄 여부 확인 (표기 정규화 — PREMIUM_MARKS 주석 참조)
+        is_premium, premium_mark = is_premium_mark(clean_text(row.get('프리미엄 여부', '')))
+        if premium_mark and not is_premium:
+            unknown_premium_marks[premium_mark] += 1
 
         location = {
             'name': name,
@@ -150,7 +172,12 @@ def main():
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(locations, f, ensure_ascii=False, indent=2)
 
+    premium_count = sum(1 for loc in locations if loc['is_premium'])
     print(f"\n총 {len(locations)}개 포커스미디어 데이터 변환 완료")
+    print(f"프리미엄 단지: {premium_count}개")
+    if unknown_premium_marks:
+        print(f"⚠️ 프리미엄 여부 컬럼에 처음 보는 표기: {dict(unknown_premium_marks)}"
+              " → PREMIUM_MARKS 확인 필요")
     print(f"저장 위치: {output_file}")
 
     # 샘플 출력 (영업제한 업종 있는 데이터)
