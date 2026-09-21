@@ -48,26 +48,48 @@ def get_col(row, *keywords):
 
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    input_file = os.path.join(base_dir, '엘리베이터TV 설치리스트(외부용)_260907.xlsx')
+    input_file = os.path.join(base_dir, '엘리베이터TV 설치리스트(외부용)_260921.xlsx')
     output_file = os.path.join(base_dir, 'data_focusmedia.json')
 
-    # 엑셀 파일 읽기 (헤더는 3행, 0-indexed로 3)
-    # 회차에 따라 시트가 여러 개 오므로(260907: '서울생활권 동네상권정보'+'신규아파트')
-    # 첫 시트에 의존하지 않고 '단지명' 컬럼이 있는 시트를 고른다
+    # 엑셀 파일 읽기
+    # 회차에 따라 시트가 여러 개 오고(260907: '서울생활권 동네상권정보'+'신규아파트')
+    # 헤더 행 위치도 오간다(260907: 4행=header 3 / 260921: 3행=header 2)
+    # → 시트·헤더행을 모두 탐색해 '단지명' 컬럼이 잡히는 조합을 고른다
+    # '단지명' 하나만 보면, 병합된 타이틀 띠에 그 글자가 남아 있을 때 한 행 위를 헤더로
+    # 잘못 잡아 전 컬럼이 밀린 채 조용히 통과한다 → 필수 컬럼 3종 동시 충족으로 조인다
+    REQUIRED = {'단지명', ' 주소(도로명)', '4주 금액'}
     xls = pd.ExcelFile(input_file)
     candidates = []
     for name in xls.sheet_names:
-        d = pd.read_excel(input_file, sheet_name=name, header=3)
-        if '단지명' in d.columns:
-            candidates.append((name, d))
+        for hdr in (2, 3, 4):
+            d = pd.read_excel(input_file, sheet_name=name, header=hdr)
+            if REQUIRED.issubset(set(d.columns)):
+                candidates.append((name, hdr, d))
+                break
     if not candidates:
-        raise SystemExit(f"'단지명' 컬럼이 있는 시트를 찾지 못함: {xls.sheet_names}")
-    # 후보가 여럿이면 행이 가장 많은 시트를 쓴다 (일부만 담긴 시트를 조용히 집는 사고 방지)
-    candidates.sort(key=lambda t: len(t[1]), reverse=True)
-    sheet, df = candidates[0]
+        raise SystemExit(f"필수 컬럼 {REQUIRED}이 모두 있는 시트를 찾지 못함: {xls.sheet_names}")
+    # 후보가 여럿이면 실데이터('단지명'이 채워진) 행이 가장 많은 시트를 쓴다.
+    # 헤더행이 시트마다 다를 수 있어 len(df)로는 비교가 안 된다(헤더가 위면 그만큼 행이 늘어남)
+    def real_rows(d):
+        return int(d['단지명'].notna().sum())
+    candidates.sort(key=lambda t: real_rows(t[2]), reverse=True)
+    sheet, header_row, df = candidates[0]
     if len(candidates) > 1:
-        print(f"⚠️ '단지명' 시트가 여러 개: {[(n, len(d)) for n, d in candidates]} → 최다 행 시트 '{sheet}' 사용")
-    print(f"사용 시트: {sheet} (전체 {xls.sheet_names})")
+        print(f"⚠️ 후보 시트가 여러 개: {[(n, h, real_rows(d)) for n, h, d in candidates]} → 최다 실데이터 시트 '{sheet}' 사용")
+        # 행수가 같으면 정렬 안정성에 기대 첫 시트가 뽑힌다 — 내용까지 같은지 확인하고,
+        # 다르면 어느 쪽을 써야 할지 사람이 판단해야 하므로 크게 경고한다
+        base = set(df['단지명'].dropna())
+        for n, h, d in candidates[1:]:
+            if real_rows(d) != real_rows(df):
+                continue
+            other = set(d['단지명'].dropna())
+            if base != other:
+                print(f"🚨 행수가 같은 시트 '{n}'의 단지명 집합이 '{sheet}'와 다름 "
+                      f"(only-{sheet} {len(base - other)}건 / only-{n} {len(other - base)}건) "
+                      f"— 어느 시트가 맞는지 확인 필요")
+            else:
+                print(f"   (참고) '{n}'은 '{sheet}'와 단지명 집합 동일 = 정렬만 다른 같은 데이터")
+    print(f"사용 시트: {sheet} (헤더행 {header_row}, 실데이터 {real_rows(df)}행, 전체 {xls.sheet_names})")
 
     print(f"컬럼 목록: {list(df.columns)}")
     print(f"총 행 수: {len(df)}")
