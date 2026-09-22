@@ -157,6 +157,7 @@
         .search-dropdown-item-badge.megabox { background: #06b6d4; color: #fff; }
         .search-dropdown-item-badge.mediameet_interior { background: #ec4899; color: #fff; }
         .search-dropdown-item-badge.mediameet_waiting { background: #a855f7; color: #fff; }
+        .search-dropdown-item-badge.premium { background: #b45309; color: #fff; }
         .search-dropdown-empty {
             padding: 20px;
             text-align: center;
@@ -781,6 +782,26 @@
         .grade-badge.a { background: #3b82f6; color: #fff; }
         .grade-badge.b { background: #22c55e; color: #fff; }
 
+        /* 프리미엄 표시 — 매체 타입이 아니라 단지의 속성이라
+           타입 색(파랑·주황·핑크…)을 덮지 않고 옆에 덧붙인다. 흰 글자 대비 5.02:1 */
+        .premium-badge {
+            display: inline-block;
+            flex-shrink: 0;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+            background: #b45309;
+            color: #fff;
+        }
+        .info-header .premium-badge {
+            padding: 4px 9px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
         /* 토스트 */
         .toast {
             position: fixed;
@@ -1200,6 +1221,7 @@
             <div class="info-header">
                 <div class="info-name" id="infoName">-</div>
                 <span class="info-grade-badge" id="infoGradeBadge">-</span>
+                <span class="premium-badge" id="infoPremiumBadge" style="display: none;">프리미엄</span>
             </div>
             <div class="info-address" id="infoAddress">-</div>
             <!-- 영업제한 업종 섹션 -->
@@ -1605,8 +1627,19 @@
                 `);
                 const imageSize = new kakao.maps.Size(24, 35);
                 markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+            } else if (loc.type === 'focusmedia' && loc.is_premium) {
+                // 포커스미디어 프리미엄: 타입 색(파랑)은 그대로 두고 중심만 금색으로 구분
+                const imageSrc = 'data:image/svg+xml;base64,' + btoa(`
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="35" viewBox="0 0 24 35">
+                        <path d="M12 0C5.4 0 0 5.4 0 12c0 7.5 12 23 12 23s12-15.5 12-23C24 5.4 18.6 0 12 0z" fill="#2563eb"/>
+                        <circle cx="12" cy="12" r="6" fill="white"/>
+                        <circle cx="12" cy="12" r="3.2" fill="#f59e0b"/>
+                    </svg>
+                `);
+                const imageSize = new kakao.maps.Size(24, 35);
+                markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             }
-            // 포커스미디어: 기본 마커 (파란색)
+            // 포커스미디어(일반): 기본 마커 (파란색)
 
             const marker = new kakao.maps.Marker({
                 position: markerPosition,
@@ -1670,6 +1703,13 @@
             const badge = document.getElementById('infoGradeBadge');
             badge.style.background = '';  // 인라인 스타일 초기화
             badge.style.color = '';
+
+            // 프리미엄 배지 — 등급 배지와 별개로 토글.
+            // 판정 기준은 마커·리스트·드롭다운과 동일하게 focusmedia 한정으로 맞춘다
+            // (다른 소스가 이 필드를 갖게 돼도 여기만 새지 않도록)
+            const premiumBadge = document.getElementById('infoPremiumBadge');
+            const isPremium = loc.type === 'focusmedia' && loc.is_premium;
+            if (premiumBadge) premiumBadge.style.display = isPremium ? '' : 'none';
 
             if (loc.type === 'htpost') {
                 badge.textContent = 'HT POST 영상';
@@ -1935,11 +1975,15 @@
                         typeName = 'MM 대기공간';
                         badgeStyle = 'mediameet_waiting';
                     }
+                    // 프리미엄은 타입이 아니라 속성 — 타입 배지를 덮지 않고 옆에 덧붙인다
+                    const premiumHtml = (loc.type === 'focusmedia' && loc.is_premium)
+                        ? `<span class="search-dropdown-item-badge premium">프리미엄</span>`
+                        : '';
                     return `
                     <div class="search-dropdown-item" onclick="selectApartment('${loc.name}')">
                         <div class="search-dropdown-item-name">
                             ${loc.name}
-                            <span class="search-dropdown-item-badge ${badgeStyle}">${typeName}</span>
+                            <span class="search-dropdown-item-badge ${badgeStyle}">${typeName}</span>${premiumHtml}
                         </div>
                         <div class="search-dropdown-item-address">${loc.address}</div>
                     </div>
@@ -2048,6 +2092,12 @@
             badge.className = 'info-grade-badge';
             badge.style.background = '#22c55e';
             badge.style.color = '#fff';
+
+            // 상세 패널은 showInfo와 이 함수 양쪽에서 채워진다.
+            // 여기서 끄지 않으면 프리미엄 단지를 본 뒤 카카오 장소를 열었을 때
+            // 광고 매체가 아닌 일반 장소에 프리미엄 배지가 그대로 남는다.
+            const premiumBadge = document.getElementById('infoPremiumBadge');
+            if (premiumBadge) premiumBadge.style.display = 'none';
 
             // 아파트 정보는 숨기기
             document.getElementById('restrictionSection').style.display = 'none';
@@ -2251,10 +2301,14 @@
                     `;
                 }
 
+                const premiumHtml = (loc.type === 'focusmedia' && loc.is_premium)
+                    ? `<span class="premium-badge">프리미엄</span>`
+                    : '';
+
                 item.innerHTML = `
                     <div class="list-item-header">
                         <span class="list-item-name">${loc.name}</span>
-                        ${badgeHtml}
+                        ${badgeHtml}${premiumHtml}
                     </div>
                     <div class="list-item-address">${loc.address}</div>
                     <div class="list-item-info">

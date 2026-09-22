@@ -114,6 +114,18 @@ def main():
     print(f"컬럼 목록: {list(df.columns)}")
     print(f"총 행 수: {len(df)}")
 
+    # 프리미엄 컬럼 실재 확인.
+    # 영업제한 컬럼명이 '구좌1 \n영업제한 업종' ↔ '구좌1 영업제한 업종'으로 회차마다 오간 이력이 있다.
+    # 프리미엄도 컬럼명이 바뀌면 row.get이 ''를 돌려주고 미지 표기 경고에도 안 걸려
+    # 전건 false로 조용히 회귀한다 → 공백·줄바꿈 무시 매칭 + 부재 시 경고로 막는다.
+    premium_col = next((c for c in df.columns
+                        if '프리미엄' in str(c).replace(' ', '').replace('\n', '')), None)
+    if premium_col is None:
+        print("⚠️ '프리미엄' 컬럼을 찾지 못했습니다 → is_premium이 전건 false로 나갑니다."
+              f" 컬럼명 확인 필요: {list(df.columns)}")
+    else:
+        print(f"프리미엄 컬럼: {premium_col!r}")
+
     locations = []
     unknown_premium_marks = collections.Counter()
 
@@ -137,7 +149,8 @@ def main():
         restriction2_date = clean_date(get_col(row, '구좌2', '영업제한기한'))
 
         # 프리미엄 여부 확인 (표기 정규화 — PREMIUM_MARKS 주석 참조)
-        is_premium, premium_mark = is_premium_mark(clean_text(row.get('프리미엄 여부', '')))
+        premium_raw = clean_text(row[premium_col]) if premium_col is not None else ''
+        is_premium, premium_mark = is_premium_mark(premium_raw)
         if premium_mark and not is_premium:
             unknown_premium_marks[premium_mark] += 1
 
