@@ -155,6 +155,92 @@ def strip_sido_prefix(name):
     return SIDO_PREFIX.sub('', name)
 
 
+# HTPOST 주소에서 구·동을 뽑는다 — 원본 단가표엔 지역 컬럼이 시/도밖에 없어
+# gu가 비면 index.html의 지역 필터(gu 기준)에서 HTPOST 전건이 탈락한다.
+# 표기는 MEDIA MEET 계열에 맞춘다(도 = 시 단위 '고양시', 광역시 = 구 단위 '노원구').
+# 포커스미디어·타운보드처럼 '고양시 일산동구'로 쪼개지 않는 이유는
+# HTPOST의 city가 '경기'·'서울' 짧은 표기여서 MM과 같은 칩에 붙어야 하기 때문이다.
+# 광역시·특별시·특별자치시는 '서울시'처럼 '시'를 붙인 약칭이 쓰인다.
+_METRO = ('서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종')
+# 도(道)는 '경기도'처럼 '도'를 붙인다. '경기 …'처럼 접미 없이 오는 표기도 있다.
+_PROVINCE = ('경기', '강원', '충북', '충청북도', '충남', '충청남도',
+             '전북', '전북특별자치도', '전남', '전라남도',
+             '경북', '경상북도', '경남', '경상남도', '제주')
+_SIDO_HEAD = _METRO + _PROVINCE
+_ADMIN_TAIL = ('특별시', '광역시', '특별자치시', '특별자치도')
+
+
+def _is_sido_token(tok, next_tok=''):
+    """주소 첫 토큰이 시/도 표기인가.
+
+    '광주시'·'제주시'는 광역시 약칭일 수도, 기초 지자체(경기 광주시·제주시)일 수도 있다.
+    뒤 토큰이 '구'로 끝나면 광역시 약칭으로, 그렇지 않으면 기초 시로 본다
+    ('광주시 북구 …' = 광주광역시 / '광주시 태전동 …' = 경기 광주시).
+    이 구분이 없으면 후자에서 시 이름이 버려지고 동 이름이 gu로 올라간다."""
+    if tok in _SIDO_HEAD:
+        return True
+    for h in _SIDO_HEAD:
+        if tok.startswith(h) and tok.endswith(_ADMIN_TAIL):
+            return True
+    for h in _PROVINCE:
+        if tok == h + '도':
+            return True
+    for h in _METRO:
+        if tok == h + '시':
+            return bool(next_tok) and next_tok.endswith('구')
+    return False
+
+
+def _strip_sido_prefix_token(tok):
+    """'경기도고양시'처럼 시/도를 붙여 쓴 토큰에서 시/도 부분을 떼어낸다.
+
+    남는 조각이 두 글자 이상이고 행정구역 접미로 끝날 때만 떼어낸다 —
+    그러지 않으면 '광주시'에서 '광주'를 떼어 '시' 한 글자가 gu로 올라간다."""
+    for h in sorted(_SIDO_HEAD, key=len, reverse=True):
+        for pre in (h + '특별자치도', h + '특별자치시', h + '특별시', h + '광역시', h + '도', h):
+            if not tok.startswith(pre):
+                continue
+            tail = tok[len(pre):]
+            if len(tail) >= 2 and tail.endswith(('시', '군', '구')):
+                return tail
+    return tok
+
+
+def split_address_gu_dong(address, city=''):
+    """주소 문자열 → (gu, dong). 못 뽑으면 빈 문자열.
+    세종은 구가 없어 동을 gu로 쓰고(MM 관행: gu='나성동'),
+    동까지 없는 도로명 주소면 '세종시'로 떨어뜨린다(타운보드가 쓰는 표기).
+
+    '시'로 끝나는 토큰을 처음 만나면 채택하므로 도(道)의 자치구
+    (수원 영통구·성남 분당구 등)는 'gu=수원시'가 되고 세분 표기는 하지 않는다 —
+    타운보드·MM이 모두 시 단위 단일 토큰을 쓰기 때문에 맞춘 설계상 한계다."""
+    address = (address or '').strip()
+    toks = address.split()
+    if toks:
+        skip_first = _is_sido_token(toks[0], toks[1] if len(toks) > 1 else '')
+        rest = toks[1:] if skip_first else toks
+        # 붙여 쓴 시/도 접두사 제거 ('경기도고양시' → '고양시')
+        rest = [_strip_sido_prefix_token(t) for t in rest]
+        rest = [t for t in rest if t]
+    else:
+        rest = []
+    gu = ''
+    for t in rest:
+        if t.endswith(('시', '군', '구')):
+            gu = t
+            break
+    dong = ''
+    for t in rest:
+        if t.endswith(('동', '읍', '면', '리')) and t != gu:
+            dong = t
+            break
+    if not gu and dong:
+        gu = dong          # 세종처럼 시/군/구가 없는 경우
+    if not gu and (city or '').startswith('세종'):
+        gu = '세종시'       # 동 정보도 없는(또는 주소가 빈) 세종 행
+    return gu, dong
+
+
 def convert_htpost_video_partner(excel_file):
     """HTPOST 가동리스트_로컬파트너사 → 영상(htpost)
     260824 회차: 이번 회차엔 로컬광고단가 통합파일이 오지 않아 영상만 구형식 파일에서 읽음.
@@ -177,12 +263,16 @@ def convert_htpost_video_partner(excel_file):
             continue  # '불가'·패키지 안내문 등 숫자 아닌 값은 영상 미판매 단지로 간주
                       # (convert_htpost_new와 동일한 정책)
 
+        city = clean_text(row.get('지역', ''))
+        address = clean_text(row.get('주소', ''))
+        gu, dong = split_address_gu_dong(address, city)
+
         video_data.append({
             'name': name,
-            'city': clean_text(row.get('지역', '')),
-            'gu': '',
-            'dong': '',
-            'address': clean_text(row.get('주소', '')),
+            'city': city,
+            'gu': gu,
+            'dong': dong,
+            'address': address,
             'building_type': '',
             'households': clean_number(row.get('세대수', 0)),
             'quantity': clean_number(row.get('실제수량', 0)),
@@ -216,12 +306,16 @@ def convert_htpost_new(excel_file):
         if not price:
             continue  # '불가' 등 숫자 아닌 값은 영상 미판매 단지로 간주
 
+        city = clean_text(row.get('지역', ''))
+        address = clean_text(row.get('주소', ''))
+        gu, dong = split_address_gu_dong(address, city)
+
         video_data.append({
             'name': name,
-            'city': clean_text(row.get('지역', '')),
-            'gu': '',
-            'dong': '',
-            'address': clean_text(row.get('주소', '')),
+            'city': city,
+            'gu': gu,
+            'dong': dong,
+            'address': address,
             'building_type': '',
             'households': clean_number(row.get('세대수', 0)),
             'quantity': clean_number(row.get('설치대수', 0)),
@@ -254,12 +348,16 @@ def convert_htpost_leaflet(excel_file):
         leaflet_yn = clean_text(row.get('게시판전단광고', ''))
         if leaflet_yn.startswith('가능'):
             price_per_week = clean_number(row.get('Unnamed: 12', 0))
+            city = clean_text(row.get('지역', ''))
+            address = clean_text(row.get('주소', ''))
+            gu, dong = split_address_gu_dong(address, city)
+
             leaflet_data.append({
                 'name': name,
-                'city': clean_text(row.get('지역', '')),
-                'gu': '',
-                'dong': '',
-                'address': clean_text(row.get('주소', '')),
+                'city': city,
+                'gu': gu,
+                'dong': dong,
+                'address': address,
                 'building_type': '',
                 'households': clean_number(row.get('세대수', 0)),
                 'quantity': clean_number(row.get('설치대수', 0)),
