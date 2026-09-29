@@ -16471,5 +16471,24 @@
     "type": "mediameet",
     "lat": null,
     "lng": null
+  },
+  {
+    "name": "화성향남역한양수자인디에스티지",
+    "city": "경기",
+    "gu": "화성시",
+    "dong": "만세구",
+    "address": "경기도 화성시 만세구 향남로39번길 19",
+    "building_type": "아파트",
+    "year": 2024,
+    "area_min": 25,
+    "area_max": 39,
+    "households": 945,
+    "quantity_interior": 24,
+    "quantity_waiting": 0,
+    "quantity": 24,
+    "unit_price": 10000,
+    "type": "mediameet",
+    "lat": null,
+    "lng": null
   }
 ]
