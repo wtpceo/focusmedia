@@ -150,6 +150,9 @@
             margin-left: 6px;
         }
         .search-dropdown-item-badge.apt { background: #3b82f6; color: #fff; }
+        .search-dropdown-item-badge.townboard { background: #a16207; color: #fff; }
+        .search-dropdown-item-badge.townboard_op { background: #b91c1c; color: #fff; }
+        .search-dropdown-item-badge.townboard_l { background: #15803d; color: #fff; }
         .search-dropdown-item-badge.place { background: #22c55e; color: #fff; }
         .search-dropdown-item-badge.htpost { background: #f97316; color: #fff; }
         .search-dropdown-item-badge.htpost_leaflet { background: #16a34a; color: #fff; }
@@ -666,6 +669,54 @@
         }
         .stats-badge strong { color: #3b82f6; font-weight: 700; }
 
+        /* 매체 범례 — 핀 색이 어느 매체인지 이름으로 알려 주고, 이름을 누르면 그 매체만 켜고 끈다 */
+        .media-legend {
+            position: fixed;
+            left: 16px; bottom: 150px;
+            width: 204px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+            z-index: 500;
+            color: #1f2937;
+        }
+        .media-legend-head {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 8px; padding: 9px 10px 9px 12px;
+        }
+        .media-legend-head strong { display: block; font-size: 13px; white-space: nowrap; }
+        .media-legend-head span { display: block; font-size: 11px; color: #6b7280; white-space: nowrap; }
+        .media-legend-toggle {
+            font: inherit; font-size: 12px; color: #374151;
+            background: #f1f3f6; border: 0; border-radius: 6px;
+            padding: 4px 8px; min-height: 28px; cursor: pointer; white-space: nowrap;
+        }
+        .media-legend ul { list-style: none; padding: 0 4px 6px; max-height: max(80px, min(306px, calc(100dvh - 360px))); overflow-y: auto; }
+        .media-legend li button {
+            width: 100%; display: flex; align-items: center; gap: 8px;
+            font: inherit; font-size: 13px; text-align: left; color: #1f2937;
+            border: 0; background: none; border-radius: 6px;
+            padding: 5px 8px; min-height: 30px; cursor: pointer;
+        }
+        .media-legend li button:hover { background: #f1f3f6; }
+        .media-legend .swatch { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+        .media-legend .count { margin-left: auto; font-size: 12px; color: #6b7280; font-variant-numeric: tabular-nums; }
+        .media-legend li.off button { opacity: 0.6; }
+        .media-legend li.off .name { text-decoration: line-through; }
+        .media-legend-hint { font-size: 11px; color: #6b7280; padding: 0 12px 9px; line-height: 1.45; }
+        @media (max-width: 640px) { .media-legend { width: 190px; } }
+
+        /* 확대했을 때 핀 옆에 붙는 매체 이름표 */
+        .media-tag {
+            display: flex; align-items: stretch; height: 22px;
+            font-size: 11px; line-height: 20px; white-space: nowrap;
+            background: #fff; border: 1px solid rgba(0,0,0,0.22); border-radius: 5px;
+            overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+            pointer-events: none;
+        }
+        .media-tag b { color: #fff; font-weight: 700; padding: 0 6px; letter-spacing: -0.02em; }
+        .media-tag i { font-style: normal; color: #1b1e24; font-weight: 500; padding: 0 6px; }
+
         /* 로딩 */
         .loading {
             position: fixed;
@@ -1141,6 +1192,8 @@
         <strong id="visibleCount">0</strong>개 표시
     </div>
 
+    <div class="media-legend" id="mediaLegend" hidden></div>
+
     <div class="overlay" onclick="closeAllPanels()"></div>
 
     <div class="filter-panel" id="filterPanel">
@@ -1384,6 +1437,27 @@
         let geocoder;
         let currentFilters = { media: ['all'], grade: ['all'], type: ['all'], gu: ['all'], install: ['all'], search: '' };
 
+        // 매체 이름·색 표 — 범례·이름표·리스트·상세·검색이 같은 표를 본다
+        // color = 지도 핀 색, dark = 흰 글자를 얹을 수 있는 진한 색(이름표·배지용)
+        const TYPE_META = {
+            focusmedia:         { name: '포커스미디어',   color: '#3b82f6', dark: '#1d4ed8' },
+            townboard:          { name: '타운보드 만첨',  color: '#facc15', dark: '#a16207' },
+            townboard_op:       { name: '타운보드 가동',  color: '#e74c3c', dark: '#b91c1c' },
+            townboard_l:        { name: '타운보드L',      color: '#22c55e', dark: '#15803d' },
+            htpost:             { name: 'HT POST 영상',   color: '#f97316', dark: '#c2410c' },
+            htpost_leaflet:     { name: 'HT POST 전단지', color: '#16a34a', dark: '#166534' },
+            cgv:                { name: 'CGV',            color: '#8b5cf6', dark: '#6d28d9' },
+            megabox:            { name: '메가박스',       color: '#06b6d4', dark: '#0e7490' },
+            mediameet_interior: { name: 'MM 내부',        color: '#ec4899', dark: '#be185d' },
+            mediameet_waiting:  { name: 'MM 대기공간',    color: '#a855f7', dark: '#7e22ce' }
+        };
+        const MEDIA_ORDER = Object.keys(TYPE_META);
+        const TAG_MAX_LEVEL = 4;       // 지도 레벨이 이 값 이하(확대)일 때만 이름표를 단다
+        const TAG_MAX_COUNT = 40;      // 한 화면에 붙일 이름표 상한
+        let legendHidden = new Set();  // 범례에서 꺼 둔 매체
+        let legendOpen = window.innerWidth >= 640 && window.innerHeight >= 700;  // 작은 화면은 접힌 채로 시작
+        let tagOverlays = [];
+
         // 새로운 기능 변수
         let isMapLocked = false;
         let isPlaceSearchOpen = false;
@@ -1461,6 +1535,7 @@
             geocoder = new kakao.maps.services.Geocoder();
             places = new kakao.maps.services.Places(map);  // 장소 검색 객체 초기화
             kakao.maps.event.addListener(map, 'click', closeInfoPanel);
+            kakao.maps.event.addListener(map, 'idle', updateMapOverlays);
             geocodeAndCreateMarkers();
             initPlaceSearch();  // 주변 업체 검색 초기화
         }
@@ -1531,6 +1606,130 @@
                     });
                 }
             });
+            updateMapOverlays();
+        }
+
+        // 지도가 멈출 때마다(이동·확대·마커 새로 만든 직후) 범례 숫자와 이름표를 다시 계산한다
+        function updateMapOverlays() {
+            renderMediaLegend();
+            renderMediaTags();
+        }
+
+        // 지금 화면 안(지도 범위)에 들어오는 마커만 골라 준다
+        function markersInView() {
+            const b = map.getBounds();
+            const sw = b.getSouthWest(), ne = b.getNorthEast();
+            const s = sw.getLat(), w = sw.getLng(), n = ne.getLat(), e = ne.getLng();
+            return markers.filter(m => {
+                const d = m.data;
+                return d.lat >= s && d.lat <= n && d.lng >= w && d.lng <= e;
+            });
+        }
+
+        function renderMediaLegend() {
+            const el = document.getElementById('mediaLegend');
+            if (!map || !el) return;
+            el.hidden = false;
+            el.style.width = legendOpen ? '' : 'auto';  // 접으면 머리글 너비만큼만
+            const counts = {};
+            let total = 0;
+            markersInView().forEach(m => {
+                counts[m.data.type] = (counts[m.data.type] || 0) + 1;
+                total++;
+            });
+            let html = `<div class="media-legend-head"><div><strong>매체 구분</strong><span>화면 안 ${total.toLocaleString()}개</span></div>` +
+                `<button type="button" class="media-legend-toggle" data-legend-toggle onclick="toggleLegendOpen()" aria-expanded="${legendOpen}">${legendOpen ? '접기' : '펼치기'}</button></div>`;
+            if (legendOpen) {
+                html += '<ul>' + MEDIA_ORDER.map(k => {
+                    const t = TYPE_META[k];
+                    const off = legendHidden.has(k);
+                    return `<li class="${off ? 'off' : ''}"><button type="button" data-type="${k}" onclick="toggleLegendType('${k}')" aria-pressed="${!off}">` +
+                        `<span class="swatch" style="background:${t.color}"></span><span class="name">${t.name}</span>` +
+                        `<span class="count">${off ? '숨김' : (counts[k] || 0)}</span></button></li>`;
+                }).join('') + '</ul><p class="media-legend-hint">이름을 누르면 그 매체만 켜고 끕니다.</p>';
+            }
+            el.innerHTML = html;
+        }
+
+        function toggleLegendOpen() {
+            legendOpen = !legendOpen;
+            renderMediaLegend();
+            const b = document.querySelector('#mediaLegend [data-legend-toggle]');
+            if (b) b.focus();  // 범례를 다시 그리면 누른 버튼이 사라져 키보드 포커스를 되돌린다
+        }
+
+        function toggleLegendType(type) {
+            if (legendHidden.has(type)) legendHidden.delete(type); else legendHidden.add(type);
+            applyFilterLogic(true);  // 보던 자리는 그대로 두고 마커만 다시 만든다
+            const b = document.querySelector(`#mediaLegend button[data-type="${type}"]`);
+            if (b) b.focus();
+        }
+
+        const tagMeasure = document.createElement('canvas').getContext('2d');
+
+        // 확대한 화면에서 핀 옆에 「매체명 | 단지명」 이름표를 붙인다.
+        // 핀·다른 이름표·떠 있는 버튼과 겹치는 자리는 건너뛰고, 선택한 단지를 먼저 놓는다.
+        function renderMediaTags() {
+            tagOverlays.forEach(o => o.setMap(null));
+            tagOverlays = [];
+            if (!map || map.getLevel() > TAG_MAX_LEVEL) return;
+
+            const mapEl = document.getElementById('map');
+            const mapRect = mapEl.getBoundingClientRect();
+            const W = mapRect.width, H = mapRect.height;
+            const proj = map.getProjection();
+
+            // 화면 안 마커의 지도 위 위치(px)
+            const items = markersInView().map(m => {
+                const pt = proj.containerPointFromCoords(m.marker.getPosition());
+                return { d: m.data, x: pt.x, y: pt.y };
+            }).filter(o => o.x > -20 && o.x < W + 20 && o.y > -10 && o.y < H + 40);
+
+            // 이름표가 올라서면 안 되는 곳: 핀 자체와 화면 위에 떠 있는 요소
+            const blocked = items.map(o => ({ o, x1: o.x - 12, y1: o.y - 35, x2: o.x + 12, y2: o.y }));
+            ['.header', '#placeSearchBar', '.search-bar', '.floating-btns', '.stats-badge', '#mediaLegend'].forEach(sel => {
+                const e = document.querySelector(sel);
+                if (!e || e.hidden) return;
+                const r = e.getBoundingClientRect();
+                if (!r.width || !r.height) return;
+                blocked.push({ o: null, x1: r.left - mapRect.left - 4, y1: r.top - mapRect.top - 4, x2: r.right - mapRect.left + 4, y2: r.bottom - mapRect.top + 4 });
+            });
+            const hit = (a, b) => !(a.x2 <= b.x1 || a.x1 >= b.x2 || a.y2 <= b.y1 || a.y1 >= b.y2);
+
+            tagMeasure.font = '700 11px -apple-system, BlinkMacSystemFont, "Noto Sans KR", sans-serif';
+            const nameW = {};
+            Object.keys(TYPE_META).forEach(k => nameW[k] = Math.ceil(tagMeasure.measureText(TYPE_META[k].name).width));
+            tagMeasure.font = '500 11px -apple-system, BlinkMacSystemFont, "Noto Sans KR", sans-serif';
+
+            const order = items.slice().sort((a, b) => (b.d === selectedLocation) - (a.d === selectedLocation) || b.y - a.y);
+            const placed = [];
+            for (const o of order) {
+                if (placed.length >= TAG_MAX_COUNT) break;
+                const t = TYPE_META[o.d.type];
+                if (!t) continue;
+                const w = nameW[o.d.type] + 12 + Math.ceil(tagMeasure.measureText(o.d.name).width) + 12 + 2;
+                const spots = [[o.x + 14, o.y - 34], [o.x - 14 - w, o.y - 34], [o.x + 14, o.y - 10]];
+                for (const [x, y] of spots) {
+                    const rect = { x1: x, y1: y, x2: x + w, y2: y + 22 };
+                    if (rect.x1 < 4 || rect.x2 > W - 4 || rect.y1 < 4 || rect.y2 > H - 4) continue;
+                    if (blocked.some(b => b.o !== o && hit(rect, b)) || placed.some(b => hit(rect, b))) continue;
+                    placed.push(rect);
+                    const el = document.createElement('div');
+                    el.className = 'media-tag';
+                    el.innerHTML = `<b style="background:${t.dark}">${t.name}</b><i></i>`;
+                    el.lastChild.textContent = o.d.name;
+                    const overlay = new kakao.maps.CustomOverlay({
+                        position: proj.coordsFromContainerPoint(new kakao.maps.Point(x, y)),
+                        content: el,
+                        xAnchor: 0,
+                        yAnchor: 0,
+                        zIndex: o.d === selectedLocation ? 4 : 3,
+                        map: map
+                    });
+                    tagOverlays.push(overlay);
+                    break;
+                }
+            }
         }
 
         function createMarker(loc, offsetLat, offsetLng) {
@@ -1740,6 +1939,13 @@
                 badge.textContent = 'MM 대기공간';
                 badge.className = 'info-grade-badge';
                 badge.style.background = '#a855f7';
+                badge.style.color = '#fff';
+            } else if (TYPE_META[loc.type]) {
+                // 포커스미디어·타운보드 3종: 매체 이름을 먼저, 등급 값이 있으면 뒤에 붙인다
+                const meta = TYPE_META[loc.type];
+                badge.textContent = loc.grade ? `${meta.name} · ${loc.grade}` : meta.name;
+                badge.className = 'info-grade-badge';
+                badge.style.background = meta.dark;
                 badge.style.color = '#fff';
             } else {
                 badge.textContent = loc.grade || '-';
@@ -1952,10 +2158,11 @@
             } else {
                 sectionEl.style.display = 'block';
                 listEl.innerHTML = results.map(loc => {
-                    let typeName = '포커스';
+                    let typeName = '포커스미디어';
                     let badgeStyle = 'apt';
                     if (loc.type === 'townboard' || loc.type === 'townboard_op' || loc.type === 'townboard_l') {
-                        typeName = '타운보드';
+                        typeName = TYPE_META[loc.type].name;
+                        badgeStyle = loc.type;
                     } else if (loc.type === 'htpost') {
                         typeName = 'HT POST 영상';
                         badgeStyle = 'htpost';
@@ -2167,15 +2374,18 @@
             currentFilters.type = getSelectedValues('typeFilter');
             currentFilters.gu = getSelectedValues('guFilter');
             currentFilters.install = getSelectedValues('installFilter');
+            legendHidden.clear();  // 필터 패널에서 직접 고른 값이 범례에서 꺼 둔 것보다 우선한다
             applyFilterLogic();
             closeFilter();
         }
 
-        function applyFilterLogic() {
+        function applyFilterLogic(keepView) {
             markers.forEach(m => m.marker.setMap(null));
             markers = [];
 
             filteredLocations = locations.filter(d => {
+                // 범례에서 꺼 둔 매체
+                if (legendHidden.has(d.type)) return false;
                 // 매체 구분 필터 (다중 선택)
                 if (!currentFilters.media.includes('all') && !currentFilters.media.includes(d.type)) return false;
 
@@ -2223,7 +2433,7 @@
             createMarkersWithOffset(filteredLocations);
 
             // 필터된 결과가 있으면 모든 마커가 보이도록 지도 범위 조정
-            if (firstLoc && !currentFilters.gu.includes('all')) {
+            if (firstLoc && !keepView && !currentFilters.gu.includes('all')) {
                 const bounds = new kakao.maps.LatLngBounds();
                 filteredLocations.forEach(loc => {
                     if (loc.lat && loc.lng) {
@@ -2294,7 +2504,10 @@
                         <span>15초 <strong>${loc.unit_price?.toLocaleString() || '-'}원</strong></span>
                     `;
                 } else {
-                    badgeHtml = `<span class="grade-badge ${getGradeClass(loc.grade)}">${loc.grade || '-'}</span>`;
+                    // 포커스미디어·타운보드 3종: 매체 이름표 + (값이 있을 때만) 등급
+                    const meta = TYPE_META[loc.type];
+                    badgeHtml = (meta ? `<span class="grade-badge" style="background:${meta.dark};color:#fff;">${meta.name}</span>` : '') +
+                        (loc.grade ? `<span class="grade-badge ${getGradeClass(loc.grade)}">${loc.grade}</span>` : '');
                     infoHtml = `
                         <span>세대수 <strong>${loc.households?.toLocaleString() || '-'}</strong></span>
                         <span>4주 <strong>${loc.price_4w?.toLocaleString() || '-'}원</strong></span>
