@@ -431,6 +431,7 @@ def main():
     print(f"MEDIA MEET 원본 데이터: {len(mediameet_raw)}개")
 
     mediameet_data = []
+    mm_unsellable = []
     for item in mediameet_raw:
         qi = item.get('quantity_interior') or 0
         qw = item.get('quantity_waiting') or 0
@@ -442,8 +443,11 @@ def main():
             waiting = {**item, 'type': 'mediameet_waiting', 'quantity': qw}
             mediameet_data.append(waiting)
         if qi == 0 and qw == 0:
-            # 둘 다 0이면 내부로 처리
-            mediameet_data.append({**item, 'type': 'mediameet_interior'})
+            # 둘 다 0이면 판매 불가(리모델링 예정·재계약 협의중 등) — 지도에서 제외 (2026-10-12 사장님 결정)
+            mm_unsellable.append(item.get('name'))
+
+    if mm_unsellable:
+        print(f"MEDIA MEET 판매 불가(내부·대기 수량 0) 제외: {len(mm_unsellable)}개 — {', '.join(mm_unsellable)}")
 
     mm_interior = sum(1 for d in mediameet_data if d['type'] == 'mediameet_interior')
     mm_waiting = sum(1 for d in mediameet_data if d['type'] == 'mediameet_waiting')
