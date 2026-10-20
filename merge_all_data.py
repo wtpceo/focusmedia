@@ -17,6 +17,8 @@ import pandas as pd
 import re
 from collections import Counter
 
+import media_inputs
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def clean_number(value):
@@ -45,7 +47,7 @@ def convert_townboard_sheet(excel_file, sheet_name, media_filter, type_name):
     """타운보드 가동리스트 엑셀 시트 → 리스트 변환"""
     print(f"\n=== {type_name} 변환 중: {sheet_name} ===")
 
-    df = pd.read_excel(excel_file, sheet_name=sheet_name, header=5)
+    df = media_inputs.read_sheet(excel_file, sheet_name, {'매체분류', '아파트명'}, 5)
 
     # 매체분류 필터링 (문자열 또는 리스트)
     if isinstance(media_filter, list):
@@ -93,10 +95,12 @@ def convert_townboard_sheet(excel_file, sheet_name, media_filter, type_name):
     return data
 
 
-def convert_townboard_mancheom(excel_file, sheet_name='만첨리스트'):
+def convert_townboard_mancheom(excel_file, sheet_name=None):
     """타운보드 만첨 엑셀 → 리스트 변환"""
+    # 만첨 시트명이 '만첨리스트' ↔ 'S 만첨리스트' 로 회차마다 오갔다(260720~261012 6번) → '만첨' 들어간 시트 하나를 찾는다
+    sheet_name = sheet_name or media_inputs.pick_sheet(excel_file, r'만첨')
     print(f"\n=== 타운보드(만첨) 변환 중: {sheet_name} ===")
-    df = pd.read_excel(excel_file, sheet_name=sheet_name, header=6)
+    df = media_inputs.read_sheet(excel_file, sheet_name, {'단지명'}, 6)
     df = df.dropna(subset=['단지명'])
     # 문자열인 단지명만 유지 (총합계 등 제거)
     df = df[df['단지명'].apply(lambda x: isinstance(x, str) and len(str(x).strip()) > 0)]
@@ -246,7 +250,7 @@ def convert_htpost_video_partner(excel_file):
     260824 회차: 이번 회차엔 로컬광고단가 통합파일이 오지 않아 영상만 구형식 파일에서 읽음.
     (통합파일이 다시 오면 convert_htpost_new 사용)"""
     print(f"\n=== HTPOST 영상 변환 중 (로컬파트너사 형식) ===")
-    df = pd.read_excel(excel_file, sheet_name='HT_로컬파트너사', header=2)
+    df = media_inputs.read_sheet(excel_file, media_inputs.pick_sheet(excel_file, r'^HT_?로컬파트너사$'), {'현장명', '지역'}, 2)
     df = df.dropna(subset=['현장명'])
     df = df[df['지역'] != '구분']  # 반복 헤더 행 제거
     print(f"  유효 데이터: {len(df)}개")
@@ -290,7 +294,7 @@ def convert_htpost_new(excel_file):
     """[현대에이치티] 단지별 로컬광고단가_07월 → 영상(htpost)
     260720 회차부터 영상도 로컬광고단가 통합 파일에서 읽음 ('동영상광고' 제안가(월) 컬럼)"""
     print(f"\n=== HTPOST 영상 변환 중 ===")
-    df = pd.read_excel(excel_file, sheet_name='가격정책', header=2)
+    df = pd.read_excel(excel_file, sheet_name=media_inputs.pick_sheet(excel_file, r'^가격정책$'), header=2)
     df = df.dropna(subset=['현장명'])
     df = df[df['지역'] != '구분']  # 반복 헤더 행 제거
     print(f"  유효 데이터: {len(df)}개")
@@ -332,7 +336,7 @@ def convert_htpost_new(excel_file):
 def convert_htpost_leaflet(excel_file):
     """[현대에이치티] 단지별 로컬광고단가.xlsx → 전단지(htpost_leaflet)"""
     print(f"\n=== HTPOST 전단지 변환 중 ===")
-    df = pd.read_excel(excel_file, sheet_name='가격정책', header=2)
+    df = pd.read_excel(excel_file, sheet_name=media_inputs.pick_sheet(excel_file, r'^가격정책$'), header=2)
     df = df.dropna(subset=['현장명'])
     df = df[df['지역'] != '구분']  # 반복 헤더 행 제거
 
@@ -398,30 +402,34 @@ def main():
     print(f"\n새 포커스미디어 데이터: {len(new_fm_data)}개")
 
     # 3. 타운보드 엑셀에서 직접 변환
-    townboard_file = os.path.join(BASE_DIR, '타운보드 가동리스트(로컬상품)_261012.xlsx')
+    # 입력 파일은 inputs.json 이 정한다(회차마다 손으로 바꾸던 파일명·시트명 — 2026-10-20)
+    townboard_file = media_inputs.resolve('townboard')
 
     # 타운보드S (가동)
     new_tb_s_data = convert_townboard_sheet(
-        townboard_file, '타운보드S(전국 50,000대)', '타운보드', 'townboard_op')
+        townboard_file, media_inputs.pick_sheet(townboard_file, r'^타운보드\s*S\s*\('), '타운보드', 'townboard_op')
 
     # 타운보드L (가동) - 시트 내 모든 데이터를 townboard_l로 처리 (리모델링 추가 단지 제외)
     new_tb_l_data = convert_townboard_sheet(
-        townboard_file, '타운보드L(전국 10,000대)', ['타운보드', '타운보드L'], 'townboard_l')
+        townboard_file, media_inputs.pick_sheet(townboard_file, r'^타운보드\s*L\s*\('), ['타운보드', '타운보드L'], 'townboard_l')
 
     # 4. 타운보드 만첨: S + L 엑셀 직접 변환 (둘 다 'townboard' 타입으로 통합)
-    mancheom_s_file = os.path.join(BASE_DIR, '타운보드S 만첨단지리스트_261012_배포용.xlsx')
-    mancheom_l_file = os.path.join(BASE_DIR, '타운보드L 만첨단지리스트_261012_배포용.xlsx')
-    new_tb_mancheom_data = (convert_townboard_mancheom(mancheom_s_file, 'S 만첨리스트') +
-                            convert_townboard_mancheom(mancheom_l_file, 'L 만첨리스트'))
+    mancheom_s_file = media_inputs.resolve('mancheom_s')
+    mancheom_l_file = media_inputs.resolve('mancheom_l')
+    new_tb_mancheom_data = (convert_townboard_mancheom(mancheom_s_file) +
+                            convert_townboard_mancheom(mancheom_l_file))
 
     # 5. HTPOST 데이터
     #    260901 회차: 로컬광고단가 통합파일(09월)이 다시 와서 영상·전단지 모두 이 파일에서 읽는다.
     #    (통합파일이 안 오는 회차엔 영상만 convert_htpost_video_partner로 로컬파트너사 파일에서 읽음)
     #    261006 회차: 통합파일은 안 오고 로컬파트너사 260930만 와서 영상은 그 파일에서,
     #    전단지는 파트너사 파일에 정보가 없어 09월 통합파일 값 유지.
-    htpost_file = os.path.join(BASE_DIR, '[현대에이치티] 단지별 로컬광고단가_09.xlsx')
-    htpost_partner_file = os.path.join(BASE_DIR, 'HTPOST 가동리스트_로컬파트너사_260930.xlsx')
-    htpost_video_data = convert_htpost_video_partner(htpost_partner_file)
+    #    2026-10-20: 위 판단(더 최근에 온 쪽에서 영상)을 media_inputs.htpost_video_source() 가 한다.
+    htpost_file = media_inputs.resolve('htpost_hyundai')
+    if media_inputs.htpost_video_source() == 'htpost_partner':
+        htpost_video_data = convert_htpost_video_partner(media_inputs.resolve('htpost_partner'))
+    else:
+        htpost_video_data = convert_htpost_new(htpost_file)
     htpost_leaflet_data = convert_htpost_leaflet(htpost_file)
 
     # 6. MEDIA MEET 데이터 로드 → 내부/대기공간 분리

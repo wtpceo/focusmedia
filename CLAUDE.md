@@ -40,48 +40,21 @@
 
 한 회차 업데이트는 최대 6개 소스를 다룬다: **포커스미디어 · 타운보드 가동 S/L · 타운보드 만첨 S/L · HTPOST 영상/전단지 · MEDIA MEET**. 회차마다 전부 오는 게 아니라 온 파일만 갱신하고 나머지는 유지한다.
 
-#### Step 1: 새 엑셀 파일 확인
+#### Step 1~5: 입력 정하기 → 변환 → 병합 → 좌표 → 건수 비교 (2026-10-20부터)
+파일명·시트명·헤더행을 코드에서 손으로 바꾸지 않는다. 입력은 `inputs.json`이 정하고(`media_inputs.py`),
+안 온 매체는 inputs.json의 이전 파일을 그대로 쓴다. 이번 회차 엑셀은 저장소 안의 git 제외 폴더 `_inbox/rounds/YYMMDD/`에 둔다.
 ```bash
-# 엑셀 파일 컬럼 구조 확인 (포커스미디어 헤더는 4행에 있음, 0-indexed로 3)
-python3 -c "
-import pandas as pd
-df = pd.read_excel('엘리베이터TV 설치리스트(외부용)_YYMMDD.xlsx', header=3)
-print('컬럼:', list(df.columns))
-print('총 행수:', len(df))
-"
+.venv/bin/python media_inputs.py adopt _inbox/rounds/YYMMDD   # 이번 회차 파일 등록(어느 매체가 바뀌었는지 출력)
+.venv/bin/python convert_xlsx_251201.py && .venv/bin/python convert_mediameet.py \
+  && .venv/bin/python merge_all_data.py && .venv/bin/python fix_geocode_kakao.py
+.venv/bin/python check_counts.py   # HEAD ↔ 지금 매체·광역별 건수. 짚을 곳이 있으면 종료 코드 3 → 사장님 판단
 ```
-
-#### Step 2: 포커스미디어 변환
-```bash
-# convert_xlsx_251201.py 안의 input_file 경로를 새 회차 파일명으로 수정 후 실행
-python3 convert_xlsx_251201.py
-# 결과: data_focusmedia.json 생성
-```
-
-#### Step 3: MEDIA MEET 변환 (MM 새 파일이 온 회차만)
-```bash
-# convert_mediameet.py 안의 INPUT_FILE을 새 회차 파일명으로 수정 후 실행
-python3 convert_mediameet.py
-# 결과: data_mediameet.json 생성
-```
-
-#### Step 4: 전체 병합
-```bash
-# merge_all_data.py 안에 타운보드 가동/만첨/HTPOST 입력 파일명이 하드코딩되어 있음
-# → 새 회차 파일명으로 수정 후 실행
-python3 merge_all_data.py
-# 하는 일: data_focusmedia.json + data_mediameet.json 로드,
-#          타운보드 가동 S/L·만첨 S/L·HTPOST 영상/전단지는 엑셀에서 직접 변환,
-#          기존 data.json의 좌표를 이름 기준으로 물려받아 data.json 저장
-# (CGV/메가박스는 여기 안 들어감 — 별도 파일로 index.html이 직접 로드)
-```
-
-#### Step 5: 지오코딩 (매 회차 정규 단계)
-```bash
-# 신규 단지는 좌표가 없으므로 매 회차 실행 — 카카오 API로 좌표 채움
-python3 fix_geocode_kakao.py
-# 실행 후 merge_all_data.py 출력의 "좌표 없는 데이터" 개수가 0(또는 기존 예외만)인지 확인
-```
+- 시스템 `python3`에는 pandas가 없다 — 꼭 `.venv/bin/python`.
+- merge 출력과 check_counts의 「좌표 없는 데이터」가 0(또는 기존 예외만)인지 본다. CGV/메가박스는 병합에 안 들어간다(별도 파일을 index.html이 직접 로드).
+- 시트를 못 찾거나(이름이 맞는 시트가 0개·여러 개) 필수 컬럼이 있는 헤더행이 없으면 멈춘다. 그때만 변환 코드를 고친다.
+- HTPOST 영상은 현대에이치티 통합 / 로컬파트너사 중 더 최근에 들어온 쪽에서, 전단지는 현대에이치티에서 읽는다.
+- **원본 엑셀은 커밋하지 않는다**(`.gitignore`의 `*.xlsx`, 이 저장소는 공개 — 예전에 올라간 파일 정리는 추후).
+- 메일 자동 흐름: 맥미니 `~/.claude/scripts/media-mail-watch.py`가 받아 둔 뒤 스킬 `focus-media-update` 자동 준비 → 사장님 「매체 반영」.
 
 #### Step 6: 검증
 - 브라우저에서 `index.html` 열어서 지도 확인

@@ -7,6 +7,7 @@
 """
 
 import pandas as pd
+import media_inputs
 import json
 import os
 import collections
@@ -68,7 +69,7 @@ def is_premium_mark(value):
 
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    input_file = os.path.join(base_dir, '엘리베이터TV 설치리스트(외부용)_261012.xlsx')
+    input_file = media_inputs.resolve('focus')  # 회차마다 손으로 바꾸던 파일명 → inputs.json (2026-10-20)
     output_file = os.path.join(base_dir, 'data_focusmedia.json')
 
     # 엑셀 파일 읽기

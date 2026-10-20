@@ -8,9 +8,10 @@ MEDIA MEET 설치리스트 엑셀 → JSON 변환 스크립트
 
 import pandas as pd
 import json
+import media_inputs
 
 # 설정
-INPUT_FILE = 'MEDIA MEET 설치리스트_261012.xlsx'
+INPUT_FILE = media_inputs.resolve('mediameet')  # 회차마다 손으로 바꾸던 파일명 → inputs.json (2026-10-20)
 OUTPUT_FILE = 'data_mediameet.json'
 SHEET_NAME = '설치 리스트'
 HEADER_ROW = 4  # 0-indexed (5행)
@@ -36,7 +37,8 @@ def main():
     print(f"시트: {SHEET_NAME}")
 
     # 엑셀 읽기
-    df = pd.read_excel(INPUT_FILE, sheet_name=SHEET_NAME, header=HEADER_ROW)
+    sheet = media_inputs.pick_sheet(INPUT_FILE, r'^설치\s*리스트$')
+    df = media_inputs.read_sheet(INPUT_FILE, sheet, {'아파트명', '지역1', '지역2', '주 소', '구분'}, HEADER_ROW)
     print(f"총 행 수: {len(df)}")
 
     # 아파트명이 있는 행만 필터링
