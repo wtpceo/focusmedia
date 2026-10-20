@@ -1,0 +1,37 @@
+{
+  "focus": {
+    "file": "엘리베이터TV 설치리스트(외부용)_261012.xlsx",
+    "date": "261012",
+    "adopted": "2026-10-12"
+  },
+  "townboard": {
+    "file": "_inbox/rounds/261019/타운보드 가동리스트(로컬상품)_261019.xlsx",
+    "date": "261019",
+    "adopted": "2026-10-20"
+  },
+  "mancheom_s": {
+    "file": "_inbox/rounds/261019/타운보드S 만첨단지리스트_261019_배포용.xlsx",
+    "date": "261019",
+    "adopted": "2026-10-20"
+  },
+  "mancheom_l": {
+    "file": "_inbox/rounds/261019/타운보드L 만첨단지리스트_261019_배포용.xlsx",
+    "date": "261019",
+    "adopted": "2026-10-20"
+  },
+  "mediameet": {
+    "file": "MEDIA MEET 설치리스트_261012.xlsx",
+    "date": "261012",
+    "adopted": "2026-10-12"
+  },
+  "htpost_partner": {
+    "file": "HTPOST 가동리스트_로컬파트너사_260930.xlsx",
+    "date": "260930",
+    "adopted": "2026-10-07"
+  },
+  "htpost_hyundai": {
+    "file": "[현대에이치티] 단지별 로컬광고단가_09.xlsx",
+    "date": "260901",
+    "adopted": "2026-09-02"
+  }
+}
