@@ -190660,20 +190660,6 @@
     "type": "htpost"
   },
   {
-    "name": "동대문더퍼스트데시앙",
-    "city": "서울",
-    "gu": "동대문구",
-    "dong": "",
-    "address": "서울 동대문구 장한로27가길 37",
-    "building_type": "",
-    "households": 469,
-    "quantity": 12,
-    "lat": 37.5750495880554,
-    "lng": 127.070885574157,
-    "price_4w": 100000,
-    "type": "htpost"
-  },
-  {
     "name": "이문아이파크자이",
     "city": "서울",
     "gu": "동대문구",
@@ -190713,20 +190699,6 @@
     "lat": 37.8204429589631,
     "lng": 127.095467612763,
     "price_4w": 220000,
-    "type": "htpost"
-  },
-  {
-    "name": "목동8단지",
-    "city": "서울",
-    "gu": "양천구",
-    "dong": "",
-    "address": "서울 양천구 목동서로 280",
-    "building_type": "",
-    "households": 1352,
-    "quantity": 25,
-    "lat": 37.5223402739432,
-    "lng": 126.867563264965,
-    "price_4w": 250000,
     "type": "htpost"
   },
   {
@@ -190839,6 +190811,76 @@
     "lat": 37.1739792477341,
     "lng": 127.138969721914,
     "price_4w": 260000,
+    "type": "htpost"
+  },
+  {
+    "name": "래미안광교",
+    "city": "경기",
+    "gu": "수원시",
+    "dong": "",
+    "address": "경기 수원시 영통구 센트럴파크로 60",
+    "building_type": "",
+    "households": 629,
+    "quantity": 14,
+    "lat": 37.2911453979756,
+    "lng": 127.060383228201,
+    "price_4w": 130000,
+    "type": "htpost"
+  },
+  {
+    "name": "한가람우미린아파트",
+    "city": "경기",
+    "gu": "김포시",
+    "dong": "",
+    "address": "경기 김포시 김포한강5로 417",
+    "building_type": "",
+    "households": 1058,
+    "quantity": 26,
+    "lat": 37.6481926075717,
+    "lng": 126.625425477678,
+    "price_4w": 200000,
+    "type": "htpost"
+  },
+  {
+    "name": "화서역푸르지오더에듀포레",
+    "city": "경기",
+    "gu": "수원시",
+    "dong": "",
+    "address": "경기 수원시 장안구 화산로 85",
+    "building_type": "",
+    "households": 2571,
+    "quantity": 48,
+    "lat": 37.2911555946513,
+    "lng": 126.980529964911,
+    "price_4w": 300000,
+    "type": "htpost"
+  },
+  {
+    "name": "시흥장현유승한내들퍼스트파크",
+    "city": "경기",
+    "gu": "시흥시",
+    "dong": "",
+    "address": "경기 시흥시 장현장곡로 10",
+    "building_type": "",
+    "households": 676,
+    "quantity": 15,
+    "lat": 37.3787050026026,
+    "lng": 126.790569612954,
+    "price_4w": 150000,
+    "type": "htpost"
+  },
+  {
+    "name": "힐스테이트레이크송도4차",
+    "city": "안천",
+    "gu": "연수구",
+    "dong": "",
+    "address": "인천 연수구 아카데미로312번길 31",
+    "building_type": "",
+    "households": 1319,
+    "quantity": 14,
+    "lat": 37.3915241476665,
+    "lng": 126.615691117206,
+    "price_4w": 130000,
     "type": "htpost"
   },
   {
