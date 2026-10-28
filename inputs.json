@@ -1,23 +1,23 @@
 {
   "focus": {
-    "file": "엘리베이터TV 설치리스트(외부용)_261012.xlsx",
-    "date": "261012",
-    "adopted": "2026-10-12"
+    "file": "_inbox/rounds/261027/엘리베이터TV 설치리스트(외부용)_261027.xlsx",
+    "date": "261027",
+    "adopted": "2026-10-28T12:20"
   },
   "townboard": {
-    "file": "_inbox/rounds/261019/타운보드 가동리스트(로컬상품)_261019.xlsx",
-    "date": "261019",
-    "adopted": "2026-10-20"
+    "file": "_inbox/rounds/261027/타운보드 가동리스트(로컬상품)_261026.xlsx",
+    "date": "261026",
+    "adopted": "2026-10-28T12:20"
   },
   "mancheom_s": {
-    "file": "_inbox/rounds/261019/타운보드S 만첨단지리스트_261019_배포용.xlsx",
-    "date": "261019",
-    "adopted": "2026-10-20"
+    "file": "_inbox/rounds/261027/타운보드S 만첨단지리스트_261026(공유).xlsx",
+    "date": "261026",
+    "adopted": "2026-10-28T12:20"
   },
   "mancheom_l": {
-    "file": "_inbox/rounds/261019/타운보드L 만첨단지리스트_261019_배포용.xlsx",
-    "date": "261019",
-    "adopted": "2026-10-20"
+    "file": "_inbox/rounds/261027/타운보드L 만첨단지리스트_261026(공유).xlsx",
+    "date": "261026",
+    "adopted": "2026-10-28T12:20"
   },
   "mediameet": {
     "file": "MEDIA MEET 설치리스트_261012.xlsx",
@@ -25,9 +25,9 @@
     "adopted": "2026-10-12"
   },
   "htpost_partner": {
-    "file": "_inbox/rounds/261020/HTPOST 가동리스트_로컬파트너사_261020.xlsx",
+    "file": "_inbox/rounds/261020/HTPOST 가동리스트_로컬파트너사_261020.xlsx",
     "date": "261020",
-    "adopted": "2026-10-20T12:55"
+    "adopted": "2026-10-21T19:15"
   },
   "htpost_hyundai": {
     "file": "[현대에이치티] 단지별 로컬광고단가_09.xlsx",
