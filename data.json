@@ -195174,6 +195174,20 @@
     "type": "htpost"
   },
   {
+    "name": "영종국제도시 제일풍경채디오션",
+    "city": "안천",
+    "gu": "영종구",
+    "dong": "",
+    "address": "인천 영종구 찬들로 142",
+    "building_type": "",
+    "households": 670,
+    "quantity": 15,
+    "lat": 37.4792806560027,
+    "lng": 126.531177624601,
+    "price_4w": 150000,
+    "type": "htpost"
+  },
+  {
     "name": "광천 e편한세상",
     "city": "광주",
     "gu": "서구",
