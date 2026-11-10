@@ -375,17 +375,34 @@ def convert_htpost_leaflet(excel_file):
     return leaflet_data
 
 
+_SIDO_LONG = {'경상남도': '경남', '경상북도': '경북', '전라남도': '전남', '전라북도': '전북',
+              '충청남도': '충남', '충청북도': '충북'}
+
+
+def coord_key(item):
+    """좌표 승계 열쇠 = (이름, 시도, 시군구).
+    이름만으로 이어 받으면 다른 지역의 같은 이름 단지 좌표가 붙는다
+    (261110 수원 세양청마루가 서울 목동에 찍힘 등 16곳 — 2026-11-10 사장님 「반영 후 바로 고침」).
+    시도는 '경기'·'경기도', '서울시'·'서울특별시'처럼 표기가 갈려 짧게 맞춘다.
+    열쇠가 없으면 좌표를 비워 두고 fix_geocode_kakao.py 가 주소로 찾는다."""
+    parts = (item.get('address') or '').split()
+    sido = parts[0] if parts else ''
+    sido = _SIDO_LONG.get(sido) or re.sub(r'(통합특별시|특별자치시|특별자치도|특별시|광역시|도|시)$', '', sido)
+    sigungu = parts[1] if len(parts) > 1 else ''
+    return (item['name'], sido, sigungu)
+
+
 def main():
     # 1. 기존 data.json에서 좌표 정보 추출
     old_data_file = os.path.join(BASE_DIR, 'data.json')
     with open(old_data_file, 'r', encoding='utf-8') as f:
         old_data = json.load(f)
 
-    # 좌표 정보 매핑 (이름 -> 좌표)
+    # 좌표 정보 매핑 ((이름, 시도, 시군구) -> 좌표)
     coords_map = {}
     for item in old_data:
         if item.get('lat') and item.get('lng'):
-            coords_map[item['name']] = {'lat': item['lat'], 'lng': item['lng']}
+            coords_map[coord_key(item)] = {'lat': item['lat'], 'lng': item['lng']}
 
     print(f"기존 좌표 정보: {len(coords_map)}개")
 
@@ -466,9 +483,10 @@ def main():
                  new_tb_mancheom_data + htpost_video_data + htpost_leaflet_data + mediameet_data)
     coords_applied = 0
     for item in all_items:
-        if not item.get('lat') and item['name'] in coords_map:
-            item['lat'] = coords_map[item['name']]['lat']
-            item['lng'] = coords_map[item['name']]['lng']
+        key = coord_key(item)
+        if not item.get('lat') and key in coords_map:
+            item['lat'] = coords_map[key]['lat']
+            item['lng'] = coords_map[key]['lng']
             coords_applied += 1
 
     print(f"\n좌표 새로 적용: {coords_applied}개")
